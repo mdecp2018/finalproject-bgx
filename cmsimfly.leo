@@ -2217,8 +2217,11 @@ def download():
 &lt;script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"&gt;&lt;/script&gt;
 --&gt;
 &lt;style&gt;
-img {
+img.red3border {
     border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
 }
 &lt;/style&gt;
 '''
@@ -2275,8 +2278,11 @@ init_mathjax();
 &lt;script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"&gt;&lt;/script&gt;
 --&gt;
 &lt;style&gt;
-img {
+img.red3border {
     border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
 }
 &lt;/style&gt;
 '''

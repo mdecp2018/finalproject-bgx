@@ -2063,8 +2063,11 @@ def syntaxhighlight():
 <script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
 -->
 <style>
-img {
+img.red3border {
     border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
 }
 </style>
 '''
@@ -2120,8 +2123,11 @@ init_mathjax();
 <script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
 -->
 <style>
-img {
+img.red3border {
     border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
 }
 </style>
 '''
