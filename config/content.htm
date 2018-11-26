@@ -44,7 +44,71 @@
 <li>反應速度較慢</li>
 <li>維護成本較高</li>
 </ol>
-<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/_wFJj94kSTU" width="560"></iframe></p><h1>Heroku 簡介</h1>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/_wFJj94kSTU" width="560"></iframe></p><h1>分組網站</h1>
+<p></p>
+<p>
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/']});
+}
+</script>
+</p>
+<p id="zone"></p>
+<p>
+<script type="text/python3">
+from browser import document,html
+
+cda = 9
+cdb = 9
+cadpa = 10
+cadpb = 8
+vecp = 11
+
+# 計算機程式
+
+alink = "https://mdecp2018.github.io/finalproject-ag"
+blink = "https://mdecp2018.github.io/finalproject-bg"
+
+document['zone'] <= html.H4("CDA:")
+for i in range(1, cda+1):
+    site = alink + str(i)
+    document['zone'] <= html.A(site, href=site) + html.BR()
+
+document['zone'] <= html.H4("CDB:")
+for i in range(1, cdb+1):
+    if i is not 2 and i is not 6:
+        site = blink + str(i)
+    else:
+        site = blink + str(i) + "-1"
+    document['zone'] <= html.A(site, href=site) + html.BR()
+
+# 電腦輔助設計
+
+alink = "https://mdecadp2018.github.io/finalproject-ag"
+blink = "https://mdecadp2018.github.io/finalproject-bg"
+
+document['zone'] <= html.H4("CADPA:")
+for i in range(1, cadpa+1):
+    site = alink + str(i)
+    document['zone'] <= html.A(site, href=site) + html.BR()
+
+document['zone'] <= html.H4("CADPB:")
+for i in range(1, cadpb+1):
+    site = blink + str(i)
+    document['zone'] <= html.A(site, href=site) + html.BR()
+
+# 車輛計算機程式
+
+vecplink = "https://vecp2018.github.io/finalproject-ag"
+
+document['zone'] <= html.H4("VECP:")
+for i in range(1, vecp+1):
+    site = vecplink + str(i)
+    document['zone'] <= html.A(site, href=site) + html.BR()
+</script>
+</p><h1>Heroku 簡介</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/QTOkqzCTGxw" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nRiykxq0oHQ" width="560"></iframe></p>
 <p></p><h2>Heroku 設定</h2>
