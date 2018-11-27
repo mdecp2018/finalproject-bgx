@@ -44,10 +44,10 @@
 <li>反應速度較慢</li>
 <li>維護成本較高</li>
 </ol>
-<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/_wFJj94kSTU" width="560"></iframe></p><h1>Heroku 簡介</h1>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/_wFJj94kSTU" width="560"></iframe></p><h1>設計主機</h1><h2>Heroku 簡介</h2>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/QTOkqzCTGxw" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nRiykxq0oHQ" width="560"></iframe></p>
-<p></p><h2>Heroku 設定</h2>
+<p></p><h3>Heroku 設定</h3>
 <p>在 <a href="http://mde.tw">http://mde.tw</a> 相關課程中, <a href="https://www.heroku.com/">Heroku</a>  雲端服務與 Github 倉儲中的 <a href="https://pages.github.com/">Github Pages</a> 分別扮演動態程式網站與靜態超文件網站伺服.</p>
 <p>此地所謂的動態程式網站伺服, 指的是利用 <a href="http://flask.pocoo.org/">Flask</a> 程式框架, 建立 <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">Web Server Gateway  Interface</a> 架構的程式環境.</p>
 <p>而靜態超文件網站伺服, 則包含一個 <a href="https://en.wikipedia.org/wiki/World_Wide_Web">WWW</a> 伺服器, 得以讓使用者透過瀏覽器, 擷取伺服器上的 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 與 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式, 且 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 是下載到近端之後, 使用近端的硬體執行.</p>
@@ -78,10 +78,13 @@ beautifulsoup4==4.6.0</pre>
 <p><img alt="" height="275" src="/images/heroku_auto_deploy_with_github.png" width="600"/></p>
 <p>設定完成後的動態網頁: <a href="http://cp2018-bgx.herokuapp.com/">http://cp2018-bgx.herokuapp.com/</a> </p>
 <p>靜態網頁: <a href="https://mdecp2018.github.io/finalproject-bgx">https://mdecp2018.github.io/finalproject-bgx</a> </p>
-<p>可用於多人協同的 Github 倉儲: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a> </p>
-<h1>Sandstorm</h1>
-<p><a href="https://github.com/sandstorm-io/sandstorm">https://github.com/sandstorm-io/sandstorm</a> </p><h1>Jupyterlab</h1>
-<p><a href="https://github.com/jupyterlab/jupyterlab">https://github.com/jupyterlab/jupyterlab</a> </p><h1>Python 程式</h1>
+<p>可用於多人協同的 Github 倉儲: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a> </p><h2>Fossil SCM</h2>
+<p><a href="https://fossil-scm.org">https://fossil-scm.org</a> </p>
+<p><a href="http://mde.tw/2017springcd/blog/intro-fossil-scm.html">http://mde.tw/2017springcd/blog/intro-fossil-scm.html</a> </p>
+<p><a href="http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html">http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html</a> </p>
+<h2>Jupyterlab</h2>
+<p><a href="https://github.com/jupyterlab/jupyterlab">https://github.com/jupyterlab/jupyterlab</a></p><h2>Sandstorm</h2>
+<p><a href="https://github.com/sandstorm-io/sandstorm">https://github.com/sandstorm-io/sandstorm</a> </p><h1>Python 程式</h1>
 <h4>從基本語法到 GUI 程式</h4>
 <p><a href="https://pythonspot.com/">https://pythonspot.com/</a> </p>
 <p>整理 <a href="https://www.cs.cmu.edu/~112/schedule.html">https://www.cs.cmu.edu/~112/schedule.html</a> 中的 內容.</p>
@@ -722,7 +725,7 @@ view.load(QtCore.QUrl("http://mde.tw"))
 
 view.show()
 sys.exit(app.exec())</pre>
-<p></p><h1>parse_content 範例</h1>
+<p></p><h3>parse_content 範例</h3>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import os
 import bs4
 
@@ -848,14 +851,18 @@ def parse_content():
     page_list.append(cut)
     return head_list, level_list, page_list
 
-print(parse_content())</pre>
-<h1>Onshape</h1>
+print(parse_content())</pre><h1>輔助設計</h1>
+<h2>Onshape</h2>
 <p><a href="https://cad.onshape.com/FsDoc/">https://cad.onshape.com/FsDoc/</a> </p>
 <p><a href="https://www.onshape.com/features/custom-features">https://www.onshape.com/features/custom-features</a> </p>
 <p><a href="http://cadlab.mde.tw/post/tag/featurescript.html">http://cadlab.mde.tw/post/tag/featurescript.html</a> </p>
 <p><a href="http://cadlab.mde.tw/post/onshape-featurescript-cheng-shi-yu-yan.html">http://cadlab.mde.tw/post/onshape-featurescript-cheng-shi-yu-yan.html</a> </p>
-<p><a href="https://github.com/dcowden/featurescript">https://github.com/dcowden/featurescript</a> </p>
-<h1>V-rep</h1><h1>電子書</h1>
+<p><a href="https://github.com/dcowden/featurescript">https://github.com/dcowden/featurescript</a> </p><h2>V-rep</h2>
+<p><a href="http://www.coppeliarobotics.com/">http://www.coppeliarobotics.com/</a> </p>
+<h4>User Manual</h4>
+<p><a href="http://www.coppeliarobotics.com/helpFiles/index.html">http://www.coppeliarobotics.com/helpFiles/index.html</a> </p>
+<h4>Forum</h4>
+<p><a href="http://www.forum.coppeliarobotics.com/">http://www.forum.coppeliarobotics.com/</a> </p><h1>電子書</h1>
 <p>Planning Algorithm: <a href="http://planning.cs.uiuc.edu/">http://planning.cs.uiuc.edu/</a> </p>
 <p><a href="/downloads/planning_algorithm.pdf">planning_algorithm.pdf</a></p>
 <p><a href="/downloads/basics_robotics.pdf">basics of robotics.pdf</a></p>
@@ -863,4 +870,12 @@ print(parse_content())</pre>
 <p><a href="/downloads/IndustrialRobots.pdf">industrial robotics.pdf</a></p>
 <p><a href="/downloads/next_generation_robotics.pdf">next generation robotics.pdf</a></p>
 <p>modern robotics: <a href="http://hades.mech.northwestern.edu/index.php/Modern_Robotics">http://hades.mech.northwestern.edu/index.php/Modern_Robotics</a> </p>
+<h2>協同編輯</h2>
+<h4>LaTeX</h4>
+<p><a href="https://miktex.org/download">https://miktex.org/download</a> </p>
+<p><a href="https://miktex.org/howto/portable-edition">https://miktex.org/howto/portable-edition</a> </p>
+<p><a href="https://tex.stackexchange.com/questions/13649/portable-minimal-distribution/357713">https://tex.stackexchange.com/questions/13649/portable-minimal-distribution/357713</a> </p>
+<h4>MS Word</h4>
+<p></p>
+<p></p>
 <p></p>
