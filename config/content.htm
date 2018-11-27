@@ -151,7 +151,17 @@ for i in range(1, vecp+1):
 <p><a href="http://mde.tw/cp2018/content/%E8%AE%80%E5%AF%AB%E7%B6%B2%E9%A0%81%E5%85%A7%E5%AE%B9.html">Beautifulsoup4 應用研究</a></p>
 <p><a href="https://github.com/MechanicalSoup/MechanicalSoup">Mechanicalsoup 應用研究</a></p>
 <p><a href="https://graph-tool.skewed.de/">Graph Tool 應用研究</a></p>
-<p></p><h2>電腦輔助設計</h2>
+<h3>網際模擬程式</h3>
+<p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> 是一套源自<a href="https://github.com/tiggerntatie/brython-server"> https://github.com/tiggerntatie/brython-server</a> 的網際模擬程式庫, 適合用來開發線上遊戲或與工程設計相關的網際程式.</p>
+<p>之前的 js 程式庫都採用遠端資料, 目前將各程式庫升級為最新版本, 且改為自帶程式庫.</p>
+<p>參考的網際程式庫: <a href="https://github.com/tiggerntatie/ggame">https://github.com/tiggerntatie/ggame</a> </p>
+<p>由於此 ggame 程式庫使用</p>
+<p>jquery-3.3.1.min.js - <a href="https://jquery.com/">https://jquery.com/</a> <br/>jquery-ui.1.12.1.min.js - <a href="https://jqueryui.com/">https://jqueryui.com/</a> <br/>pixi-4.8.2.min.js - <a href="http://www.pixijs.com/">http://www.pixijs.com/</a> <br/>buzz-1.2.1.js - <a href="http://buzz.jaysalvat.com/">http://buzz.jaysalvat.com/</a> <br/>brython-3.7.0.js - <a href="https://brython.info/">https://brython.info/</a> <br/>brython_stdlib-3.7.0.js</p>
+<p>因此使用者必須對上述程式庫有些了解後, 再深入研究如何使用  ggame 程式庫開發專案套件.</p>
+<p>目前的 spacewar: <a href="http://mde.tw/webgame/spacewar.html">http://mde.tw/webgame/spacewar.html</a></p><h3>工程用計算機</h3>
+<p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
+<p>利用 Eric6 IDE 可以開發單機版的 PyQt5 計算機, 或者擴充為工程用的計算機, 但是就目前的工程運算, 這種模擬早期桌上型計算機的程式, 已經沒有太多功用, 反而若能利用 PyQt5 開發一套能與網際伺服器互動的"工程運算環境", 應該會有較大的開發動機.</p>
+<p>看看能否從 <a href="https://github.com/m2n037/awesome-mecheng">https://github.com/m2n037/awesome-mecheng</a> 找到值得開發的主題.</p><h2>電腦輔助設計</h2>
 <h4>六軸機械手臂</h4>
 <p>利用 <a href="https://www.onshape.com/">Onshape</a> 與 <a href="http://www.coppeliarobotics.com/">V-rep</a> 驗證 <a href="/downloads/inverse_kinematics.pdf">inverse kinematics.pdf</a> 之運算結果</p>
 <h4>平面機構模擬 (Geometric Constrain Solver) 應用</h4>
@@ -1029,7 +1039,12 @@ def parse_content():
     return head_list, level_list, page_list
 
 print(parse_content())</pre><h1>輔助設計</h1>
-<h2>Onshape</h2>
+<p>電腦輔助機械設計流程自從 Onshape 推出全雲端輔助設計套件後, 理應產生巨大變化, 但是我們感受到了嗎?</p>
+<p><a href="https://www.onshape.com/cad-blog/who-screwed-up-my-model">https://www.onshape.com/cad-blog/who-screwed-up-my-model</a> </p>
+<p><a href="https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud">https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud</a> </p>
+<p><a href="https://www10.mcadcafe.com/blogs/jeffrowe/2018/11/01/altair-acquires-simsolid/">https://www10.mcadcafe.com/blogs/jeffrowe/2018/11/01/altair-acquires-simsolid/</a> </p>
+<p><a href="http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681">http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681</a> </p>
+<p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx</a> </p><h2>Onshape</h2>
 <p><a href="https://cad.onshape.com/FsDoc/">https://cad.onshape.com/FsDoc/</a> </p>
 <p><a href="https://www.onshape.com/features/custom-features">https://www.onshape.com/features/custom-features</a> </p>
 <p><a href="http://cadlab.mde.tw/post/tag/featurescript.html">http://cadlab.mde.tw/post/tag/featurescript.html</a> </p>
