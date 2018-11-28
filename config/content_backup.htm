@@ -274,7 +274,146 @@ app = DemoApp()
 # Run the app
 app.run()</pre>
 <h4>特別注意</h4>
-<p><a href="https://help.github.com/articles/files-that-start-with-an-underscore-are-missing/">https://help.github.com/articles/files-that-start-with-an-underscore-are-missing/</a> </p><h3>工程用計算機</h3>
+<p><a href="https://help.github.com/articles/files-that-start-with-an-underscore-are-missing/">https://help.github.com/articles/files-that-start-with-an-underscore-are-missing/</a> </p>
+<p>因為 Github Pages 內建無視以 _ 開頭的檔案, 而 Brython 在導入模組時, 必須能夠擷取模組目錄下的 __init__.py, 因此必須設定 _config.yml 檔案, 指定 Github Pages 建立頁面時, 必須包含 static/ggame 目錄下的 __init__.py 檔案.</p>
+<p>_config.yml 設定檔案內容為:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">include: [static/ggame, __init__.py]</pre>
+<p>根據以上資訊所建立的網際互動程式範例倉儲:</p>
+<p><a href="https://github.com/mdecourse/kmolgame">https://github.com/mdecourse/kmolgame</a> </p>
+<p>程式網頁:</p>
+<p><a href="http://mde.tw/kmolgame/">http://mde.tw/kmolgame/</a></p>
+<p><a href="http://mde.tw/kmolgame/bunny.html">http://mde.tw/kmolgame/bunny.html</a> </p>
+<h3>Spacegame</h3>
+<p><a href="https://github.com/HHS-IntroProgramming/Standards-and-Syllabus/wiki/Advanced-Graphics-with-Classes">https://github.com/HHS-IntroProgramming/Standards-and-Syllabus/wiki/Advanced-Graphics-with-Classes</a> </p>
+<p>For this tutorial, return to your ggame-tutorials repository that you forked earlier. Create a new file called tutorial4.py and paste the following code into it to get started:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
+
+myapp = App()
+
+# Background
+black = Color(0, 1)
+noline = LineStyle(0, black)
+bg_asset = RectangleAsset(myapp.width, myapp.height, noline, black)
+bg = Sprite(bg_asset, (0,0))
+
+myapp.run()</pre>
+<p>This snippet should look familiar, as it is a "cut down" version of the last tutorial that you worked on (tutorial3.py). Notice that we have removed the step function entirely. In this tutorial, we will add the step function back, but in an entirely different way!</p>
+<h4>Create a New App Class</h4>
+<p>For the first part of this tutorial, we would like to customize the behavior of the standard App class by creating an entirely new application class called MyApp that inherits its basic behavior from the standard App class.</p>
+<p>Paste the following snippet in just before the myapp = ... line:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">class SpaceGame(App):
+    """
+    Tutorial4 space game example.
+    """
+    def __init__(self):
+        super().__init__()</pre>
+<p>Then cut the four lines that create the background and paste them in below the super()... line and indent them to match. Finally, change the parts that say myapp.width and myapp.height to be self.width and self.height, respectively. Now your new piece of code should look like this:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">class SpaceGame(App):
+    """
+    Tutorial4 space game example.
+    """
+    def __init__(self):
+        super().__init__()
+        # Background
+        black = Color(0, 1)
+        noline = LineStyle(0, black)
+        bg_asset = RectangleAsset(self.width, self.height, noline, black)
+        bg = Sprite(bg_asset, (0,0))</pre>
+<p>Yes, you could have pasted this in from the get-go, but I want you to be very clear about where this code is coming from.</p>
+<p>Things to notice about the change:</p>
+<ul>
+<li><code>class SpaceGame(App):</code><span> </span>defines a new<span> </span><em>class</em>, called<span> </span><code>SpaceGame</code>, that<span> </span><em>inherits</em><span> </span>all of the functionality of the standard<span> </span><code>App</code><span> </span>class.</li>
+<li>The next line defines the<span> </span><code>__init__</code><span> </span>method for the class. In this case it expects no arguments.</li>
+<li>The<span> </span><code>super().__init__(...</code><span> </span>line forces the new SpaceGame class to call the standard App class'<span> </span><code>__init__</code><span> </span>function before beginning its own initialization. Always do this if you want your new class to fully inherit the behavior of the parent class.</li>
+<li>Finally, since this code<span> </span><em>initializes</em><span> </span>the game, it makes sense to place the code for creating a black background in the<span> </span><code>__init__</code><span> </span>method of the game class.</li>
+</ul>
+<p>As it stands, your program is broken. To make the new SpaceGame class take effect, we have to<span> </span><em>instantiate</em><span> </span>it instead of instantiating the App class. Change the next to last line of the program from<span> </span></p>
+<p><code>myapp = App()</code><span> </span>to<span> </span><code>myapp = SpaceGame()</code>.</p>
+<p>Try running the program. You should see a black background.</p>
+<h4>Create a New Sprite Class</h4>
+<p>Just above your SpaceGame class definition, paste this new code:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">class SpaceShip(Sprite):
+    """
+    Animated space ship
+    """
+    asset = ImageAsset("images/four_spaceship_by_albertov_with_thrust.png", 
+        Frame(227,0,65,125), 4, 'vertical')
+
+    def __init__(self, position):
+        super().__init__(SpaceShip.asset, position)</pre>
+<p>Run your program. It should not do anything different from before. Creating a new Sprite<span> </span><em>class</em><span> </span>does not actually create any sprites. All it does is create a<span> </span><em>blueprint</em><span> </span>for making sprites.</p>
+<p>Add a single SpaceShip sprite by adding the following line to the end of the SpaceGame<span> </span><code>__init__</code>method (properly indented, of course):</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">SpaceShip((100,100))</pre>
+<p><span>Now run your code. Cool. Try adding a few more SpaceShip instances at the end of your SpaceGame </span><code>__init__</code><span> method:</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        SpaceShip((150,150))
+        SpaceShip((200,50))</pre>
+<p>It looks like you are building a fleet!</p>
+<p>The code we added is very simple, but there is one line that needs some explanation:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">    asset = ImageAsset("images/four_spaceship_by_albertov_with_thrust.png", 
+        Frame(227,0,65,125), 4, 'vertical')</pre>
+<p>The<span> </span><code>asset</code><span> </span>variable is created<span> </span><em>within the class</em>, but outside of any methods. This makes it a<span> </span><em>class</em>attribute that will be available to all<span> </span><em>instances</em><span> </span>of the class. We used this to call the parent Sprite class<span> </span><code>__init__</code><span> </span>method using the syntax:<span> </span><code>SpaceShip.asset</code>. This approach allows us to create as many instances of the SpaceShip as we want, but without creating multiple assets. There is<span> </span><strong>one</strong><span> </span>object representing the spaceship image, but<span> </span><strong>multiple</strong><span> </span>objects representing the sprites.</p>
+<p>This call to create an<span> </span><code>ImageAsset</code><span> </span>has more arguments than we used in the previous tutorial. Here's what they are about:</p>
+<ul>
+<li>The<span> </span><code>Frame(227,0,65,125)</code><span> </span>argument specifies a rectangular section<span> </span><em>within</em><span> </span>the image file. If you look at the image file in Github you will notice that it actually consists of<span> </span><em>sixteen</em><span> </span>different spacecraft images, some with rocket thrust and some without. The frame arguments refer to the horizontal and vertical location of the upper left hand corner of the sub-image we want (227 and 0 pixels), followed by the width and height of it (65 and 125 pixels).</li>
+<li>The<span> </span><code>4</code><span> </span>argument means that the asset will actually include<span> </span><strong>four</strong><span> </span>sub-images of the same size as the first, and...</li>
+<li>The<span> </span><code>'vertical'</code><span> </span>argument means that those four images are arranged vertically in the image file. Go back to the github repository and<span> </span><em>look</em><span> </span>at this image file to see what I mean by "four images ... arranged vertically."</li>
+</ul>
+<p><span>All of this additional information means that this asset is ready to </span><strong>animate</strong><span>! It consists of a single spaceship without thrust, and three spaceship images that include a blast of thrust. By selecting which of these </span><em>frames</em><span> we want to show at any given time, we can give the appearance of motion within the sprite itself.</span></p>
+<h4><span>Animate with Step!</span></h4>
+<p><span>First, let's add some attributes to the SpaceShip class. Add the following lines at the end of the SpaceShip class <code>__init__</code> method:</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        self.vx = 1
+        self.vy = 1
+        self.vr = 0.01</pre>
+<p>These will set an initial horizontal, vertical and rotational velocity.</p>
+<p>Then, add a<span> </span><code>step</code><span> </span>method to the SpaceShip class. This should appear after the SpaceShip class<span> </span><code>__init__</code><span> </span>method (but leave a space between them):</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">    def step(self):
+        self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.vr</pre>
+<p>This will just add the velocities to the sprite's position attributes,<span> </span><code>x</code>,<span> </span><code>y</code>, and<span> </span><code>rotation</code>, which are built-in attributes of the Sprite class that were automatically<span> </span><em>inherited</em><span> </span>by the SpaceShip class.</p>
+<p>If you are unsure about where to paste these code snippets, check the full listing at the end of this page.</p>
+<p>Unfortunately, just adding a<span> </span><code>step</code><span> </span>method to a sprite class does not mean that it will be called. So we have to add a<span> </span><code>step</code><span> </span>method to the application itself. Add the following code below the<span> </span><code>__init__</code><span> </span>method of the SpaceGame class (but leave a space between them):</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">    def step(self):
+        for ship in self.getSpritesbyClass(SpaceShip):
+            ship.step()</pre>
+<p>You are<span> </span><strong>expected</strong><span> </span>to add a<span> </span><code>step</code><span> </span>method to your own customizations of the standard App class. This<span> </span><code>step</code><span> </span>method<span> </span><strong>is</strong><span> </span>automatically called with every video frame update in the game.</p>
+<p>This method body uses a<span> </span><code>for</code><span> </span>loop to access every<span> </span><em>instance</em><span> </span>of the SpaceShip class, then calls its<span> </span><code>step</code><span> </span>method (<code>ship.step()</code>). Since the SpaceGame<span> </span><code>step</code><span> </span>function is called with every video frame update, this means that every SpaceShip<span> </span><code>step</code><span> </span>function will also be called with every video frame update.</p>
+<h4>Changing the Sprite Image</h4>
+<p><span>Now to the animation details. We want the thrust images to animate when the user presses the space key. So here are the things we have to do:</span></p>
+<ul>
+<li>Listen for when the space button is pressed<span> </span><em>down</em>.</li>
+<li>Listen for when the space button is<span> </span><em>released</em>.</li>
+<li>Use the<span> </span><code>step</code><span> </span>method to change the sprite image, depending on whether the space is down or released.</li>
+</ul>
+<p><span>First, let's add code for managing the </span><em>state</em><span> of the thrusting, and listen for the appropriate keys. Add the following inside the end of the SpaceShip </span><code>__init__</code><span> method:</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        self.thrust = 0
+        self.thrustframe = 1
+        SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
+        SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)</pre>
+<p><span>Then add the </span><code>thrustOn</code><span> and </span><code>thrustOff</code><span> methods to the SpaceShip class. Add the following immediately after the SpaceShip </span><code>step</code><span> method:</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">    def thrustOn(self, event):
+        self.thrust = 1
+        
+    def thrustOff(self, event):
+        self.thrust = 0</pre>
+<p>These simple functions will keep track of whether the space key is down (thrust is 1) or up (thrust is 0).</p>
+<p>Finally, add the following inside the end of the SpaceShip<span> </span><code>step</code><span> </span>method:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        # manage thrust animation
+        if self.thrust == 1:
+            self.setImage(self.thrustframe)
+            self.thrustframe += 1
+            if self.thrustframe == 4:
+                self.thrustframe = 1
+        else:
+            self.setImage(0)</pre>
+<p>If<span> </span><code>self.thrust</code><span> </span>is set to 1, it means the space button is depressed and the sprite image is set to whatever<span> </span><code>self.thrustframe</code><span> </span>is (remember we initialized it to 1 in the class<span> </span><code>__init__</code><span> </span>method). Image number 0 is the first image, 1 is the second, and so on. The next three lines<span> </span><em>increment</em><span> </span>the thrustframe attribute, checking to see if it has gone beyond the end of our list of images (there are only three of them) and setting it back to 1 if necessary.</p>
+<p>Finally, if<span> </span><code>self.thrust</code><span> </span>is set to 0, it means the space button is released, and we should just display the thrustless spaceship image, which is done with<span> </span><code>self.setImage(0)</code>.</p>
+<h4>Final Details</h4>
+<p>There are many more improvements to make to our game, but these are left as exercises for the student!</p>
+<p>You may have noticed that the spaceship sprites rotate in a very strange way. This is because the default "center" of a sprite is actually its upper left corner. You can change the center by setting the<span> </span><code>fxcenter</code><span> </span>and<span> </span><code>fycenter</code><span> </span>attributes of the Sprite (or in our case the SpaceShip) class. Do this by adding this final line to the SpaceShip<span> </span><code>__init__</code><span> </span>method:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        self.fxcenter = self.fycenter = 0.5</pre>
+<p>Run your program again and revel in its awesomeness!</p>
+<p>Find more information about the Sprite and App classes by examining the detailed<span> </span><a href="http://brythonserver.github.io/ggame/" rel="nofollow">ggame documentation</a>.</p><h3>工程用計算機</h3>
 <p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
 <p>利用 Eric6 IDE 可以開發單機版的 PyQt5 計算機, 或者擴充為工程用的計算機, 但是就目前的工程運算, 這種模擬早期桌上型計算機的程式, 已經沒有太多功用, 反而若能利用 PyQt5 開發一套能與網際伺服器互動的"工程運算環境", 應該會有較大的開發動機.</p>
 <p>看看能否從 <a href="https://github.com/m2n037/awesome-mecheng">https://github.com/m2n037/awesome-mecheng</a> 找到值得開發的主題.</p><h2>電腦輔助設計</h2>
