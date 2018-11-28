@@ -1,8 +1,8 @@
 <h1>簡介</h1>
-<p>2018 Fall 期末分組網站</p>
+<p>2018 Fall <a href="http://mde.tw/cp2018">計算機程式</a>與<a href="http://mde.tw/cadp2018">電腦輔助設計實習</a>課程期末分組示範網站</p>
 <p>本倉儲位於: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a>  </p>
-<p>Github 靜態網站:  <a href="https://mdecp2018.github.io/finalproject-bgx">https://mdecp2018.github.io/finalproject-bgx</a> </p>
-<p>與 Heroku 上的 <a href="http://cp2018-bgx.herokuapp.com">http://cp2018-bgx.herokuapp.com</a> 動態網站保持同步</p>
+<p><a href="https://github.com/">Github</a> 靜態網站:  <a href="https://mdecp2018.github.io/finalproject-bgx">https://mdecp2018.github.io/finalproject-bgx</a> </p>
+<p>與 <a href="https://www.heroku.com/">Heroku</a> 上的 <a href="http://cp2018-bgx.herokuapp.com">http://cp2018-bgx.herokuapp.com</a> 動態網站保持同步</p>
 <h4>電腦輔助設計室與協同設計室行事曆</h4>
 <p><a href="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei">全頁檢視</a></p>
 <p><iframe height="600" src="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei" width="800"></iframe></p><h2>可攜系統更新</h2>
@@ -284,7 +284,11 @@ app.run()</pre>
 <p><a href="http://mde.tw/kmolgame/">http://mde.tw/kmolgame/</a></p>
 <p><a href="http://mde.tw/kmolgame/bunny.html">http://mde.tw/kmolgame/bunny.html</a> </p>
 <h3>Spacegame</h3>
+<h4>來源:</h4>
 <p><a href="https://github.com/HHS-IntroProgramming/Standards-and-Syllabus/wiki/Advanced-Graphics-with-Classes">https://github.com/HHS-IntroProgramming/Standards-and-Syllabus/wiki/Advanced-Graphics-with-Classes</a> </p>
+<h4>參考:</h4>
+<p><a href="https://github.com/tiggerntatie/brython-server">https://github.com/tiggerntatie/brython-server</a> </p>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/mwlNP2-Y3GI" width="560"></iframe></p>
 <p>For this tutorial, return to your ggame-tutorials repository that you forked earlier. Create a new file called tutorial4.py and paste the following code into it to get started:</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
 
@@ -413,7 +417,82 @@ myapp.run()</pre>
 <p>You may have noticed that the spaceship sprites rotate in a very strange way. This is because the default "center" of a sprite is actually its upper left corner. You can change the center by setting the<span> </span><code>fxcenter</code><span> </span>and<span> </span><code>fycenter</code><span> </span>attributes of the Sprite (or in our case the SpaceShip) class. Do this by adding this final line to the SpaceShip<span> </span><code>__init__</code><span> </span>method:</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        self.fxcenter = self.fycenter = 0.5</pre>
 <p>Run your program again and revel in its awesomeness!</p>
-<p>Find more information about the Sprite and App classes by examining the detailed<span> </span><a href="http://brythonserver.github.io/ggame/" rel="nofollow">ggame documentation</a>.</p><h3>工程用計算機</h3>
+<p>Find more information about the Sprite and App classes by examining the detailed<span> </span><a href="http://brythonserver.github.io/ggame/" rel="nofollow">ggame documentation</a>.</p>
+<h4>Questions</h4>
+<ol>
+<li>Extend the tutorial to use the<span> </span><code>'left arrow'</code><span> </span>and<span> </span><code>'right arrow'</code><span> </span>keys to rotate the ships left and right.</li>
+<li>Extend the tutorial to use the AWSD keys to control the ship motion.</li>
+<li>ADVANCED: Extend the tutorial to create a<span> </span><code>Blast</code><span> </span>sprite that uses the<span> </span><code>blast.png</code><span> </span>image included in the<span> </span><code>/images</code><span> </span>folder. Use the<span> </span><code>'enter'</code><span> </span>key to create Blast sprites on the screen at random locations (or "fire" them from the spaceship sprites).</li>
+<li>ADVANCED: Extend the tutorial to animate the<span> </span><code>Blast</code><span> </span>sprite.</li>
+</ol>
+<h4>Complete Source for the Tutorial</h4>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">"""
+tutorial4.py
+by E. Dennison
+"""
+from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
+
+class SpaceShip(Sprite):
+    """
+    Animated space ship
+    """
+    asset = ImageAsset("images/four_spaceship_by_albertov_with_thrust.png", 
+        Frame(227,0,65,125), 4, 'vertical')
+
+    def __init__(self, position):
+        super().__init__(SpaceShip.asset, position)
+        self.vx = 1
+        self.vy = 1
+        self.vr = 0.01
+        self.thrust = 0
+        self.thrustframe = 1
+        SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
+        SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
+        self.fxcenter = self.fycenter = 0.5
+
+    def step(self):
+        self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.vr
+        # manage thrust animation
+        if self.thrust == 1:
+            self.setImage(self.thrustframe)
+            self.thrustframe += 1
+            if self.thrustframe == 4:
+                self.thrustframe = 1
+        else:
+            self.setImage(0)
+
+    def thrustOn(self, event):
+        self.thrust = 1
+        
+    def thrustOff(self, event):
+        self.thrust = 0
+
+
+class SpaceGame(App):
+    """
+    Tutorial4 space game example.
+    """
+    def __init__(self):
+        super().__init__()
+        # Background
+        black = Color(0, 1)
+        noline = LineStyle(0, black)
+        bg_asset = RectangleAsset(self.width, self.height, noline, black)
+        bg = Sprite(bg_asset, (0,0))
+        SpaceShip((100,100))
+        SpaceShip((150,150))
+        SpaceShip((200,50))
+
+    def step(self):
+        for ship in self.getSpritesbyClass(SpaceShip):
+            ship.step()
+
+        
+myapp = SpaceGame()
+myapp.run()</pre>
+<p></p><h3>工程用計算機</h3>
 <p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
 <p>利用 Eric6 IDE 可以開發單機版的 PyQt5 計算機, 或者擴充為工程用的計算機, 但是就目前的工程運算, 這種模擬早期桌上型計算機的程式, 已經沒有太多功用, 反而若能利用 PyQt5 開發一套能與網際伺服器互動的"工程運算環境", 應該會有較大的開發動機.</p>
 <p>看看能否從 <a href="https://github.com/m2n037/awesome-mecheng">https://github.com/m2n037/awesome-mecheng</a> 找到值得開發的主題.</p><h2>電腦輔助設計</h2>
@@ -486,7 +565,14 @@ plt.show()</pre>
 <p><a href="/downloads/US5253189_QUALITATIVE+KINEMATICS.pdf">QUALITATIVE KINEMATICS 專利</a></p>
 <p><a href="/downloads/Automated+Configuration+Analysis+of+Planar+Eight-Bar+Linkages.pdf">Automated Configuration Analysis of Planar Eight-Bar Linkages.pdf</a></p>
 <p><a href="/downloads/Automated+Generation+of+Linkage+Loop+Equations+for+Planar+One+Degree-of-Freedom+Linkages,+Demonstrated+up+to+8-Bar.pdf">Automated Generation of Linkage Loop Equations for Planar One Degree-of-Freedom Linkages.pdf</a></p>
-<p><a href="/downloads/Automated+Synthesis+of+Planar+Mechanisms+with+Revolute,+Prismatic+and+Pin-In-Slot+Joints.pdf">Automated Synthesis of Planar Mechanisms with Revolute, Prismatic and Pin-In-Slot Joints.pdf</a></p><h1>設計主機</h1><h2>Heroku 簡介</h2>
+<p><a href="/downloads/Automated+Synthesis+of+Planar+Mechanisms+with+Revolute,+Prismatic+and+Pin-In-Slot+Joints.pdf">Automated Synthesis of Planar Mechanisms with Revolute, Prismatic and Pin-In-Slot Joints.pdf</a></p><h1>設計主機</h1>
+<p>工作站室 Ubuntu + Flask + Fossil SCM</p>
+<p>協同設計室 Ubuntu + Flask + Fossil SCM</p>
+<p>Heroku 雲端主機 Flask</p>
+<p>Github 倉儲主機 Html + Javascript + Brython</p>
+<p>Gitlab 倉儲主機 Html + Javascript + Brython</p>
+<p>Bitbucket 倉儲主機 Html + Javascript + Brython</p>
+<p></p><h2>Heroku 簡介</h2>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/QTOkqzCTGxw" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nRiykxq0oHQ" width="560"></iframe></p>
 <p></p><h3>Heroku 設定</h3>
