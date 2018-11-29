@@ -17,6 +17,100 @@
 <p>但因 Scripts/pip.exe 與 pip3.7.exe 與 pip3.exe 會將 c:\python37 直接寫入這三個 .exe 檔案, 導致直接執行 pip 時, 會因為找不到 c:\python37\python.exe 而無法執行, 必須使用 python -m pip 才能執行.</p>
 <p>修改方式為使用 <a href="https://mh-nexus.de/en/hxd/">https://mh-nexus.de/en/hxd/</a> , 在二位元模式下編輯這三個 .exe 檔案, 將 c:\python37 換為 y:\p37 即可.</p>
 <p>可攜 <a href="/downloads/HxD.7z">HxD.7z</a></p>
+<h4>如何建立 Windows 64 位元可攜系統</h4>
+<p>在 Windows 10 建立 Python 可攜系統的目的, 在於讓使用者可以自行攜帶與系統設定相關的檔案, 以及自行攜帶系統所安裝的 Python 特定模組, 讓使用者能將隨身系統放入隨身碟或隨身硬碟, 在任何 Windows 10 64 位元操作系統中使用.</p>
+<p>建立可攜系統的步驟如下:</p>
+<ol>
+<li>下載 64 位元 Windows 的 Python 安裝版本</li>
+<li>在 Windows 10 安裝 Python, 例如: 令其位於  C:\p37</li>
+<li>將 C:\p37 複製到 C:\tmp\ p37\data 目錄後, 移除前述所安裝的 Python 版本</li>
+<li>利用下列 C:\p37\start.bat 與 C:\p37\stop.bat 啟動與關閉可攜 Python 系統</li>
+<li>配合 SciTE 作為可攜 Python 系統的程式編輯器</li>
+<li>由於前述安裝的 Python 版本, 會將系統目錄寫入 Scripts\pip.exe 等三個檔案中, 可以使用  <a href="https://mh-nexus.de/en/hxd/">https://mh-nexus.de/en/hxd/</a> 改為可攜系統對應目錄.</li>
+<li>其餘所需 Python 模組, 直接由可攜系統啟動後, 以 pip install 安裝</li>
+</ol>
+<h4>start.bat</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">@echo off
+REM 設定 y 硬碟代號與 data 目錄對應
+set Disk=y
+subst %Disk%: "data"
+REM 設定 leo 相關對應 Home 位置
+set HomePath=%Disk%:\home
+set HomeDrive=%Disk%:\home
+set Home=%Disk%:\home
+REM 將系統 Python 程式的 io 設為 utf-8
+set PYTHONIOENCODING="utf-8"
+REM 將後續的指令執行, 以 %Disk% 為主
+%Disk%:
+REM 設定 PYTHONPATH
+set PYTHONPATH=%Disk%:\p37\DLLs;%Disk%:\p37\Lib;%Disk%:\p37\Lib\site-packages;
+set PYTHONHOME=%Disk%:\p37
+REM for Qt and Qt Creator
+set LLVM_INSTALL_DIR=%Disk%:\LLVM;
+set QBS_INSTALL_DIR=%Disk%:\qbs-windows-x86_64-1.10.0;
+REM for TCL
+set TCL_LIBRARY=%Disk%:\p37\tcl\tcl8.6
+set TK_LIBRARY=%Disk%:\p37\tcl\tcl8.6
+REM 設定 Leo 所用的編輯器
+set LEO_EDITOR=%Disk%:\scite\bin\Sc1.exe;
+set BOOST_ROOT=%Disk%:\boost_1_66_0\;
+REM set CMAKE_PREFIX_PATH=%Disk%:\msys64\mingw64\
+REM for fossil https 連線設定
+REM 若在近端使用 fossil ui 則要蓋掉
+REM set HTTPS=on
+REM 指令搜尋路徑設定
+REM set path1=%PATH%;%Disk%:;%Disk%:\p37;%Disk%:\git\bin;%Disk%:\stunnel\bin;%Disk%:\sqlite-tools;%Disk%:\p37\Scripts;%Disk%:\Git\bin;%Disk%:\vrep331;
+REM path1 is base of this portable Python3.6 system
+set path1=%Disk%:;%Disk%:\p37;%Disk%:\git\bin;%Disk%:\stunnel\bin;%Disk%:\sqlite-tools;%Disk%:\p37\Scripts;%Disk%:\Git\bin;%Disk%:\vrep331;%Disk%:\p37\Lib\site-packages\PyQt5\Qt\bin;
+REM path2 is for pandoc and miktex
+set path2=%Disk%:\pandoc-2.0.2;%Disk%:\miktex_portable\texmfs\install\miktex\bin;%Disk%:\lua-5.3.4\bin;%Disk%:\coreutils-5.3.0\bin;%Disk%:\qtcreator-4.7.0-rc1\bin;%Disk%:\patch-2.5.9-7-bin\bin;
+REM path3 is for gcc development 
+set path3=%Disk%:\msys64\mingw64\bin;%Disk%:\swigwin-3.0.12;%Disk%:\cmake-3.10.1-win64-x64\bin;%Disk%:\diffutils-2.8.7-1\bin;%Disk%:\patch-2.5.9-7\bin;%Disk%:\graphviz-2.38\bin;
+set path4=%Disk%:\boost_1_66_0\;%Disk%:\Strawberry\perl\bin;%D%:\jom_1_1_2;%Disk%:\LLVM\bin;%Disk%:\QtCreator\bin;%Disk%:\vrep340_rev1;%Disk%:\p37\tcl\tcl8.6;%Disk%:\xsltproc;
+set path5=%Disk%:\ffmpeg-20180504-dc7a8f7-win64-static\bin;%Disk%:\oce-0.18.1\bin\;%Disk%:\oce-0.18.1\lib\;%Disk%:\gnuplot\bin;
+set JAVA_HOME=%Disk%:\Java\jdk1.8.0_172;
+set ANDROID_HOME=%Disk%:\Android\sdk;
+set path6=%Disk%:\Java\jdk1.8.0_172\bin;%Disk%:\Java\jre1.8.0_172\bin;%Disk%:\Android\AndroidStudio\bin;%Disk%:\Android\sdk\tools;%Disk%:\Android\sdk\platform-tools;%Disk%:\BIND9.12.2-P2.x64;
+REM for Pythonocc under MSYS2 according to https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/pythonocc/z-NI9A-Vyic/8QjD81q-AwAJ
+set CSF_GraphicShr=%Disk%:\oce-0.18.1\bin\TKOpenGl.dll
+path=%path%;%path1%;%path2%;%path3%;%path4%;%path5%;%path6%;
+start /MIN %Disk%:\scite\bin\Sc1.exe
+start /MIN %Disk%:\scite\bin\Sc1.exe
+start /MIN cmd.exe
+start /MIN cmd.exe
+REM start /MIN cmd.exe /k "y:\cp2018.bat"
+REM start /MIN cmd.exe /k "y:\cp2018_http_server.bat
+REM start /MIN cmd.exe /k "y:\cadp2018.bat"
+REM 啟動 Leo 編輯器
+%Disk%:\p37\python.exe %Disk%:\launchLeo.py
+REM 啟動 stunnel
+REM start /MIN fossil.exe server -P 127.0.0.1:8080 %Disk%:\tmp\fossil_repo
+REM start /MIN stunnel.exe
+REM start qtcreator
+Exit</pre>
+<h4>stop.bat</h4>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">@echo off
+set Disk=y
+REM 關閉 SciTE
+taskkill /IM Sc1.exe /F
+REM 關閉 python
+taskkill /IM python.exe /F
+taskkill /IM pythonw.exe /F
+REM 關閉 stunnel
+taskkill /IM stunnel.exe /F
+REM 關閉 fossil
+taskkill /IM fossil.exe /F
+rem taskkill /IM sharex.exe /F
+REM 清除 log 資料
+path=%PATH%;
+REM del /Q /F  V:\tmp\*.*
+REM 終止虛擬硬碟與目錄的對應
+subst %Disk%: /D
+REM 關閉 cmd 指令視窗
+taskkill /IM cmd.exe /F
+REM taskkill /IM mingw32 /F
+EXIT</pre>
+<p></p>
 <p></p>
 <p></p><h2>靜態與動態網站</h2>
 <h4>網站類型</h4>
@@ -492,7 +586,16 @@ class SpaceGame(App):
         
 myapp = SpaceGame()
 myapp.run()</pre>
-<p></p><h3>工程用計算機</h3>
+<h3>Ggame 程式庫</h3>
+<h4>專案目的</h4>
+<p>了解 Ggame 的程式庫內容, 除了建立應用範例外, 並能從 <a href="http://www.pixijs.com/gallery">http://www.pixijs.com/gallery</a> 導入更多功能.</p>
+<p>在 <a href="https://github.com/mdecourse/kmolgame">kmolgame</a> 倉儲中, 自帶 <a href="https://github.com/mdecourse/kmolgame/tree/gh-pages/static/ggame">https://github.com/mdecourse/kmolgame/tree/gh-pages/static/ggame</a> , 但是 <a href="https://github.com/mdecourse/kmolgame/blob/gh-pages/static/ggame/sysdeps.py">https://github.com/mdecourse/kmolgame/blob/gh-pages/static/ggame/sysdeps.py</a> 中仍存在從 cdn 下載的特定版本程式碼.</p>
+<p>因為 Ggame 網際程式庫需要:</p>
+<p><span>jquery-3.3.1.min.js - </span><a href="https://jquery.com/">https://jquery.com/</a><span> </span><br/><span>jquery-ui.1.12.1.min.js - </span><a href="https://jqueryui.com/">https://jqueryui.com/</a><span> </span><br/><span>pixi-4.8.2.min.js - </span><a href="http://www.pixijs.com/">http://www.pixijs.com/</a><span> </span><br/><span>buzz-1.2.1.js - </span><a href="http://buzz.jaysalvat.com/">http://buzz.jaysalvat.com/</a><span> </span><br/><span>brython-3.7.0.js - </span><a href="https://brython.info/">https://brython.info/</a><span> </span></p>
+<p>等 Javascript 程式庫, 因此最理想的情況下, 必須持續使用最新版的程式庫. 其中最關鍵的應該是 <a href="http://www.pixijs.com/">http://www.pixijs.com/</a> 與 <a href="https://brython.info/">https://brython.info/</a> </p>
+<p>因此, 以 Ggame 網際程式庫的研究與開發, 必須導入更多的 <a href="http://www.pixijs.com/">http://www.pixijs.com/</a> 功能, 且能在最新的 <a href="https://brython.info/">https://brython.info/</a> 版本中運行.</p>
+<p>Pixi Gallery: <a href="http://www.pixijs.com/gallery">http://www.pixijs.com/gallery</a> </p>
+<p>目前採用 Ggame 程式庫開發的線上遊戲: <a href="http://mde.tw/kmolgame/spacewar.html">http://mde.tw/kmolgame/spacewar.html</a> </p><h3>工程用計算機</h3>
 <p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
 <p>利用 Eric6 IDE 可以開發單機版的 PyQt5 計算機, 或者擴充為工程用的計算機, 但是就目前的工程運算, 這種模擬早期桌上型計算機的程式, 已經沒有太多功用, 反而若能利用 PyQt5 開發一套能與網際伺服器互動的"工程運算環境", 應該會有較大的開發動機.</p>
 <p>看看能否從 <a href="https://github.com/m2n037/awesome-mecheng">https://github.com/m2n037/awesome-mecheng</a> 找到值得開發的主題.</p><h2>電腦輔助設計</h2>
