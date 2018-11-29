@@ -1,0 +1,204 @@
+<!doctype html>
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>期末分組專案</title> <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+
+<script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCSharp.js"></script>
+<link type="text/css" rel="stylesheet" href="./../static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- for LaTeX equations 暫時不用
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+-->
+<!-- 暫時不用
+<script src="./../static/fengari-web.js"></script>
+<script type="text/javascript" src="./../static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.red3border {
+    border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
+}
+</style>
+
+<script src="./../static/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
+    $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
+});
+</script>
+
+</head><header><h1>2018 Fall 期末專案示範網站</h1> <confmenu>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="sitemap.html">Site Map</a></li>
+<li><a href="./../reveal/index.html">reveal</a></li>
+<li><a href="./../blog/index.html">blog</a></li>
+
+</ul>
+</confmenu></header>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><li><a href='簡介.html'>簡介</a><ul><li><a href='可攜系統更新.html'>可攜系統更新</a><li><a href='靜態與動態網站.html'>靜態與動態網站</a></li></ul><li><a href='分組網站.html'>分組網站</a><li><a href='課程專題.html'>課程專題</a><ul><li><a href='計算機程式.html'>計算機程式</a><ul><li><a href='網際模擬程式.html'>網際模擬程式</a><li><a href='Spacegame.html'>Spacegame</a><li><a href='Ggame 程式庫.html'>Ggame 程式庫</a><li><a href='工程用計算機.html'>工程用計算機</a></li></ul><li><a href='電腦輔助設計.html'>電腦輔助設計</a></li></ul><li><a href='設計主機.html'>設計主機</a><ul><li><a href='Heroku 簡介.html'>Heroku 簡介</a><ul><li><a href='Heroku 設定.html'>Heroku 設定</a></li></ul><li><a href='Fossil SCM.html'>Fossil SCM</a><li><a href='Jupyterlab.html'>Jupyterlab</a><li><a href='Sandstorm.html'>Sandstorm</a></li></ul><li><a href='Python 程式.html'>Python 程式</a><ul><li><a href='靜態網站範例.html'>靜態網站範例</a><li><a href='動態網站範例.html'>動態網站範例</a><li><a href='GUI 程式範例.html'>GUI 程式範例</a><ul><li><a href='GUI 程式碼.html'>GUI 程式碼</a><li><a href='parse_content 範例.html'>parse_content 範例</a></li></li></ul></ul><li><a href='輔助設計.html'>輔助設計</a><ul><li><a href='Onshape.html'>Onshape</a><li><a href='V-rep.html'>V-rep</a></li></ul><li><a href='電子書.html'>電子書</a><ul><li><a href='協同編輯.html'>協同編輯</a></li></ul></nav><section>GUI 程式碼 << <a href='GUI 程式碼.html'>Previous</a> <a href='輔助設計.html'>Next</a> >> 輔助設計<br /><h1>parse_content 範例</h1>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import os
+import bs4
+
+def _remove_h123_attrs(soup):
+    tag_order = 0
+    for tag in soup.find_all(['h1', 'h2', 'h3']):
+        # 假如標註內容沒有字串
+        #if len(tag.text) == 0:
+        if len(tag.contents) ==0:
+            # 且該標註為排序第一
+            if tag_order == 0:
+                tag.string = "First"
+            else:
+                # 若該標註非排序第一, 則移除無內容的標題標註
+                tag.extract()
+        # 針對單一元件的標題標註
+        elif len(tag.contents) == 1:
+            # 若內容非為純文字, 表示內容為其他標註物件
+            if tag.get_text() == "":
+                # 且該標註為排序第一
+                if tag_order == 0:
+                    # 在最前方插入標題
+                    tag.insert_before(soup.new_tag('h1', 'First'))
+                else:
+                    # 移除 h1, h2 或 h3 標註, 只留下內容
+                    tag.replaceWithChildren()
+            # 表示單一元件的標題標註, 且標題為單一字串者
+            else:
+                # 判定若其排序第一, 則將 tag.name 為 h2 或 h3 者換為 h1
+                if tag_order == 0:
+                    tag.name = "h1"
+            # 針對其餘單一字串內容的標註, 則保持原樣
+        # 針對內容一個以上的標題標註
+        #elif len(tag.contents) &gt; 1:
+        else:
+            # 假如該標註內容長度大於 1
+            # 且該標註為排序第一
+            if tag_order == 0:
+                # 先移除 h1, h2 或 h3 標註, 只留下內容
+                #tag.replaceWithChildren()
+                # 在最前方插入標題
+                tag.insert_before(soup.new_tag('h1', 'First'))
+            else:
+                # 只保留標題內容,  去除 h1, h2 或 h3 標註
+                # 為了與前面的內文區隔, 先在最前面插入 br 標註
+                tag.insert_before(soup.new_tag('br'))
+                # 再移除非排序第一的 h1, h2 或 h3 標註, 只留下內容
+                tag.replaceWithChildren()
+        tag_order = tag_order + 1
+
+    return soup
+
+def file_get_contents(filename):
+    # open file in utf-8 and return file content
+    with open(filename, encoding="utf-8") as file:
+        return file.read()
+
+def parse_content():
+    """use bs4 and re module functions to parse content.htm"""
+    config_dir = "./"
+    # if no content.htm, generate a head 1 and content 1 file
+    if not os.path.isfile(config_dir+"content.htm"):
+        # create content.htm if there is no content.htm
+        File = open(config_dir + "content.htm", "w", encoding="utf-8")
+        File.write("&lt;h1&gt;head 1&lt;/h1&gt;content 1")
+        File.close()
+    subject = file_get_contents(config_dir+"content.htm")
+    # deal with content without content
+    if subject == "":
+        # create content.htm if there is no content.htm
+        File = open(config_dir + "content.htm", "w", encoding="utf-8")
+        File.write("&lt;h1&gt;head 1&lt;/h1&gt;content 1")
+        File.close()
+        subject = "&lt;h1&gt;head 1&lt;/h1&gt;content 1"
+    # initialize the return lists
+    head_list = []
+    level_list = []
+    page_list = []
+    # make the soup out of the html content
+    soup = bs4.BeautifulSoup(subject, 'html.parser')
+    # 嘗試解讀各種情況下的標題
+    soup = _remove_h123_attrs(soup)
+    # 改寫 content.htm 後重新取 subject
+    with open(config_dir + "content.htm", "wb") as f:
+        f.write(soup.encode("utf-8"))
+    subject = file_get_contents(config_dir+"content.htm")
+    # get all h1, h2, h3 tags into list
+    htag= soup.find_all(['h1', 'h2', 'h3'])
+    n = len(htag)
+    # get the page content to split subject using each h tag
+    temp_data = subject.split(str(htag[0]))
+    if len(temp_data) &gt; 2:
+        subject = str(htag[0]).join(temp_data[1:])
+    else:
+        subject = temp_data[1]
+    if n &gt;1:
+            # i from 1 to i-1
+            for i in range(1, len(htag)):
+                head_list.append(htag[i-1].text.strip())
+                # use name attribute of h* tag to get h1, h2 or h3
+                # the number of h1, h2 or h3 is the level of page menu
+                level_list.append(htag[i-1].name[1])
+                temp_data = subject.split(str(htag[i]))
+                if len(temp_data) &gt; 2:
+                    subject = str(htag[i]).join(temp_data[1:])
+                else:
+                    subject = temp_data[1]
+                # cut the other page content out of htag from 1 to i-1
+                cut = temp_data[0]
+                # add the page content
+                page_list.append(cut)
+    # last i
+    # add the last page title
+    head_list.append(htag[n-1].text.strip())
+    # add the last level
+    level_list.append(htag[n-1].name[1])
+    temp_data = subject.split(str(htag[n-1]))
+    # the last subject
+    subject = temp_data[0]
+    # cut the last page content out
+    cut = temp_data[0]
+    # the last page content
+    page_list.append(cut)
+    return head_list, level_list, page_list
+
+print(parse_content())</pre><br />GUI 程式碼 << <a href='GUI 程式碼.html'>Previous</a> <a href='輔助設計.html'>Next</a> >> 輔助設計</section></div></body></html>
