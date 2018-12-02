@@ -144,7 +144,7 @@ EXIT</pre>
 <h2>特殊處理</h2>
 <p>CMSimfly 中的 get_page2, 主要讓 Python 程式頁面中的 Brython 在靜態頁面, 可以正確透過 pythonpage 設定相對目錄, 而動態頁面則需要使用決定目錄設定.</p>
 <p>但是若以下列方式引用程式碼, 則內容也會被 get_page2 轉換, 因此在編輯區必須額外設定不轉換內容的特殊 tag.</p>
-<p>get_page2 內容:</p>
+<p>get_page2 內容 (請注意: 以下在靜態網頁為錯誤引用):</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def get_page2(heading, head, edit):
     not_used_head, level, page = parse_content()
     # 直接在此將 /images/ 換為 ./../images/, /downloads/ 換為 ./../downloads/, 以 content 為基準的相對目錄設定
