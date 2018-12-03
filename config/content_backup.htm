@@ -257,7 +257,95 @@ for i in range(1, vecp+1):
 <p><a href="http://mde.tw/cp2018/content/%E8%AE%80%E5%AF%AB%E7%B6%B2%E9%A0%81%E5%85%A7%E5%AE%B9.html">Beautifulsoup4 應用研究</a></p>
 <p><a href="https://github.com/MechanicalSoup/MechanicalSoup">Mechanicalsoup 應用研究</a></p>
 <p><a href="https://graph-tool.skewed.de/">Graph Tool 應用研究</a></p>
-<h3>CMSimfly</h3>
+<!-- 準備測試 ggame -->
+<p>
+<script src="/static/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="/static/jquery-ui.1.12.1.min.js" type="text/javascript"></script>
+<script src="/static/brython.js" type="text/javascript"></script>
+<script src="/static/brython_stdlib.js" type="text/javascript"></script>
+<!--
+<script type="text/javascript" src="/static/pixi-3.0.5.min.js"></script>
+<script type="text/javascript" src="/static/buzz-1.2.1.js"></script>
+-->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/']});
+}
+</script>
+</p>
+<p><canvas height="600" id="ggame-canvas" width="800"></canvas></p>
+<div height="600" id="graphics-column" width="800"></div>
+<p>
+<script type="text/python3">
+from ggame import App, ImageAsset, Sprite, MouseEvent
+from random import random, randint
+
+class Bunny(Sprite):
+    
+    asset = ImageAsset("/images/bunny.png")
+    
+    def __init__(self, position):
+        super().__init__(Bunny.asset, position)
+        # register mouse events
+        App.listenMouseEvent(MouseEvent.mousedown, self.mousedown)
+        App.listenMouseEvent(MouseEvent.mouseup, self.mouseup)
+        App.listenMouseEvent(MouseEvent.mousemove, self.mousemove)
+        self.dragging = False
+
+    
+    def step(self):
+        """
+        Every now and then a bunny hops...
+        """
+        if random() < 0.01:
+            self.x += randint(-20,20)
+            self.y += randint(-20,20)
+        
+        
+    def mousedown(self, event):
+        # capture any mouse down within 50 pixels
+        self.deltax = event.x - (self.x + self.width//2) 
+        self.deltay = event.y - (self.y + self.height//2)
+        if abs(self.deltax) < 50 and abs(self.deltay) < 50:
+            self.dragging = True
+            # only drag one bunny at a time - consume the event
+            event.consumed = True
+            
+    def mousemove(self, event):
+        if self.dragging:
+            self.x = event.x - self.deltax - self.width//2
+            self.y = event.y - self.deltay - self.height//2
+            event.consumed = True
+            
+    def mouseup(self, event):
+        if self.dragging:
+            self.dragging = False
+            event.consumed = True
+            
+        
+class DemoApp(App):
+    
+    def __init__(self):
+        super().__init__()
+        for i in range(50):
+            Bunny((randint(50, 800), randint(50, 600)))
+        
+    def step(self):
+        """
+        Override step to perform action on each frame update
+        """
+        for bunny in self.spritelist:
+            bunny.step()
+
+
+# Create the app
+app = DemoApp()  
+# Run the app
+app.run()
+</script>
+</p><h3>CMSimfly</h3>
 <p><a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a> 是一套利用 <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">beautifulsoup4</a> 對 config/content.htm 分頁後, 以 <a href="https://www.tiny.cloud/">TinyMCE4</a> 執行編輯的網際內容管理系統.</p>
 <p>以下為可行的開發項目:</p>
 <ol>
@@ -620,9 +708,9 @@ myapp.run()</pre>
 <h4>Games in Pixi.js</h4>
 <p>電子書: Learn Pixi.js <a href="https://link.springer.com/book/10.1007/978-1-4842-1094-9">https://link.springer.com/book/10.1007/978-1-4842-1094-9</a> </p>
 <p><a href="/downloads/concentration_pixi_game.zip">concentration_pixi_game.zip</a> (<a href="https://www.emanueleferonato.com/2014/02/26/complete-html5-concentration-game-made-with-pixi-js/">ref</a>, <a href="https://www.emanueleferonato.com/2014/03/13/complete-html5-concentration-game-made-with-pixi-js-adding-animation-with-tween-js/">ref2</a>)</p>
+<p><a href="https://ithelp.ithome.com.tw/articles/10190574">https://ithelp.ithome.com.tw/articles/10190574</a>  (Pixijs)</p>
 <p><a href="https://itch.io/games/made-with-pixijs">https://itch.io/games/made-with-pixijs</a> </p>
-<p><a href="https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/">https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/</a> </p>
-<h3>工程用計算機</h3>
+<p><a href="https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/">https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/</a> </p><h3>工程用計算機</h3>
 <p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
 <p>利用 Eric6 IDE 可以開發單機版的 PyQt5 計算機, 或者擴充為工程用的計算機, 但是就目前的工程運算, 這種模擬早期桌上型計算機的程式, 已經沒有太多功用, 反而若能利用 PyQt5 開發一套能與網際伺服器互動的"工程運算環境", 應該會有較大的開發動機.</p>
 <p>看看能否從 <a href="https://github.com/m2n037/awesome-mecheng">https://github.com/m2n037/awesome-mecheng</a> 、<a href="http://www.teamtrotbot.com/mechanism.html">http://www.teamtrotbot.com/mechanism.html</a> 、<a href="https://dogfeatherdesign.com/engineering-projects/mechanisms-mechanical-walker/">https://dogfeatherdesign.com/engineering-projects/mechanisms-mechanical-walker/</a> 與 <a href="http://507movements.com/">http://507movements.com/</a> 找到值得開發的主題.</p>
