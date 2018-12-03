@@ -149,84 +149,9 @@ EXIT</pre>
 </ol>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/_wFJj94kSTU" width="560"></iframe></p>
 <h2>特殊處理</h2>
-<p>CMSimfly 中的 get_page2, 主要讓 Python 程式頁面中的 Brython 在靜態頁面, 可以正確透過 pythonpage 設定相對目錄, 而動態頁面則需要使用決定目錄設定.</p>
-<p>但是若以下列方式引用程式碼, 則內容也會被 get_page2 轉換, 因此在編輯區必須額外設定不轉換內容的特殊 tag.</p>
-<p>get_page2 內容 (請注意: 以下在靜態網頁為錯誤引用):</p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def get_page2(heading, head, edit):
-    not_used_head, level, page = parse_content()
-    # 直接在此將 /images/ 換為 ./../images/, /downloads/ 換為 ./../downloads/, 以 content 為基準的相對目錄設定
-    page = [w.replace('/images/', './../images/') for w in page]
-    page = [w.replace('/downloads/', './../downloads/') for w in page]
-    # 假如有 src="/static/ace/則換為 src="./../static/ace/
-    page = [w.replace('src="/static/', 'src="./../static/') for w in page]
-    # 假如有 pythonpath:['/static/'] 則換為 pythonpath:['./../static/']
-    page = [w.replace("pythonpath:['/static/']", "pythonpath:['./../static/']") for w in page]
-    directory = render_menu2(head, level, page)
-    if heading is None:
-        heading = head[0]
-    # 因為同一 heading 可能有多頁, 因此不可使用 head.index(heading) 搜尋 page_order
-    page_order_list, page_content_list = search_content(head, page, heading)
-    return_content = ""
-    pagedata = ""
-    outstring = ""
-    outstring_duplicate = ""
-    pagedata_duplicate = ""
-    outstring_list = []
-    for i in range(len(page_order_list)):
-        #page_order = head.index(heading)
-        page_order = page_order_list[i]
-        if page_order == 0:
-            last_page = ""
-        else:
-            #last_page = head[page_order-1]+ " &lt;&lt; &lt;a href='/get_page/" + head[page_order-1] + "'&gt;Previous&lt;/a&gt;"
-            last_page = head[page_order-1] + " &lt;&lt; &lt;a href='"+head[page_order-1] + ".html'&gt;Previous&lt;/a&gt;"
-        if page_order == len(head) - 1:
-            # no next page
-            next_page = ""
-        else:
-            #next_page = "&lt;a href='/get_page/"+head[page_order+1] + "'&gt;Next&lt;/a&gt; &gt;&gt; " + head[page_order+1]
-            next_page = "&lt;a href='" + head[page_order+1] + ".html'&gt;Next&lt;/a&gt; &gt;&gt; " + head[page_order+1]
-        if len(page_order_list) &gt; 1:
-            return_content += last_page + " " + next_page + "&lt;br /&gt;&lt;h1&gt;" + \
-                                      heading + "&lt;/h1&gt;" + page_content_list[i] + \
-                                      "&lt;br /&gt;" + last_page + " "+ next_page + "&lt;br /&gt;&lt;hr&gt;"
-            pagedata_duplicate = "&lt;h"+level[page_order] + "&gt;" + heading + "&lt;/h" + level[page_order]+"&gt;"+page_content_list[i]
-            outstring_list.append(last_page + " " + next_page + "&lt;br /&gt;" + tinymce_editor(directory, cgi.escape(pagedata_duplicate), page_order))
-        else:
-            return_content += last_page + " " + next_page + "&lt;br /&gt;&lt;h1&gt;" + \
-                                      heading + "&lt;/h1&gt;" + page_content_list[i] + \
-                                      "&lt;br /&gt;" + last_page + " " + next_page
-            
-        pagedata += "&lt;h" + level[page_order] + "&gt;" + heading + \
-                          "&lt;/h" + level[page_order] + "&gt;" + page_content_list[i]
-        # 利用 cgi.escape() 將 specialchar 轉成只能顯示的格式
-        outstring += last_page + " " + next_page + "&lt;br /&gt;" + tinymce_editor(directory, cgi.escape(pagedata), page_order)
-    
-    # edit=0 for viewpage
-    if edit == 0:
-        return set_css2() + "&lt;div class='container'&gt;&lt;nav&gt;"+ \
-        directory + "&lt;/nav&gt;&lt;section&gt;" + return_content + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
-    # enter edit mode
-    else:
-        # check if administrator
-        if not isAdmin():
-            redirect(url_for('login'))
-        else:
-            if len(page_order_list) &gt; 1:
-                # 若碰到重複頁面頁印, 且要求編輯, 則導向 edit_page
-                #return redirect("/edit_page")
-                for i in range(len(page_order_list)):
-                    outstring_duplicate += outstring_list[i] + "&lt;br /&gt;&lt;hr&gt;"
-                return outstring_duplicate
-            else:
-            #pagedata = "&lt;h" + level[page_order]+"&gt;" + heading + "&lt;/h" + level[page_order] + "&gt;" + search_content(head, page, heading)
-            #outstring = last_page + " " + next_page + "&lt;br /&gt;" + tinymce_editor(directory, cgi.escape(pagedata), page_order)
-                return outstring
-
-
-</pre>
-<p></p>
-<h1>分組網站</h1>
+<p>CMSimfly 中的 get_page2, 主要讓 Python 程式頁面中的 Brython 在靜態頁面, 可以正確透過 pythonpage 設定相對目錄, 而動態頁面則需要使用絕對目錄設定.</p>
+<h4>已知問題</h4>
+<p>透過 get_page2 轉換特殊字串的用法, 若在頁面引用 get_page2 的程式碼, 將會造成轉為靜態網頁時, 引用內容也會被換成非動態模式下的字串, 而造成程式碼引用錯誤的問題.</p><h1>分組網站</h1>
 <p></p>
 <p>
 <script src="/static/brython.js"></script>
@@ -783,6 +708,7 @@ plt.show()</pre>
 <p><a href="/downloads/Automated+Synthesis+of+Planar+Mechanisms+with+Revolute,+Prismatic+and+Pin-In-Slot+Joints.pdf">Automated Synthesis of Planar Mechanisms with Revolute, Prismatic and Pin-In-Slot Joints.pdf</a></p>
 <h3>Kinematics</h3>
 <p><a href="/downloads/Robot%20Dynamics and Control.pdf">Robot dynamics and control.pdf</a></p>
+<p><a href="/downloads/Teaching+mechanism+design.pdf">Teaching Mechanism Design.pdf</a> (<a href="https://github.com/KmolYuan/Pyslvs-PyQt5">Pyslvs</a> 能解此類題目?)</p>
 <p><a href="https://raw.githubusercontent.com/petercorke/robotics-toolbox-python/master/robot/kinematics.py">https://raw.githubusercontent.com/petercorke/robotics-toolbox-python/master/robot/kinematics.py</a> </p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">"""
 Robot kinematic operations.
@@ -1190,8 +1116,7 @@ def ikine560(robot, T, configuration=''):
     return mat(theta).T;</pre>
 <h4>IKBT</h4>
 <p><a href="https://github.com/uw-biorobotics/IKBT">https://github.com/uw-biorobotics/IKBT</a> </p>
-<p><a href="/downloads/solving%20closed-form Inverse Kinematics with Behavior Tree.pdf">Solving closed-form Inverse Kinematics with Behavior Tree.pdf</a></p>
-<h1>設計主機</h1>
+<p><a href="/downloads/solving%20closed-form Inverse Kinematics with Behavior Tree.pdf">Solving closed-form Inverse Kinematics with Behavior Tree.pdf</a></p><h1>設計主機</h1>
 <h4>自架主機</h4>
 <p>工作站室 Ubuntu + Flask + Fossil SCM</p>
 <p>協同設計室 Ubuntu + Flask + Fossil SCM</p>
@@ -2026,12 +1951,14 @@ print(parse_content())</pre>
 <p><a href="http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681">http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681</a> </p>
 <p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx</a> </p>
 <h2>Onshape</h2>
+<p>能否採用協同編輯的模式, 將 <a href="http://mde.tw/cadp2018/content/OnshapeWeek%201.html">http://mde.tw/cadp2018/content/OnshapeWeek%201.html</a> 中的內容, 以中英文並列的方式, 轉換為 html 與 pdf 電子書格式?</p>
+<p><a href="https://learn.onshape.com/catalog?labels=%5B%22Training%20Offerings%22%5D&amp;values=%5B%22Self-Paced%20Courses%22%5D">Onshape 自學教材</a></p>
+<p>Onshape Video library: <a href="https://www.onshape.com/videos">https://www.onshape.com/videos</a> </p>
 <p><a href="https://cad.onshape.com/FsDoc/">https://cad.onshape.com/FsDoc/</a> </p>
 <p><a href="https://www.onshape.com/features/custom-features">https://www.onshape.com/features/custom-features</a> </p>
 <p><a href="http://cadlab.mde.tw/post/tag/featurescript.html">http://cadlab.mde.tw/post/tag/featurescript.html</a> </p>
 <p><a href="http://cadlab.mde.tw/post/onshape-featurescript-cheng-shi-yu-yan.html">http://cadlab.mde.tw/post/onshape-featurescript-cheng-shi-yu-yan.html</a> </p>
-<p><a href="https://github.com/dcowden/featurescript">https://github.com/dcowden/featurescript</a> </p>
-<h2>V-rep</h2>
+<p><a href="https://github.com/dcowden/featurescript">https://github.com/dcowden/featurescript</a> </p><h2>V-rep</h2>
 <p><a href="http://www.coppeliarobotics.com/">http://www.coppeliarobotics.com/</a> </p>
 <h4>User Manual</h4>
 <p><a href="http://www.coppeliarobotics.com/helpFiles/index.html">http://www.coppeliarobotics.com/helpFiles/index.html</a> </p>
@@ -2045,13 +1972,19 @@ print(parse_content())</pre>
 <p><a href="/downloads/IndustrialRobots.pdf">industrial robotics.pdf</a></p>
 <p><a href="/downloads/next_generation_robotics.pdf">next generation robotics.pdf</a></p>
 <p>modern robotics: <a href="http://hades.mech.northwestern.edu/index.php/Modern_Robotics">http://hades.mech.northwestern.edu/index.php/Modern_Robotics</a> </p>
-<h2>協同編輯</h2>
+<h4>參考</h4>
+<p><a href="https://hp.kmol.info:8443">https://hp.kmol.info:8443</a> </p><h2>協同編輯</h2>
+<h4>已經很自由開放的方案</h4>
 <h4>LaTeX</h4>
-<p><a href="https://miktex.org/download">https://miktex.org/download</a> </p>
+<p><a href="https://miktex.org/download">https://miktex.org/download</a> (下載 portable 版本)</p>
 <p><a href="https://miktex.org/howto/portable-edition">https://miktex.org/howto/portable-edition</a> </p>
 <p><a href="https://tex.stackexchange.com/questions/13649/portable-minimal-distribution/357713">https://tex.stackexchange.com/questions/13649/portable-minimal-distribution/357713</a> </p>
 <h4>Pandoc</h4>
 <p><a href="https://github.com/jgm/pandoc">https://github.com/jgm/pandoc</a> </p>
+<p>下載 Windows 64 位元 portable 版本:</p>
+<p><a href="https://github.com/jgm/pandoc/releases/tag/2.5">https://github.com/jgm/pandoc/releases/tag/2.5</a> </p>
+<hr/>
+<h4>越來越自由開放的方案</h4>
 <h4>MS Word</h4>
 <p><a href="https://bit.ly/2KzIMGF">https://bit.ly/2KzIMGF</a> </p>
 <p><a href="https://bit.ly/2DYXrdY">https://bit.ly/2DYXrdY</a> </p>

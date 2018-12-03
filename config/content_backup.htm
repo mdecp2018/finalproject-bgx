@@ -1,11 +1,17 @@
 <h1>簡介</h1>
+<p>二乙與一乙, 2018.12.31 (一) 之課程將分別在第十四週, 第十五週與第十六週之星期四晚上補課.</p>
+<p>12/13 (四) 19:00 - 19:50 (二乙), 20:00 - 20:50 (一乙)</p>
+<p>12/20 (四) 19:00 - 19:50 (二乙), 20:00 - 20:50 (一乙)</p>
+<p>12/27 (四) 19:00 - 19:50 (二乙), 20:00 - 20:50 (一乙)</p>
+<hr/>
 <p>2018 Fall <a href="http://mde.tw/cp2018">計算機程式</a>與<a href="http://mde.tw/cadp2018">電腦輔助設計實習</a>課程期末分組示範網站</p>
 <p>本倉儲位於: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a>  </p>
 <p><a href="https://github.com/">Github</a> 靜態網站:  <a href="https://mdecp2018.github.io/finalproject-bgx">https://mdecp2018.github.io/finalproject-bgx</a> </p>
 <p>與 <a href="https://www.heroku.com/">Heroku</a> 上的 <a href="http://cp2018-bgx.herokuapp.com">http://cp2018-bgx.herokuapp.com</a> 動態網站保持同步</p>
 <h4>電腦輔助設計室與協同設計室行事曆</h4>
 <p><a href="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei">全頁檢視</a></p>
-<p><iframe height="600" src="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei" width="800"></iframe></p><h2>可攜系統更新</h2>
+<p><iframe height="600" src="https://calendar.google.com/calendar/embed?src=mde.nfu.edu.tw_3439313938333136353439%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei&amp;mode=week&amp;src=mde.nfu.edu.tw_35303530373431313438%40resource.calendar.google.com&amp;ctz=Asia%2FTaipei" width="800"></iframe></p>
+<h2>可攜系統更新</h2>
 <p><a href="https://drive.google.com/open?id=1qSnGb4NBmfGG0jGVNfQJX_9TNVweIdFW">p37-18.12.7z</a></p>
 <p>升級為 Python 3.7.1 (<a href="https://docs.python.org/3/whatsnew/3.7.html">What's New in Python 3.7.1</a>)</p>
 <p>內含 Heroku cli  版本 7.18.9 (啟動可攜系統後, 以 heroku --version 查詢版次, 以 heroku login 登入系統, 以 heroku logs 查詢啟動紀錄)</p>
@@ -112,7 +118,8 @@ REM taskkill /IM mingw32 /F
 EXIT</pre>
 <p></p>
 <p></p>
-<p></p><h2>靜態與動態網站</h2>
+<p></p>
+<h2>靜態與動態網站</h2>
 <h4>網站類型</h4>
 <p>使用者在建構網站時, 可以選擇採用靜態或動態網站類型, 靜態網站主要伺服 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 檔案, 其中可能內含能在客戶端瀏覽器中執行的 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式.</p>
 <p>而動態網站則將網際程式儲存在伺服器端, 透過解譯器與瀏覽器端的使用者互動後, 將 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 檔案 (也可能內含能在客戶端瀏覽器中執行的 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式) 送回瀏覽器端執行.</p>
@@ -142,83 +149,9 @@ EXIT</pre>
 </ol>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/_wFJj94kSTU" width="560"></iframe></p>
 <h2>特殊處理</h2>
-<p>CMSimfly 中的 get_page2, 主要讓 Python 程式頁面中的 Brython 在靜態頁面, 可以正確透過 pythonpage 設定相對目錄, 而動態頁面則需要使用決定目錄設定.</p>
-<p>但是若以下列方式引用程式碼, 則內容也會被 get_page2 轉換, 因此在編輯區必須額外設定不轉換內容的特殊 tag.</p>
-<p>get_page2 內容 (請注意: 以下在靜態網頁為錯誤引用):</p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def get_page2(heading, head, edit):
-    not_used_head, level, page = parse_content()
-    # 直接在此將 /images/ 換為 ./../images/, /downloads/ 換為 ./../downloads/, 以 content 為基準的相對目錄設定
-    page = [w.replace('/images/', './../images/') for w in page]
-    page = [w.replace('/downloads/', './../downloads/') for w in page]
-    # 假如有 src="/static/ace/則換為 src="./../static/ace/
-    page = [w.replace('src="/static/', 'src="./../static/') for w in page]
-    # 假如有 pythonpath:['/static/'] 則換為 pythonpath:['./../static/']
-    page = [w.replace("pythonpath:['/static/']", "pythonpath:['./../static/']") for w in page]
-    directory = render_menu2(head, level, page)
-    if heading is None:
-        heading = head[0]
-    # 因為同一 heading 可能有多頁, 因此不可使用 head.index(heading) 搜尋 page_order
-    page_order_list, page_content_list = search_content(head, page, heading)
-    return_content = ""
-    pagedata = ""
-    outstring = ""
-    outstring_duplicate = ""
-    pagedata_duplicate = ""
-    outstring_list = []
-    for i in range(len(page_order_list)):
-        #page_order = head.index(heading)
-        page_order = page_order_list[i]
-        if page_order == 0:
-            last_page = ""
-        else:
-            #last_page = head[page_order-1]+ " &lt;&lt; &lt;a href='/get_page/" + head[page_order-1] + "'&gt;Previous&lt;/a&gt;"
-            last_page = head[page_order-1] + " &lt;&lt; &lt;a href='"+head[page_order-1] + ".html'&gt;Previous&lt;/a&gt;"
-        if page_order == len(head) - 1:
-            # no next page
-            next_page = ""
-        else:
-            #next_page = "&lt;a href='/get_page/"+head[page_order+1] + "'&gt;Next&lt;/a&gt; &gt;&gt; " + head[page_order+1]
-            next_page = "&lt;a href='" + head[page_order+1] + ".html'&gt;Next&lt;/a&gt; &gt;&gt; " + head[page_order+1]
-        if len(page_order_list) &gt; 1:
-            return_content += last_page + " " + next_page + "&lt;br /&gt;&lt;h1&gt;" + \
-                                      heading + "&lt;/h1&gt;" + page_content_list[i] + \
-                                      "&lt;br /&gt;" + last_page + " "+ next_page + "&lt;br /&gt;&lt;hr&gt;"
-            pagedata_duplicate = "&lt;h"+level[page_order] + "&gt;" + heading + "&lt;/h" + level[page_order]+"&gt;"+page_content_list[i]
-            outstring_list.append(last_page + " " + next_page + "&lt;br /&gt;" + tinymce_editor(directory, cgi.escape(pagedata_duplicate), page_order))
-        else:
-            return_content += last_page + " " + next_page + "&lt;br /&gt;&lt;h1&gt;" + \
-                                      heading + "&lt;/h1&gt;" + page_content_list[i] + \
-                                      "&lt;br /&gt;" + last_page + " " + next_page
-            
-        pagedata += "&lt;h" + level[page_order] + "&gt;" + heading + \
-                          "&lt;/h" + level[page_order] + "&gt;" + page_content_list[i]
-        # 利用 cgi.escape() 將 specialchar 轉成只能顯示的格式
-        outstring += last_page + " " + next_page + "&lt;br /&gt;" + tinymce_editor(directory, cgi.escape(pagedata), page_order)
-    
-    # edit=0 for viewpage
-    if edit == 0:
-        return set_css2() + "&lt;div class='container'&gt;&lt;nav&gt;"+ \
-        directory + "&lt;/nav&gt;&lt;section&gt;" + return_content + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
-    # enter edit mode
-    else:
-        # check if administrator
-        if not isAdmin():
-            redirect(url_for('login'))
-        else:
-            if len(page_order_list) &gt; 1:
-                # 若碰到重複頁面頁印, 且要求編輯, 則導向 edit_page
-                #return redirect("/edit_page")
-                for i in range(len(page_order_list)):
-                    outstring_duplicate += outstring_list[i] + "&lt;br /&gt;&lt;hr&gt;"
-                return outstring_duplicate
-            else:
-            #pagedata = "&lt;h" + level[page_order]+"&gt;" + heading + "&lt;/h" + level[page_order] + "&gt;" + search_content(head, page, heading)
-            #outstring = last_page + " " + next_page + "&lt;br /&gt;" + tinymce_editor(directory, cgi.escape(pagedata), page_order)
-                return outstring
-
-
-</pre>
-<p></p><h1>分組網站</h1>
+<p>CMSimfly 中的 get_page2, 主要讓 Python 程式頁面中的 Brython 在靜態頁面, 可以正確透過 pythonpage 設定相對目錄, 而動態頁面則需要使用絕對目錄設定.</p>
+<h4>已知問題</h4>
+<p>透過 get_page2 轉換特殊字串的用法, 若在頁面引用 get_page2 的程式碼, 將會造成轉為靜態網頁時, 引用內容也會被換成非動態模式下的字串, 而造成程式碼引用錯誤的問題.</p><h1>分組網站</h1>
 <p></p>
 <p>
 <script src="/static/brython.js"></script>
@@ -282,7 +215,8 @@ for i in range(1, vecp+1):
     site = vecplink + str(i)
     document['zone'] <= html.A(site, href=site) + html.BR()
 </script>
-</p><h1>課程專題</h1>
+</p>
+<h1>課程專題</h1>
 <p>計算機程式、網際內容管理、電腦輔助設計實習與協同產品設計實習等系列課程的目的, 在培育<span class="js-issue-title">具利用網際運算執行全球協同創新產品設計能力的機械設計工程師.</span></p>
 <p><span class="js-issue-title"><span>在培養下一代具利用網際運算執行全球協同創新產品設計能力的機械設計工程師, 需要在每一門課程注入四種溝通用的語言 (languages): 英文, 網路, 電腦程式與數學.</span></span></p>
 <h4><span class="js-issue-title">網際運算</span></h4>
@@ -301,7 +235,8 @@ for i in range(1, vecp+1):
 <p><a href="/downloads/C-K%20theory_ modelling creative thinking and its impact on research.pdf"><span class="js-issue-title">C-K theory: modelling creative thinking and its impact on research.pdf</span></a></p>
 <p><a href="/downloads/extending_the_c-k_design_theory_with_an_environment_space_E.pdf"><span class="js-issue-title">Extending the C–K design theory: A theoretical background for personal design assistants.pdf</span></a></p>
 <p><a href="/downloads/10%20Years of C-K Theory_ A Survey on the Academic and Industrial Impacts of a Design Theory_.pdf"><span class="js-issue-title">10 years of C-K theory: a survey on the academic and industrial impacts of a design theory.pdf</span></a></p>
-<p><a href="/downloads/Imagining%20Knowledge, a Formal Account of Design.pdf"><span class="js-issue-title">Imagining Knowledge, a Formal Account of Design.pdf</span></a></p><h2>計算機程式</h2>
+<p><a href="/downloads/Imagining%20Knowledge, a Formal Account of Design.pdf"><span class="js-issue-title">Imagining Knowledge, a Formal Account of Design.pdf</span></a></p>
+<h2>計算機程式</h2>
 <h4>Brython</h4>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> </p>
 <h4>網際 Flask</h4>
@@ -331,7 +266,8 @@ for i in range(1, vecp+1):
 <li>在靜態內容管理系統中, 納入<span> </span><a href="http://www.tipue.com/search/">Tipue Search</a><span> </span>功能.</li>
 <li>目前採用 html editor, 若能改為<span> </span><a href="https://github.com/sparksuite/simplemde-markdown-editor">Markdown editor</a>, 然後再<a href="https://github.com/Python-Markdown/markdown">轉為</a><span> </span>html, 應該有助於協同.</li>
 <li>能否導入<span> </span><a href="https://togetherjs.com/">together.js</a>, 進行線上協同編輯?</li>
-</ol><h3>網際模擬程式</h3>
+</ol>
+<h3>網際模擬程式</h3>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> 是一套源自<a href="https://github.com/tiggerntatie/brython-server"> https://github.com/tiggerntatie/brython-server</a> 的網際模擬程式庫, 適合用來開發線上遊戲或與工程設計相關的網際程式.</p>
 <p>之前的 js 程式庫都採用遠端資料, 目前將各程式庫升級為最新版本, 且改為自帶程式庫.</p>
 <p>參考的網際程式庫: <a href="https://github.com/tiggerntatie/ggame">https://github.com/tiggerntatie/ggame</a> </p>
@@ -462,7 +398,8 @@ app.run()</pre>
 <p><a href="https://github.com/mdecourse/kmolgame">https://github.com/mdecourse/kmolgame</a> </p>
 <p>程式網頁:</p>
 <p><a href="http://mde.tw/kmolgame/">http://mde.tw/kmolgame/</a></p>
-<p><a href="http://mde.tw/kmolgame/bunny.html">http://mde.tw/kmolgame/bunny.html</a> </p><h3>Spacegame</h3>
+<p><a href="http://mde.tw/kmolgame/bunny.html">http://mde.tw/kmolgame/bunny.html</a> </p>
+<h3>Spacegame</h3>
 <h4>來源:</h4>
 <p><a href="https://github.com/HHS-IntroProgramming/Standards-and-Syllabus/wiki/Advanced-Graphics-with-Classes">https://github.com/HHS-IntroProgramming/Standards-and-Syllabus/wiki/Advanced-Graphics-with-Classes</a> </p>
 <h4>參考:</h4>
@@ -685,7 +622,8 @@ myapp.run()</pre>
 <p>電子書: Learn Pixi.js <a href="https://link.springer.com/book/10.1007/978-1-4842-1094-9">https://link.springer.com/book/10.1007/978-1-4842-1094-9</a> </p>
 <p><a href="/downloads/concentration_pixi_game.zip">concentration_pixi_game.zip</a> (<a href="https://www.emanueleferonato.com/2014/02/26/complete-html5-concentration-game-made-with-pixi-js/">ref</a>, <a href="https://www.emanueleferonato.com/2014/03/13/complete-html5-concentration-game-made-with-pixi-js-adding-animation-with-tween-js/">ref2</a>)</p>
 <p><a href="https://itch.io/games/made-with-pixijs">https://itch.io/games/made-with-pixijs</a> </p>
-<p><a href="https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/">https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/</a> </p><h3>工程用計算機</h3>
+<p><a href="https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/">https://www.themarketingtechnologist.co/creating-a-lightweight-game-using-pixijs/</a> </p>
+<h3>工程用計算機</h3>
 <p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
 <p>利用 Eric6 IDE 可以開發單機版的 PyQt5 計算機, 或者擴充為工程用的計算機, 但是就目前的工程運算, 這種模擬早期桌上型計算機的程式, 已經沒有太多功用, 反而若能利用 PyQt5 開發一套能與網際伺服器互動的"工程運算環境", 應該會有較大的開發動機.</p>
 <p>看看能否從 <a href="https://github.com/m2n037/awesome-mecheng">https://github.com/m2n037/awesome-mecheng</a> 、<a href="http://www.teamtrotbot.com/mechanism.html">http://www.teamtrotbot.com/mechanism.html</a> 、<a href="https://dogfeatherdesign.com/engineering-projects/mechanisms-mechanical-walker/">https://dogfeatherdesign.com/engineering-projects/mechanisms-mechanical-walker/</a> 與 <a href="http://507movements.com/">http://507movements.com/</a> 找到值得開發的主題.</p>
@@ -694,7 +632,8 @@ myapp.run()</pre>
 <p><a href="https://flexx.readthedocs.io">https://flexx.readthedocs.io</a> </p>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/V1K8Mju_1oo" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/jG8n0lobBjQ" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/kIPL3N2Xk_c" width="560"></iframe></p><h2>電腦輔助設計</h2>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/kIPL3N2Xk_c" width="560"></iframe></p>
+<h2>電腦輔助設計</h2>
 <h4>六軸機械手臂</h4>
 <p>利用 <a href="https://www.onshape.com/">Onshape</a> 與 <a href="http://www.coppeliarobotics.com/">V-rep</a> 驗證 <a href="/downloads/inverse_kinematics.pdf">inverse kinematics.pdf</a> 之運算結果</p>
 <h4>平面機構模擬 (Geometric Constrain Solver) 應用</h4>
@@ -766,8 +705,10 @@ plt.show()</pre>
 <p><a href="/downloads/US5253189_QUALITATIVE+KINEMATICS.pdf">QUALITATIVE KINEMATICS 專利</a></p>
 <p><a href="/downloads/Automated+Configuration+Analysis+of+Planar+Eight-Bar+Linkages.pdf">Automated Configuration Analysis of Planar Eight-Bar Linkages.pdf</a></p>
 <p><a href="/downloads/Automated+Generation+of+Linkage+Loop+Equations+for+Planar+One+Degree-of-Freedom+Linkages,+Demonstrated+up+to+8-Bar.pdf">Automated Generation of Linkage Loop Equations for Planar One Degree-of-Freedom Linkages.pdf</a></p>
-<p><a href="/downloads/Automated+Synthesis+of+Planar+Mechanisms+with+Revolute,+Prismatic+and+Pin-In-Slot+Joints.pdf">Automated Synthesis of Planar Mechanisms with Revolute, Prismatic and Pin-In-Slot Joints.pdf</a></p><h3>Kinematics</h3>
+<p><a href="/downloads/Automated+Synthesis+of+Planar+Mechanisms+with+Revolute,+Prismatic+and+Pin-In-Slot+Joints.pdf">Automated Synthesis of Planar Mechanisms with Revolute, Prismatic and Pin-In-Slot Joints.pdf</a></p>
+<h3>Kinematics</h3>
 <p><a href="/downloads/Robot%20Dynamics and Control.pdf">Robot dynamics and control.pdf</a></p>
+<p><a href="/downloads/Teaching+mechanism+design.pdf">Teaching Mechanism Design.pdf</a> (<a href="https://github.com/KmolYuan/Pyslvs-PyQt5">Pyslvs</a> 能解此類題目?)</p>
 <p><a href="https://raw.githubusercontent.com/petercorke/robotics-toolbox-python/master/robot/kinematics.py">https://raw.githubusercontent.com/petercorke/robotics-toolbox-python/master/robot/kinematics.py</a> </p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">"""
 Robot kinematic operations.
@@ -1184,10 +1125,12 @@ def ikine560(robot, T, configuration=''):
 <p>Github 倉儲主機 Html + Javascript + Brython</p>
 <p>Gitlab 倉儲主機 Html + Javascript + Brython</p>
 <p>Bitbucket 倉儲主機 Html + Javascript + Brython</p>
-<p></p><h2>Heroku 簡介</h2>
+<p></p>
+<h2>Heroku 簡介</h2>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/QTOkqzCTGxw" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/nRiykxq0oHQ" width="560"></iframe></p>
-<p></p><h3>Heroku 設定</h3>
+<p></p>
+<h3>Heroku 設定</h3>
 <p>在 <a href="http://mde.tw">http://mde.tw</a> 相關課程中, <a href="https://www.heroku.com/">Heroku</a>  雲端服務與 Github 倉儲中的 <a href="https://pages.github.com/">Github Pages</a> 分別扮演動態程式網站與靜態超文件網站伺服.</p>
 <p>此地所謂的動態程式網站伺服, 指的是利用 <a href="http://flask.pocoo.org/">Flask</a> 程式框架, 建立 <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">Web Server Gateway  Interface</a> 架構的程式環境.</p>
 <p>而靜態超文件網站伺服, 則包含一個 <a href="https://en.wikipedia.org/wiki/World_Wide_Web">WWW</a> 伺服器, 得以讓使用者透過瀏覽器, 擷取伺服器上的 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 與 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式, 且 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 是下載到近端之後, 使用近端的硬體執行.</p>
@@ -1218,13 +1161,16 @@ beautifulsoup4==4.6.0</pre>
 <p><img alt="" height="275" src="/images/heroku_auto_deploy_with_github.png" width="600"/></p>
 <p>設定完成後的動態網頁: <a href="http://cp2018-bgx.herokuapp.com/">http://cp2018-bgx.herokuapp.com/</a> </p>
 <p>靜態網頁: <a href="https://mdecp2018.github.io/finalproject-bgx">https://mdecp2018.github.io/finalproject-bgx</a> </p>
-<p>可用於多人協同的 Github 倉儲: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a> </p><h2>Fossil SCM</h2>
+<p>可用於多人協同的 Github 倉儲: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a> </p>
+<h2>Fossil SCM</h2>
 <p><a href="https://fossil-scm.org">https://fossil-scm.org</a> </p>
 <p><a href="http://mde.tw/2017springcd/blog/intro-fossil-scm.html">http://mde.tw/2017springcd/blog/intro-fossil-scm.html</a> </p>
 <p><a href="http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html">http://mde.tw/2017springwcm/blog/2017spring-ubuntu-stunnel-fossil.html</a> </p>
 <h2>Jupyterlab</h2>
-<p><a href="https://github.com/jupyterlab/jupyterlab">https://github.com/jupyterlab/jupyterlab</a></p><h2>Sandstorm</h2>
-<p><a href="https://github.com/sandstorm-io/sandstorm">https://github.com/sandstorm-io/sandstorm</a> </p><h1>Python 程式</h1>
+<p><a href="https://github.com/jupyterlab/jupyterlab">https://github.com/jupyterlab/jupyterlab</a></p>
+<h2>Sandstorm</h2>
+<p><a href="https://github.com/sandstorm-io/sandstorm">https://github.com/sandstorm-io/sandstorm</a> </p>
+<h1>Python 程式</h1>
 <h4>從基本語法到 GUI 程式</h4>
 <p><a href="https://pythonspot.com/">https://pythonspot.com/</a> </p>
 <p>整理 <a href="https://www.cs.cmu.edu/~112/schedule.html">https://www.cs.cmu.edu/~112/schedule.html</a> 中的 內容.</p>
@@ -1786,19 +1732,22 @@ doc["ex4"].bind('click', Ex4.prog)
 </script>
 </p>
 <p><!-- ***************************** slide ex4 end --></p>
-<p><button id="keyword">Keyword</button><button id="ex1">Ex1</button><button id="ex2">Ex2</button><button id="ex3">Ex3</button><button id="ex4">Ex4</button></p><h2>靜態網站範例</h2>
+<p><button id="keyword">Keyword</button><button id="ex1">Ex1</button><button id="ex2">Ex2</button><button id="ex3">Ex3</button><button id="ex4">Ex4</button></p>
+<h2>靜態網站範例</h2>
 <h4>Brython</h4>
 <p style="padding-left: 30px;"><a href="https://groups.google.com/forum/#!forum/brython">https://groups.google.com/forum/#!forum/brython</a> </p>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> </p>
 <p><a href="http://mde.tw/webgame/spacewar.html">http://mde.tw/webgame/spacewar.html</a> </p>
-<p><a href="http://mde.tw/reeborg2016/reeborg.html?lang=en&amp;mode=python">http://mde.tw/reeborg2016/reeborg.html?lang=en&amp;mode=python</a> </p><h2>動態網站範例</h2>
+<p><a href="http://mde.tw/reeborg2016/reeborg.html?lang=en&amp;mode=python">http://mde.tw/reeborg2016/reeborg.html?lang=en&amp;mode=python</a> </p>
+<h2>動態網站範例</h2>
 <p><a href="https://github.com/mdecourse/wcms-scrum1">https://github.com/mdecourse/wcms-scrum1</a> </p>
 <p>從計算機程式 (Computer Programming) 到電腦輔助機械設計(Computer Aided Mechanical Design)</p>
 <p>猜數字遊戲: <a href="https://wcms-scrum1.herokuapp.com/">https://wcms-scrum1.herokuapp.com/</a> </p>
 <p>2D 國旗繪圖: <a href="https://wcms-scrum1.herokuapp.com/drawflag">https://wcms-scrum1.herokuapp.com/drawflag</a> </p>
 <p>2D 五芒星繪圖: <a href="https://wcms-scrum1.herokuapp.com/drawstar">https://wcms-scrum1.herokuapp.com/drawstar</a> </p>
 <p>2D 曲線繪圖加滑鼠操作: <a href="https://wcms-scrum1.herokuapp.com/drag">https://wcms-scrum1.herokuapp.com/drag</a> </p>
-<p>正齒輪齒面寬設計: <a href="https://wcms-scrum1.herokuapp.com/gear_index">https://wcms-scrum1.herokuapp.com/gear_index</a> </p><h2>GUI 程式範例</h2>
+<p>正齒輪齒面寬設計: <a href="https://wcms-scrum1.herokuapp.com/gear_index">https://wcms-scrum1.herokuapp.com/gear_index</a> </p>
+<h2>GUI 程式範例</h2>
 <h4>Leo Editor</h4>
 <p style="padding-left: 30px;"><a href="https://groups.google.com/forum/#!forum/leo-editor">https://groups.google.com/forum/#!forum/leo-editor</a> </p>
 <p style="padding-left: 30px;"><a href="https://github.com/flexxui/pscript">https://github.com/flexxui/pscript</a> </p>
@@ -1865,7 +1814,8 @@ view.load(QtCore.QUrl("http://mde.tw"))
 
 view.show()
 sys.exit(app.exec())</pre>
-<p></p><h3>parse_content 範例</h3>
+<p></p>
+<h3>parse_content 範例</h3>
 <p>電子書: Website Scraping with Python Using BeautifulSoup and Scrapy <a href="https://link.springer.com/book/10.1007/978-1-4842-3925-4">https://link.springer.com/book/10.1007/978-1-4842-3925-4</a> </p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import os
 import bs4
@@ -1992,13 +1942,18 @@ def parse_content():
     page_list.append(cut)
     return head_list, level_list, page_list
 
-print(parse_content())</pre><h1>輔助設計</h1>
+print(parse_content())</pre>
+<h1>輔助設計</h1>
 <p>電腦輔助機械設計流程自從 Onshape 推出全雲端輔助設計套件後, 理應產生巨大變化, 但是我們感受到了嗎?</p>
 <p><a href="https://www.onshape.com/cad-blog/who-screwed-up-my-model">https://www.onshape.com/cad-blog/who-screwed-up-my-model</a> </p>
 <p><a href="https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud">https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud</a> </p>
 <p><a href="https://www10.mcadcafe.com/blogs/jeffrowe/2018/11/01/altair-acquires-simsolid/">https://www10.mcadcafe.com/blogs/jeffrowe/2018/11/01/altair-acquires-simsolid/</a> </p>
 <p><a href="http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681">http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681</a> </p>
-<p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx</a> </p><h2>Onshape</h2>
+<p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx</a> </p>
+<h2>Onshape</h2>
+<p>能否採用協同編輯的模式, 將 <a href="http://mde.tw/cadp2018/content/OnshapeWeek%201.html">http://mde.tw/cadp2018/content/OnshapeWeek%201.html</a> 中的內容, 以中英文並列的方式, 轉換為 html 與 pdf 電子書格式?</p>
+<p><a href="https://learn.onshape.com/catalog?labels=%5B%22Training%20Offerings%22%5D&amp;values=%5B%22Self-Paced%20Courses%22%5D">Onshape 自學教材</a></p>
+<p>Onshape Video library: <a href="https://www.onshape.com/videos">https://www.onshape.com/videos</a> </p>
 <p><a href="https://cad.onshape.com/FsDoc/">https://cad.onshape.com/FsDoc/</a> </p>
 <p><a href="https://www.onshape.com/features/custom-features">https://www.onshape.com/features/custom-features</a> </p>
 <p><a href="http://cadlab.mde.tw/post/tag/featurescript.html">http://cadlab.mde.tw/post/tag/featurescript.html</a> </p>
@@ -2008,7 +1963,8 @@ print(parse_content())</pre><h1>輔助設計</h1>
 <h4>User Manual</h4>
 <p><a href="http://www.coppeliarobotics.com/helpFiles/index.html">http://www.coppeliarobotics.com/helpFiles/index.html</a> </p>
 <h4>Forum</h4>
-<p><a href="http://www.forum.coppeliarobotics.com/">http://www.forum.coppeliarobotics.com/</a> </p><h1>電子書</h1>
+<p><a href="http://www.forum.coppeliarobotics.com/">http://www.forum.coppeliarobotics.com/</a> </p>
+<h1>電子書</h1>
 <p>Planning Algorithm: <a href="http://planning.cs.uiuc.edu/">http://planning.cs.uiuc.edu/</a> </p>
 <p><a href="/downloads/planning_algorithm.pdf">planning_algorithm.pdf</a></p>
 <p><a href="/downloads/basics_robotics.pdf">basics of robotics.pdf</a></p>
@@ -2017,12 +1973,17 @@ print(parse_content())</pre><h1>輔助設計</h1>
 <p><a href="/downloads/next_generation_robotics.pdf">next generation robotics.pdf</a></p>
 <p>modern robotics: <a href="http://hades.mech.northwestern.edu/index.php/Modern_Robotics">http://hades.mech.northwestern.edu/index.php/Modern_Robotics</a> </p>
 <h2>協同編輯</h2>
+<h4>已經很自由開放的方案</h4>
 <h4>LaTeX</h4>
-<p><a href="https://miktex.org/download">https://miktex.org/download</a> </p>
+<p><a href="https://miktex.org/download">https://miktex.org/download</a> (下載 portable 版本)</p>
 <p><a href="https://miktex.org/howto/portable-edition">https://miktex.org/howto/portable-edition</a> </p>
 <p><a href="https://tex.stackexchange.com/questions/13649/portable-minimal-distribution/357713">https://tex.stackexchange.com/questions/13649/portable-minimal-distribution/357713</a> </p>
 <h4>Pandoc</h4>
 <p><a href="https://github.com/jgm/pandoc">https://github.com/jgm/pandoc</a> </p>
+<p>下載 Windows 64 位元 portable 版本:</p>
+<p><a href="https://github.com/jgm/pandoc/releases/tag/2.5">https://github.com/jgm/pandoc/releases/tag/2.5</a> </p>
+<hr/>
+<h4>越來越自由開放的方案</h4>
 <h4>MS Word</h4>
 <p><a href="https://bit.ly/2KzIMGF">https://bit.ly/2KzIMGF</a> </p>
 <p><a href="https://bit.ly/2DYXrdY">https://bit.ly/2DYXrdY</a> </p>
