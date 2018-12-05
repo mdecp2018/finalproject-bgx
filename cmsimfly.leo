@@ -108,6 +108,8 @@
 <v t="leo.20181104192502.61"><vh>syntaxhighlight2</vh></v>
 <v t="leo.20181104192502.62"><vh>tinymce_editor</vh></v>
 <v t="leo.20181104192502.63"><vh>unique</vh></v>
+<v t="leo.20181205140659.1"><vh>edit_report</vh></v>
+<v t="leo.20181205162212.1"><vh>do_edit_report</vh></v>
 </v>
 </v>
 </vnodes>
@@ -2506,5 +2508,31 @@ def downloads(path):
 
 # 與 file_selector 搭配的取檔程式
 </t>
+<t tx="leo.20181205140659.1">@app.route('/edit_report')
+def edit_report():
+    head, level, page = parse_content()
+    directory = render_menu(head, level, page)
+    dir = "./report/markdown/paragraph"
+    outstring = ""
+    files = os.listdir(dir)
+    for i in range(len(files)):
+        outstring += "Edit: &lt;a href='/do_edit_report/" + str(files[i]) +"'&gt;" + str(files[i]) + "&lt;/a&gt;"
+        outstring += "&lt;br /&gt;"
+    #output = '&lt;br /&gt;'.join(map(str, files))
+    return set_css() + "&lt;div class='container'&gt;&lt;nav&gt;" + \
+             directory + "&lt;/nav&gt;&lt;section&gt;" + outstring + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"</t>
+<t tx="leo.20181205162212.1">@app.route('/do_edit_report/&lt;file_name&gt;')
+def do_edit_report(file_name):
+    if file_name is None:
+        pass
+    head, level, page = parse_content()
+    directory = render_menu(head, level, page)
+    dir = "./report/markdown/paragraph"
+    filename = dir + "/" + file_name
+    file_content = file_get_contents(filename)
+    outstring = ""
+    outstring += file_content
+    return set_css() + "&lt;div class='container'&gt;&lt;nav&gt;" + \
+             directory + "&lt;/nav&gt;&lt;section&gt;" + outstring + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"</t>
 </tnodes>
 </leo_file>

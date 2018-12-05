@@ -2175,5 +2175,33 @@ def unique(items):
     return keep
 
 
+@app.route('/edit_report')
+def edit_report():
+    head, level, page = parse_content()
+    directory = render_menu(head, level, page)
+    dir = "./report/markdown/paragraph"
+    outstring = ""
+    files = os.listdir(dir)
+    for i in range(len(files)):
+        outstring += "Edit: <a href='/do_edit_report/" + str(files[i]) +"'>" + str(files[i]) + "</a>"
+        outstring += "<br />"
+    #output = '<br />'.join(map(str, files))
+    return set_css() + "<div class='container'><nav>" + \
+             directory + "</nav><section>" + outstring + "</section></div></body></html>"
+
+@app.route('/do_edit_report/<file_name>')
+def do_edit_report(file_name):
+    if file_name is None:
+        pass
+    head, level, page = parse_content()
+    directory = render_menu(head, level, page)
+    dir = "./report/markdown/paragraph"
+    filename = dir + "/" + file_name
+    file_content = file_get_contents(filename)
+    outstring = ""
+    outstring += file_content
+    return set_css() + "<div class='container'><nav>" + \
+             directory + "</nav><section>" + outstring + "</section></div></body></html>"
+
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True)
