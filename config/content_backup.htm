@@ -212,7 +212,10 @@ vecplink = "https://vecp2018.github.io/finalproject-ag"
 
 document['zone'] <= html.H4("VECP:")
 for i in range(1, vecp+1):
-    site = vecplink + str(i)
+    if i is not 3:
+        site = vecplink + str(i)
+    else:
+        site = vecplink + "e" + str(i)
     document['zone'] <= html.A(site, href=site) + html.BR()
 </script>
 </p><h1>課程專題</h1>

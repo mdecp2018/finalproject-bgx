@@ -411,12 +411,6 @@ def editorhead():
 <script src="/static/tinymce4/tinymce/tinymce.min.js"></script>
 <script src="/static/tinymce4/tinymce/plugins/sh4tinymce/plugin.min.js"></script>
 <link rel = "stylesheet" href = "/static/tinymce4/tinymce/plugins/sh4tinymce/style/style.css">
-<! -- for cmu cs 112 -->
-<link rel="stylesheet" type="text/css" href="/static/cmu/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/cmu/css/112.css">
-  <link rel="stylesheet" type="text/css" href="/static/cmu/css/112-highlight-style.css">
-  <!-- end for cms cs 112 -->
 <script>
 tinymce.init({
   selector: "textarea",
@@ -424,7 +418,7 @@ tinymce.init({
   element_format : "html",
   language : "en",
   valid_elements : '*[*]',
-  extended_valid_elements: "script[language|type|src|id], link[rel|type|href]",
+  extended_valid_elements: "script[language|type|src|id]",
   plugins: [
     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -2024,6 +2018,7 @@ def ssavePage():
 
 def syntaxhighlight():
     return '''
+<link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css">
 <script type="text/javascript" src="/static/syntaxhighlighter/shCore.js"></script>
 <script type="text/javascript" src="/static/syntaxhighlighter/shBrushJScript.js"></script>
 <script type="text/javascript" src="/static/syntaxhighlighter/shBrushJava.js"></script>
@@ -2084,6 +2079,7 @@ img.red3border {
 
 def syntaxhighlight2():
     return '''
+<link rel="stylesheet" type="text/css" href="./../static/cmu/css/bootstrap.min.css">
 <script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
 <script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
 <script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>

@@ -408,12 +408,6 @@ def edit_page(edit):
 &lt;script src="/static/tinymce4/tinymce/tinymce.min.js"&gt;&lt;/script&gt;
 &lt;script src="/static/tinymce4/tinymce/plugins/sh4tinymce/plugin.min.js"&gt;&lt;/script&gt;
 &lt;link rel = "stylesheet" href = "/static/tinymce4/tinymce/plugins/sh4tinymce/style/style.css"&gt;
-&lt;! -- for cmu cs 112 --&gt;
-&lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/reset.css"&gt;
-  &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css"&gt;
-  &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/112.css"&gt;
-  &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/112-highlight-style.css"&gt;
-  &lt;!-- end for cms cs 112 --&gt;
 &lt;script&gt;
 tinymce.init({
   selector: "textarea",
@@ -421,7 +415,7 @@ tinymce.init({
   element_format : "html",
   language : "en",
   valid_elements : '*[*]',
-  extended_valid_elements: "script[language|type|src]",
+  extended_valid_elements: "script[language|type|src|id]",
   plugins: [
     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -2180,6 +2174,7 @@ def download():
 </t>
 <t tx="leo.20181104192502.60">def syntaxhighlight():
     return '''
+&lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css"&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;
@@ -2241,6 +2236,7 @@ img.red3border {
 </t>
 <t tx="leo.20181104192502.61">def syntaxhighlight2():
     return '''
+&lt;link rel="stylesheet" type="text/css" href="./../static/cmu/css/bootstrap.min.css"&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;
