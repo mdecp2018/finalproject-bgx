@@ -403,8 +403,7 @@ def edit_page(edit):
 </t>
 <t tx="leo.20181104192502.14">def editorhead():
     return '''
-    &lt;br /&gt;
-&lt;!--&lt;script src="//cdn.tinymce.com/4/tinymce.min.js"&gt;&lt;/script&gt;--&gt;
+&lt;br /&gt;
 &lt;script src="/static/tinymce4/tinymce/tinymce.min.js"&gt;&lt;/script&gt;
 &lt;script src="/static/tinymce4/tinymce/plugins/sh4tinymce/plugin.min.js"&gt;&lt;/script&gt;
 &lt;link rel = "stylesheet" href = "/static/tinymce4/tinymce/plugins/sh4tinymce/style/style.css"&gt;
@@ -2175,6 +2174,7 @@ def download():
 <t tx="leo.20181104192502.60">def syntaxhighlight():
     return '''
 &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/112-highlight-style.css"&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;
@@ -2237,6 +2237,7 @@ img.red3border {
 <t tx="leo.20181104192502.61">def syntaxhighlight2():
     return '''
 &lt;link rel="stylesheet" type="text/css" href="./../static/cmu/css/bootstrap.min.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="./../static/cmu/css/112-highlight-style.css"&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;

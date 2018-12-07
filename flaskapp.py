@@ -406,8 +406,7 @@ def editorfoot():
 
 def editorhead():
     return '''
-    <br />
-<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>-->
+<br />
 <script src="/static/tinymce4/tinymce/tinymce.min.js"></script>
 <script src="/static/tinymce4/tinymce/plugins/sh4tinymce/plugin.min.js"></script>
 <link rel = "stylesheet" href = "/static/tinymce4/tinymce/plugins/sh4tinymce/style/style.css">
@@ -2019,6 +2018,7 @@ def ssavePage():
 def syntaxhighlight():
     return '''
 <link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/cmu/css/112-highlight-style.css">
 <script type="text/javascript" src="/static/syntaxhighlighter/shCore.js"></script>
 <script type="text/javascript" src="/static/syntaxhighlighter/shBrushJScript.js"></script>
 <script type="text/javascript" src="/static/syntaxhighlighter/shBrushJava.js"></script>
@@ -2080,6 +2080,7 @@ img.red3border {
 def syntaxhighlight2():
     return '''
 <link rel="stylesheet" type="text/css" href="./../static/cmu/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./../static/cmu/css/112-highlight-style.css">
 <script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
 <script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
 <script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
