@@ -1275,6 +1275,8 @@ beautifulsoup4==4.6.0</pre>
 <h2>Sandstorm</h2>
 <p><a href="https://github.com/sandstorm-io/sandstorm">https://github.com/sandstorm-io/sandstorm</a> </p>
 <h1>Python 程式</h1>
+<h4>參考:</h4>
+<p><a href="https://jeffknupp.com/blog/2013/08/16/open-sourcing-a-python-project-the-right-way/">https://jeffknupp.com/blog/2013/08/16/open-sourcing-a-python-project-the-right-way/</a> </p>
 <h4>從基本語法到 GUI 程式</h4>
 <p><a href="https://pythonspot.com/">https://pythonspot.com/</a> </p>
 <p>整理 <a href="https://www.cs.cmu.edu/~112/schedule.html">https://www.cs.cmu.edu/~112/schedule.html</a> 中的 內容.</p>
@@ -1836,8 +1838,7 @@ doc["ex4"].bind('click', Ex4.prog)
 </script>
 </p>
 <p><!-- ***************************** slide ex4 end --></p>
-<p><button id="keyword">Keyword</button><button id="ex1">Ex1</button><button id="ex2">Ex2</button><button id="ex3">Ex3</button><button id="ex4">Ex4</button></p>
-<h2>靜態網站範例</h2>
+<p><button id="keyword">Keyword</button><button id="ex1">Ex1</button><button id="ex2">Ex2</button><button id="ex3">Ex3</button><button id="ex4">Ex4</button></p><h2>靜態網站範例</h2>
 <h4>Brython</h4>
 <p style="padding-left: 30px;"><a href="https://groups.google.com/forum/#!forum/brython">https://groups.google.com/forum/#!forum/brython</a> </p>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> </p>
@@ -2047,14 +2048,220 @@ def parse_content():
     return head_list, level_list, page_list
 
 print(parse_content())</pre>
-<h1>輔助設計</h1>
+<h3>CMU112</h3>
+<p></p>
+<p>
+<script src="/static/cmu/js/jquery-2.1.4.min.js"></script>
+<script src="/static/cmu/js/highlight.pack.js"></script>
+<script src="/static/cmu/js/bootstrap.min.js"></script>
+<script id="112-script" src="/static/cmu/js/112.js"></script>
+</p>
+<p></p>
+<div class="navbar">15-112 <br/>Fall 18 <br/><br/><a href="/static/cmu/index.html" target="_self">Home</a> <br/><br/><a href="/static/cmu/syllabus.html" target="_self">Syllabus</a> <br/><br/><a href="/static/cmu/schedule.html" target="_self">Schedule</a> <br/><br/><a href="/static/cmu/staff.html" target="_self">Staff</a> <br/><br/><a href="/static/cmu/gallery.html" target="_self">Gallery</a> <br/><br/><a href="/static/cmu/piazza.html" target="_self">Piazza</a> <br/><br/><a href="/static/cmu/autolab.html" target="_self">Autolab</a> <br/><br/><a href="/static/cmu/oh-queue.html" target="_self">OH Queue</a></div>
+<div class="content"><br/>CMU 15-112: Fundamentals of Programming and Computer Science<br/>Class Notes: Getting Started<hr/>
+<ol>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#Logistics">Logistics and Preliminaries</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#RunningPython">Running Python</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#HelloWorld">Hello World in Python</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#Comments">Python Comments</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#Errors">Syntax, Runtime, and Logical Errors</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#ConsoleOutput">Basic Console Output</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#ConsoleInput">Basic Console Input</a></b></li>
+<li><b><a href="/get_page/CMU112/notes-getting-started.html#Importing">Importing Modules</a></b></li>
+</ol>
+<hr/>
+<ol>
+<li><a name="Logistics"></a><b>Logistics and Preliminaries</b> <span class="play-video" data-src="https://www.youtube.com/embed/yNPbUEHZl8w"></span>
+<ul>
+<li>Course Objectives (eg, student project gallery)</li>
+<li>Course web site (<a href="http://www.cs.cmu.edu/~112">http://www.cs.cmu.edu/~112</a>).</li>
+<li>Course Policies / Syllabus</li>
+<li>Course Schedule</li>
+</ul>
+<br/><a name="RunningPython"></a></li>
+<li><b>Running Python</b> <span class="play-video" data-src="https://www.youtube.com/embed/Yv-OZTF9bTk"></span> <br/>Note: Your TA's will be happy to help with any of these steps!<br/>
+<ul>
+<ul>
+<li>Install Python3<br/>Download and install Python 3.6.x from <a href="https://www.python.org/downloads/" rel="noopener" target="_blank">python.org's download page</a>.</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Run IDLE (the default Python text editor / IDE)<br/>We require that everyone use Pyzo for the first 4 weeks of the course. However, since IDLE is available without extra installs in nearly all Python installations (including the cluster machines at CMU), you should also know about and be able to use IDLE. In most cases, you can type IDLE into your Mac or Windows search and it will find and run it.</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Run Pyzo<br/>Pyzo is the main IDE supported by the class; if you do not already have a preferred IDE, you should use Pyzo in 15-112. To install Pyzo:
+<ol>
+<li>Download and install Pyzo from the appropriate link:
+<ul>
+<li><a href="https://github.com/pyzo/pyzo/releases/download/v4.6.0/pyzo-4.6.0-win32.exe">Pyzo for Windows</a></li>
+<li><a href="https://github.com/pyzo/pyzo/releases/download/v4.6.0/pyzo-4.6.0-osx64.dmg">Pyzo for OS X</a></li>
+<li><a href="https://github.com/pyzo/pyzo/releases/download/v4.6.0/pyzo-4.6.0-linux64.tar.gz">Pyzo for Linux</a></li>
+</ul>
+</li>
+<li>Launch Pyzo.</li>
+<li>Setup your shell configuration for Python 3
+<ul>
+<li>On the top menu, click Shell-&gt;Edit Shell Configurations</li>
+<li>Click the dropdown labeled exe, and choose Python 3.6.</li>
+<li>Under "gui", select "None no gui support" (otherwise you may have problems when we do graphics).</li>
+<li>Press done.</li>
+<li>Restart Pyzo and you're ready to go!</li>
+</ul>
+</li>
+<li>Close the extra frames (file browser, etc), only use editor frame (on top, where it is by default) and shell frame (which you should drag to the bottom), so it mirrors IDLE's simple setup.</li>
+<li>Relaunch Pyzo, for a simple Python3 test, use this program: print(5/3), then choose Run File as Script or Execute File from the Run menu. You should not get 1 (which you would get if you are using Python2) but instead should get 1.666666667.</li>
+</ol>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Edit your Python file<br/>In Pyzo, you need to open a Python file or create a new Python file, which then places you in the editing window. That is where you write your code. Be sure to save your code in a file ending in .py (like: foo.py) before running it!</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<li>Run your code<br/>Each IDE has its own way to run code. In Pyzo, from the "Run" menu, select "Run file as script". This loads and runs your code in the Python Shell (the interpreter that runs Python code, instead of editing it).
+<ul>
+<li>There are several options on the Run menu. Be sure to use the first one, "Run file as script".</li>
+<li>Some students reported an error where Pyzo could not find files that are imported from the same folder as the main file. In these cases, this was remedied (if not outright fixed) by going into Shell/Edit-Shell-Configurations and setting the startDir field either to "." (just a dot, no quotes) or, in some cases, to the full path where your main file is.</li>
+</ul>
+</li>
+</ul>
+<br/><a name="HelloWorld"></a></li>
+<li><b>Hello World in Python</b> <span class="play-video" data-src="https://www.youtube.com/embed/yIq0NaqsKME"></span>
+<ul>
+<ul>
+<li>Command typed into shell<br/>
+<div class="python-code">print("Hello World!")</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Function typed into shell<br/>
+<div class="python-code visualize">def helloWorld(): print("Hello World!") helloWorld()</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<li>File edited in Pyzo<br/>Download <a download="" href="/get_page/CMU112/helloWorld.py">helloWorld.py</a>, edit it in Pyzo, and run it.</li>
+</ul>
+</li>
+<li><br/><a name="Comments"></a></li>
+<li><b>Python Comments</b> <span class="play-video" data-src="https://www.youtube.com/embed/r32lOwBr2Q4"></span>
+<div class="python-code">print("Hello World!") # This is a comment # print "What will this line do?"</div>
+</li>
+<li><br/><a name="Errors"></a></li>
+<li><b>Syntax, Runtime, and Logical Errors</b> <span class="play-video" data-src="https://www.youtube.com/embed/IpCQze07o9w"></span>
+<ul>
+<ul>
+<li>Syntax Errors (Compile-Time Errors)
+<div class="python-code">print("Uh oh!) # ERROR! missing close-quote # Python output: # SyntaxError: EOL while scanning string literal</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Runtime Errors ("Crash")
+<div class="python-code">print(1/0) # ERROR! Division by zero! # Python output: # ZeroDivisionError: integer division or modulo by zero</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<li>Logical Errors (Compiles and Runs, but is Wrong!)
+<div class="python-code">print("2+2=5") # ERROR! Untrue!!! # Python output: # 2+2=5</div>
+</li>
+</ul>
+</li>
+<li><br/><a name="ConsoleOutput"></a></li>
+<li><b>Basic Console Output</b> <span class="play-video" data-src="https://www.youtube.com/embed/FVZ99i55C_Q"></span>
+<ul>
+<ul>
+<li>Basic print function
+<div class="python-code">print("Carpe") print("diem")</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Print on same line
+<div class="python-code">print("Carpe ", end="") print("diem")</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<li>Print multiple items
+<div class="python-code visualize">print("Carpe", "diem") # Another Example: print() # blank line # Compute the hypotenuse of a right triangle a = 3 b = 4 c = ((a**2) + (b**2))**0.5 print("side a =", a) print("side b =", b) print("hypotenuse c =", c)</div>
+</li>
+</ul>
+<br/><a name="ConsoleInput"></a></li>
+<li><b>Basic Console Input</b> <span class="play-video" data-src="https://www.youtube.com/embed/28T4VBPT35E"></span>
+<ul>
+<ul>
+<li>Input a string
+<div class="python-code">name = input("Enter your name: ") print("Your name is:", name)</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Input a number (error!)
+<div class="python-code">x = input("Enter a number: ") print("One half of", x, "=", x/2) # Error!</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<li>Input a number with int()
+<div class="python-code">x = int(input("Enter a number: ")) print("One half of", x, "=", x/2)</div>
+</li>
+</ul>
+<br/><a name="Importing"></a></li>
+<li><b>Importing Modules</b> <span class="play-video" data-src="https://www.youtube.com/embed/-G0HuZUovoo"></span>
+<ul>
+<ul>
+<li>Call without importing
+<div class="python-code">print(math.factorial(20)) # we did not first import the math module # Python output: # NameError: name 'math' is not defined</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<ul>
+<li>Call with importing
+<div class="python-code">import math print(math.factorial(20)) # much better...</div>
+</li>
+</ul>
+</ul>
+<br/>
+<ul>
+<li>What does a module export?
+<div class="python-code"># list all the functions in the math module # (ignore items in __double_underscores__) import math print(dir(math)) # even better, read the online docs! import webbrowser input("Hit enter to see the online docs for the math module.") webbrowser.open("https://docs.python.org/3/library/math.html")</div>
+</li>
+</ul>
+</li>
+</ol>
+</div><h1>輔助設計</h1>
 <p>電腦輔助機械設計流程自從 Onshape 推出全雲端輔助設計套件後, 理應產生巨大變化, 但是我們感受到了嗎?</p>
 <p><a href="https://www.onshape.com/cad-blog/who-screwed-up-my-model">https://www.onshape.com/cad-blog/who-screwed-up-my-model</a> </p>
 <p><a href="https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud">https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud</a> </p>
 <p><a href="https://www10.mcadcafe.com/blogs/jeffrowe/2018/11/01/altair-acquires-simsolid/">https://www10.mcadcafe.com/blogs/jeffrowe/2018/11/01/altair-acquires-simsolid/</a> </p>
 <p><a href="http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681">http://www.cadalyst.com/cloud-based-cad/onshape-extends-cloud-based-cad-enterprise-part-1-41681</a> </p>
-<p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx</a> </p>
-<h2>Onshape</h2>
+<p><a href="https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx">https://www.engineering.com/DesignSoftware/DesignSoftwareArticles/ArticleID/17105/CAD-in-the-Cloud-is-Now.aspx</a> </p><h2>Onshape</h2>
 <p>能否採用協同編輯的模式, 將 <a href="http://mde.tw/cadp2018/content/OnshapeWeek%201.html">http://mde.tw/cadp2018/content/OnshapeWeek%201.html</a> 中的內容, 以中英文並列的方式, 轉換為 html 與 pdf 電子書格式?</p>
 <p><a href="https://learn.onshape.com/catalog?labels=%5B%22Training%20Offerings%22%5D&amp;values=%5B%22Self-Paced%20Courses%22%5D">Onshape 自學教材</a></p>
 <p>Onshape Video library: <a href="https://www.onshape.com/videos">https://www.onshape.com/videos</a> </p>

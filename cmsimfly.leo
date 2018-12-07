@@ -408,6 +408,12 @@ def edit_page(edit):
 &lt;script src="/static/tinymce4/tinymce/tinymce.min.js"&gt;&lt;/script&gt;
 &lt;script src="/static/tinymce4/tinymce/plugins/sh4tinymce/plugin.min.js"&gt;&lt;/script&gt;
 &lt;link rel = "stylesheet" href = "/static/tinymce4/tinymce/plugins/sh4tinymce/style/style.css"&gt;
+&lt;! -- for cmu cs 112 --&gt;
+&lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/reset.css"&gt;
+  &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css"&gt;
+  &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/112.css"&gt;
+  &lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/112-highlight-style.css"&gt;
+  &lt;!-- end for cms cs 112 --&gt;
 &lt;script&gt;
 tinymce.init({
   selector: "textarea",
@@ -2520,7 +2526,9 @@ def edit_report():
         outstring += "&lt;br /&gt;"
     #output = '&lt;br /&gt;'.join(map(str, files))
     return set_css() + "&lt;div class='container'&gt;&lt;nav&gt;" + \
-             directory + "&lt;/nav&gt;&lt;section&gt;" + outstring + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"</t>
+             directory + "&lt;/nav&gt;&lt;section&gt;" + outstring + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
+
+</t>
 <t tx="leo.20181205162212.1">@app.route('/do_edit_report/&lt;file_name&gt;')
 def do_edit_report(file_name):
     if file_name is None:
@@ -2533,6 +2541,8 @@ def do_edit_report(file_name):
     outstring = ""
     outstring += file_content
     return set_css() + "&lt;div class='container'&gt;&lt;nav&gt;" + \
-             directory + "&lt;/nav&gt;&lt;section&gt;" + outstring + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"</t>
+             directory + "&lt;/nav&gt;&lt;section&gt;" + outstring + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
+
+</t>
 </tnodes>
 </leo_file>
