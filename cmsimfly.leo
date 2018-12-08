@@ -2173,6 +2173,12 @@ def download():
 </t>
 <t tx="leo.20181104192502.60">def syntaxhighlight():
     return '''
+&lt;script&gt;
+  // TogetherJS configuration would go here, but we'll talk about that
+  // later
+&lt;/script&gt;
+&lt;script src="https://togetherjs.com/togetherjs-min.js"&gt;&lt;/script&gt;
+&lt;button onclick="TogetherJS(this); return false;"&gt;Start TogetherJS&lt;/button&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;
