@@ -355,7 +355,566 @@ app.run()
 <li>目前採用 html editor, 若能改為<span> </span><a href="https://github.com/sparksuite/simplemde-markdown-editor">Markdown editor</a>, 然後再<a href="https://github.com/Python-Markdown/markdown">轉為</a><span> </span>html, 應該有助於協同.</li>
 <li>能否導入<span> </span><a href="https://togetherjs.com/">together.js</a>, 進行線上協同編輯?</li>
 </ol>
-<h3>網際模擬程式</h3>
+<h3>網際繪圖</h3>
+<p><a href="https://brython.info/">Brython</a> 與 <a href="https://github.com/fengari-lua/fengari-web">Fengari-web</a> 都可以透過 scripting 的方式在網際繪圖, 前者使用 Python3 語法, 而後者使用 Lua 程式語法, Brython 目前的 brython-dist.js 高達 3.7 MB, 而 fengari-web.js 只需要 233 KB.</p>
+<p><a href="http://lab.kmol.info/blog/brython-programming-environment.html">http://lab.kmol.info/blog/brython-programming-environment.html</a> 說明如何使用 Brython 進行與機械設計領域相關的網際繪圖, 在此, 則希望利用 Lua 進行相同效果的網際程式設計.</p>
+<p>由於本網際內容管理程式使用 Tinymce4 網際編輯器套件, 因此為了讓 CMSimfly 編輯器中可以輸入 script 與 canvas 等網際繪圖相關的 html 標註, 必須要修改相關設定:</p>
+<p>首先必須將原先使用的 xhtml 格式, 改為 html, 以避開為了滿足 xhtml 格式的 CDATA 註解資料.</p>
+<p>接下來則需開啟 script 與 canvas 標註的輸入, 不至於被 Tinymce4 濾除, 其中 canvas 的開放, 需要使用 valid_elements 設定, 以開啟所有標註達成, 而 script 則利用 extended_valid_elements 設定完成.</p>
+<p>修改上述設定後, 便可直接在 CMSimfly 編輯器中, 直接輸入各種與 fengari-web 相關的網際  Lua 程式設計內容.</p>
+<p>以下允許所有的 html 標註, 並且可以利用 lua 進行網際繪圖:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">  valid_elements : '*[*]',
+  extended_valid_elements: "script[language|type|src]",</pre>
+<p>以下則使用一般 Lua 程式繪圖:</p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">&lt;canvas id="canvas" width="600" height="400"&gt;&lt;/canvas&gt;
+&lt;p&gt;
+&lt;script type="application/lua"&gt;
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+ 
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+ctx.fillStyle = "rgb(200,0,0)"
+-- 設定畫筆顏色
+ctx.strokeStyle = "rgb(0,0,200)"
+ 
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+ 
+-- 建立多邊形定點位置畫線函式
+function star(radius, xc, yc, n)
+    --radius = 100
+    --xc = 200
+    --yc = 200
+    xi = xc + radius*math.cos((360/n)*deg+90*deg)
+    yi = yc - radius*math.sin((360/n)*deg+90*deg)
+    ctx:beginPath()
+    ctx:moveTo(xi,yi)
+    for i = 2, n+1 do
+        x = xc + radius*math.cos((360/n)*deg*i+90*deg)
+        y = yc - radius*math.sin((360/n)*deg*i+90*deg)
+        ctx:lineTo(x,y)
+    end
+end
+ 
+-- 以下利用多邊形畫線函式呼叫執行畫框線或填入顏色
+-- 畫五邊形框線
+star(100, 200, 200, 5)
+ctx:closePath()
+ctx:stroke()
+ 
+-- 填三角形色塊
+star(50, 350, 200, 3)
+ctx:closePath()
+ctx:fill()
+ 
+-- 改變畫線顏色後, 畫七邊形框線
+ctx.strokeStyle = "rgb(0,200,20)"
+star(50, 450, 200, 7)
+ctx:closePath()
+ctx:stroke()
+&lt;/script&gt;</pre>
+<p><canvas height="400" id="canvas" width="600"></canvas></p>
+<p>
+<script type="application/lua">
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+ 
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+ctx.fillStyle = "rgb(200,0,0)"
+-- 設定畫筆顏色
+ctx.strokeStyle = "rgb(0,0,200)"
+ 
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+ 
+-- 建立多邊形定點位置畫線函式
+function star(radius, xc, yc, n)
+    --radius = 100
+    --xc = 200
+    --yc = 200
+    xi = xc + radius*math.cos((360/n)*deg+90*deg)
+    yi = yc - radius*math.sin((360/n)*deg+90*deg)
+    ctx:beginPath()
+    ctx:moveTo(xi,yi)
+    for i = 2, n+1 do
+        x = xc + radius*math.cos((360/n)*deg*i+90*deg)
+        y = yc - radius*math.sin((360/n)*deg*i+90*deg)
+        ctx:lineTo(x,y)
+    end
+end
+ 
+-- 以下利用多邊形畫線函式呼叫執行畫框線或填入顏色
+-- 畫五邊形框線
+star(100, 200, 200, 5)
+ctx:closePath()
+ctx:stroke()
+ 
+-- 填三角形色塊
+star(50, 350, 200, 3)
+ctx:closePath()
+ctx:fill()
+ 
+-- 改變畫線顏色後, 畫七邊形框線
+ctx.strokeStyle = "rgb(0,200,20)"
+star(50, 450, 200, 7)
+ctx:closePath()
+ctx:stroke()
+</script>
+</p>
+<p>以下則使用 Lua 的物件導向程式設計繪圖: <canvas height="400" id="canvas1" width="600"></canvas></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">&lt;canvas id="canvas1" width="600" height="400"&gt;&lt;/canvas&gt;
+&lt;script type="application/lua"&gt;
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas1")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+ctx.fillStyle = "rgb(200,0,0)"
+-- 設定畫筆顏色
+ctx.strokeStyle = "rgb(0,0,200)"
+
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+
+-- 建立多邊形定點位置畫線函式
+local star = {}
+star.__index = star
+
+function star.new(radius, xc, yc, n, sof)
+    --radius = 100
+    --xc = 200
+    --yc = 200
+    local self = setmetatable({}, star)
+    self.radius = radius
+    self.xc = xc
+    self.yc = yc
+    self.n = n
+    -- stroke or fill
+    self.sof = sof
+    --return self
+--end
+
+--function star.plot(self)
+    xi = self.xc + self.radius*math.cos((360/self.n)*deg+90*deg)
+    yi = self.yc - self.radius*math.sin((360/self.n)*deg+90*deg)
+    ctx:beginPath()
+    ctx:moveTo(xi,yi)
+    for i = 2, self.n+1 do
+	x = self.xc + self.radius*math.cos((360/self.n)*deg*i+90*deg)
+	y = self.yc - self.radius*math.sin((360/self.n)*deg*i+90*deg)
+	ctx:lineTo(x,y)
+    end
+    ctx:closePath()
+    if self.sof == true then
+	ctx:stroke()
+    else
+	ctx:fill()
+    end
+end
+
+-- 以下利用多邊形畫線函式呼叫執行畫框線或填入顏色
+-- 畫五邊形框線
+star1 = star.new(100, 200, 200, 5, true)
+--star1:plot()
+
+-- 填三角形色塊
+star2 = star.new(50, 350, 200, 3, false)
+--star2:plot()
+
+-- 改變畫線顏色後, 畫七邊形框線
+ctx.strokeStyle = "rgb(0,200,20)"
+star3 = star.new(50, 450, 200, 7, true)
+--star3:plot()
+&lt;/script&gt;</pre>
+<p></p>
+<p>
+<script src="/static/fengari-web.js"></script>
+<script type="application/lua">
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas1")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+ctx.fillStyle = "rgb(200,0,0)"
+-- 設定畫筆顏色
+ctx.strokeStyle = "rgb(0,0,200)"
+
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+
+-- 建立多邊形定點位置畫線函式
+local star = {}
+star.__index = star
+
+function star.new(radius, xc, yc, n, sof)
+    --radius = 100
+    --xc = 200
+    --yc = 200
+    local self = setmetatable({}, star)
+    self.radius = radius
+    self.xc = xc
+    self.yc = yc
+    self.n = n
+    -- stroke or fill
+    self.sof = sof
+    --return self
+--end
+
+--function star.plot(self)
+    xi = self.xc + self.radius*math.cos((360/self.n)*deg+90*deg)
+    yi = self.yc - self.radius*math.sin((360/self.n)*deg+90*deg)
+    ctx:beginPath()
+    ctx:moveTo(xi,yi)
+    for i = 2, self.n+1 do
+	x = self.xc + self.radius*math.cos((360/self.n)*deg*i+90*deg)
+	y = self.yc - self.radius*math.sin((360/self.n)*deg*i+90*deg)
+	ctx:lineTo(x,y)
+    end
+    ctx:closePath()
+    if self.sof == true then
+	ctx:stroke()
+    else
+	ctx:fill()
+    end
+end
+
+-- 以下利用多邊形畫線函式呼叫執行畫框線或填入顏色
+-- 畫五邊形框線
+star1 = star.new(100, 200, 200, 5, true)
+--star1:plot()
+
+-- 填三角形色塊
+star2 = star.new(50, 350, 200, 3, false)
+--star2:plot()
+
+-- 改變畫線顏色後, 畫七邊形框線
+ctx.strokeStyle = "rgb(0,200,20)"
+star3 = star.new(50, 450, 200, 7, true)
+--star3:plot()
+</script>
+</p>
+<h3>Lua gear</h3>
+<p>正齒輪繪圖</p>
+<p>
+<script src="/static/fengari-web.js"></script>
+</p>
+<p><canvas height="600" id="canvas" width="600"></canvas></p>
+<p>
+<script type="application/lua">
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+--ctx.fillStyle = "rgb(200,0,0)"
+-- 設定畫筆顏色
+--ctx.strokeStyle = "rgb(0,0,200)"
+
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+
+function line(ctx, x1, y1, x2, y2, width, fill)
+    width = width or 1
+    fill = fill or "rgb(200, 0, 0)"
+    
+    ctx:beginPath()
+    ctx.lineWidth = width
+    ctx:moveTo(x1, y1)
+    ctx:lineTo(x2, y2)
+    ctx:closePath()
+    -- 畫線顏色由外部呼叫設定, 若未設定則用內定的紅色
+    ctx.strokeStyle = fill
+    ctx:stroke()
+
+end
+
+-- 建立 gear 繪圖物件
+local gear = {}
+gear.__index = gear
+
+function gear.new(ctx, midx, midy, rp, n, pa, color)
+    local self = setmetatable({}, gear)
+    self.ctx = ctx
+    self.midx = midx
+    self.midy = midy
+    self.rp = rp
+    self.n = n or 20
+    self.pa = pa or 20
+    -- 建立物件時可以設定畫線顏色, 若未宣各則使用藍色畫線
+    self.color = color or "rgb(0,0,200)"
+    return self
+-- function end
+end
+
+function gear.plot(self)
+    -- 齒輪漸開線分成 15 線段繪製
+    imax = 15
+    -- 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+    -- 在此宣告畫直線顏色為紅色
+    line(self.ctx, self.midx, self.midy, self.midx, self.midy-self.rp, 2, "rgb(200,0,0)")
+    -- 畫出 rp 圓, 畫圓函式尚未定義
+    -- create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+    -- a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+    -- 模數也就是齒冠大小
+    a=2*self.rp/self.n
+    -- d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+    d=2.5*self.rp/self.n
+    -- ra 為齒輪的外圍半徑
+    ra=self.rp+a
+    -- 畫出 ra 圓, 畫圓函式尚未定義
+    -- create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+    --  rb 則為齒輪的基圓半徑
+    -- 基圓為漸開線長齒之基準圓
+    rb=self.rp*math.cos(self.pa*deg)
+    -- 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+    -- create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+    -- rd 為齒根圓半徑
+    rd=self.rp-d
+    -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+    -- 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+    -- create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+    -- dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+    -- 將圓弧分成 imax 段來繪製漸開線
+    -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+    if rd>rb then
+        dr = (ra-rd)/imax
+    else
+        dr=(ra-rb)/imax
+    -- if end
+    end
+    -- tan(pa*deg)-pa*deg 為漸開線函數
+    sigma=math.pi/(2*self.n)+math.tan(self.pa*deg)-self.pa*deg
+    for j=0,self.n-1 do
+        ang=-2.*j*math.pi/self.n+sigma
+        ang2=2.*j*math.pi/self.n+sigma
+        lxd=self.midx+rd*math.sin(ang2-2.*math.pi/self.n)
+        lyd=self.midy-rd*math.cos(ang2-2.*math.pi/self.n)
+        for i=0, imax do
+            -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+            if rd>rb then
+                r=rd+i*dr
+            else
+                r=rb+i*dr
+            end
+            theta=math.sqrt((r*r)/(rb*rb)-1.)
+            alpha=theta-math.atan(theta)
+            xpt=r*math.sin(alpha-ang)
+            ypt=r*math.cos(alpha-ang)
+            xd=rd*math.sin(-ang)
+            yd=rd*math.cos(-ang)
+            -- i=0 時, 繪線起點由齒根圓上的點, 作為起點
+            if(i==0) then
+                last_x = self.midx+xd
+                last_y = self.midy-yd
+            end
+            -- 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+            -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+            line(self.ctx, (self.midx+xpt),(self.midy-ypt),(last_x),(last_y), 2, self.color)
+            -- 最後一點, 則為齒頂圓
+            if(i==imax) then
+                lfx=self.midx+xpt
+                lfy=self.midy-ypt
+            end
+            last_x = self.midx+xpt
+            last_y = self.midy-ypt
+        -- for end
+        end
+        -- the line from last end of dedendum point to the recent
+        -- end of dedendum point
+        -- lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+        -- 下列為齒根圓上用來近似圓弧的直線
+        -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+        line(self.ctx, (lxd),(lyd),(self.midx+xd),(self.midy-yd), 2, self.color)
+        for i=0, imax do
+            -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+            if rd>rb then
+                r=rd+i*dr
+            else
+                r=rb+i*dr
+            end
+            theta=math.sqrt((r*r)/(rb*rb)-1.)
+            alpha=theta-math.atan(theta)
+            xpt=r*math.sin(ang2-alpha)
+            ypt=r*math.cos(ang2-alpha)
+            xd=rd*math.sin(ang2)
+            yd=rd*math.cos(ang2)
+            -- i=0 時, 繪線起點由齒根圓上的點, 作為起點
+            if(i==0) then
+                last_x = self.midx+xd
+                last_y = self.midy-yd
+            -- if end
+            end
+            -- 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+            -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+            line(self.ctx, (self.midx+xpt),(self.midy-ypt),(last_x),(last_y), 2, self.color)
+            -- 最後一點, 則為齒頂圓
+            if(i==imax) then
+                rfx=self.midx+xpt
+                rfy=self.midy-ypt
+            -- if end
+            end
+            last_x = self.midx+xpt
+            last_y = self.midy-ypt
+        -- for end
+        end
+        -- lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+        -- 下列為齒頂圓上用來近似圓弧的直線
+        -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+        line(self.ctx, lfx,lfy,rfx,rfy, 2, self.color)
+    -- for end
+    end
+--function end
+end
+
+-- 宣告以藍色畫線
+gear1 = gear.new(ctx, 300, 300, 150, 25, 20, "rgb(0,0,200)")
+gear1:plot()
+</script>
+</p>
+<h3>Lua-Cango</h3>
+<p>Cango 繪圖</p>
+<p>
+<script src="/static/fengari-web.js"></script>
+<script src="/static/Cango-13v08-min.js" type="text/javascript"></script>
+<script src="/static/CangoAxes-4v01-min.js" type="text/javascript"></script>
+<script src="/static/gearUtils-05.js" type="text/javascript"></script>
+</p>
+<p><canvas height="750" id="cango_gear" width="800"></canvas></p>
+<p>
+<script type="application/lua">
+js = require "js"
+window = js.global
+Array = js.global.Array
+canvas = window.document:getElementById("cango_gear")
+
+-- 將 lua table 轉為 new JavaScript Object 的方法
+-- e.g. Object{mykey="myvalue"}
+function Object(t)
+    local o = js.new(js.global.Object)
+    for k, v in pairs(t) do
+        assert(type(k) == "string" or js.typeof(k) == "symbol", "JavaScript only has string and symbol keys")
+        o[k] = v
+    end
+    return o
+end
+
+-- javascript constructor
+cgo = js.new(window.Cango, "cango_gear")
+--local path = js.new(window.Path)
+local shape = js.new(window.Shape)
+-- Javascript 變數
+shapedefs = window.shapeDefs
+-- 角度轉為徑度
+deg = math.pi/180
+
+function cangoGear(m, n, pa)
+    -- pr 為節圓半徑
+    pr = n*m/2 -- gear Pitch radius
+    data = js.new(window.createGearTooth, m, n, pa)
+    gearTooth = js.new(window.Path, data, Object{
+      fillColor= "#ddd0dd",
+      border= true,
+      strokeColor= "#606060" })
+    gearTooth:rotate(180/n) -- rotate gear 1/2 tooth to mesh
+    gear = gearTooth:dup()
+    for i = 1, n-1 do
+        newTooth = gearTooth:dup()
+        newTooth:rotate(360*i/n)
+        gear:appendPath(newTooth)
+    end
+
+    -- 建立軸孔
+    hr = 0.6*pr -- diameter of gear shaft
+    shaft = js.new(window.Path, shapedefs:circle(hr))
+    gear:appendPath(shaft)
+    return gear
+end
+
+n1 = 13
+n2 = 24
+n3 = 21
+reduced_ratio = 0.5
+-- 使用 80% 的畫布寬度
+m = 0.8*(canvas.width)/((n1+n2+n3)*reduced_ratio)
+cx = (canvas.width)/2
+cy = (canvas.height)/2
+-- 設定共同的壓力角
+pa = 25
+pr1 = n1*m/2
+pr2 = n2*m/2
+pr3 = n3*m/2
+-- 建立 gear
+gear1 = cangoGear(m, n1, pa)
+gear2 = cangoGear(m, n2, pa)
+gear3 = cangoGear(m, n3, pa)
+
+deg = math.pi/180
+rotate_speed = 12*deg
+
+function draw()
+    cgo:clearCanvas()
+
+    gear1.transform:translate(cx-(pr1+pr2)*reduced_ratio, cy)
+    gear1.transform:scale(reduced_ratio)
+    gear1.transform:rotate(0)
+    gear1:rotate(rotate_speed)
+    cgo:render(gear1)
+    
+    gear2.transform:translate(cx, cy)
+    gear2.transform:scale(reduced_ratio)
+    gear2.transform:rotate(180+(360/n2/2))
+    gear2:rotate(-(rotate_speed)*n1/n2)
+    cgo:render(gear2)
+    
+    gear3.transform:translate(cx+(pr2+pr3)*reduced_ratio, cy)
+    gear3.transform:scale(reduced_ratio)
+    gear3.transform:rotate(180+(360/n3/2)+(180+(360/n2/2))*n2/n3)
+    gear3:rotate((rotate_speed*n1/n2)*(n2/n3))
+    cgo:render(gear3)
+    print(gear1:toString())
+end
+
+--draw()
+window:setInterval(draw, 2)
+</script>
+</p><h3>網際模擬程式</h3>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> 是一套源自<a href="https://github.com/tiggerntatie/brython-server"> https://github.com/tiggerntatie/brython-server</a> 的網際模擬程式庫, 適合用來開發線上遊戲或與工程設計相關的網際程式.</p>
 <p>之前的 js 程式庫都採用遠端資料, 目前將各程式庫升級為最新版本, 且改為自帶程式庫.</p>
 <p>參考的網際程式庫: <a href="https://github.com/tiggerntatie/ggame">https://github.com/tiggerntatie/ggame</a> </p>
@@ -2051,15 +2610,7 @@ def parse_content():
     return head_list, level_list, page_list
 
 print(parse_content())</pre>
-<h3>CMU112</h3>
-<p>
-<script src="/static/cmu/js/jquery-2.1.4.min.js"></script>
-<script src="/static/cmu/js/highlight.pack.js"></script>
-<script src="/static/cmu/js/bootstrap.min.js"></script>
-<script id="112-script" src="/static/cmu/js/112.js"></script>
-</p>
-<div class="python-code visualize">print("test") 
-print("test")</div><h1>輔助設計</h1>
+<h1>輔助設計</h1>
 <p>電腦輔助機械設計流程自從 Onshape 推出全雲端輔助設計套件後, 理應產生巨大變化, 但是我們感受到了嗎?</p>
 <p><a href="https://www.onshape.com/cad-blog/who-screwed-up-my-model">https://www.onshape.com/cad-blog/who-screwed-up-my-model</a> </p>
 <p><a href="https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud">https://www.colabsoftware.com/post/is-the-future-of-cad-in-the-cloud</a> </p>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>期末分組專案</title> <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+
+<script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCSharp.js"></script>
+<link type="text/css" rel="stylesheet" href="./../static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- for LaTeX equations 暫時不用
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+-->
+<!-- 暫時不用
+<script src="./../static/fengari-web.js"></script>
+<script type="text/javascript" src="./../static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.red3border {
+    border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
+}
+</style>
+
+<script src="./../static/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
+    $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
+});
+</script>
+
+</head><header><h1>2018 Fall 期末專案示範網站</h1> <confmenu>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="sitemap.html">Site Map</a></li>
+<li><a href="./../reveal/index.html">reveal</a></li>
+<li><a href="./../blog/index.html">blog</a></li>
+
+</ul>
+</confmenu></header>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><li><a href='簡介.html'>簡介</a><ul><li><a href='可攜系統更新.html'>可攜系統更新</a><li><a href='靜態與動態網站.html'>靜態與動態網站</a><li><a href='特殊處理.html'>特殊處理</a></li></ul><li><a href='分組網站.html'>分組網站</a><li><a href='課程專題.html'>課程專題</a><ul><li><a href='計算機程式.html'>計算機程式</a><ul><li><a href='CMSimfly.html'>CMSimfly</a><li><a href='網際繪圖.html'>網際繪圖</a><li><a href='Lua gear.html'>Lua gear</a><li><a href='Lua-Cango.html'>Lua-Cango</a><li><a href='網際模擬程式.html'>網際模擬程式</a><li><a href='Spacegame.html'>Spacegame</a><li><a href='Ggame 程式庫.html'>Ggame 程式庫</a><li><a href='工程用計算機.html'>工程用計算機</a><li><a href='Flexx.html'>Flexx</a></li></ul><li><a href='電腦輔助設計.html'>電腦輔助設計</a><ul><li><a href='Kinematics.html'>Kinematics</a></li></li></ul></ul><li><a href='設計主機.html'>設計主機</a><ul><li><a href='Heroku 簡介.html'>Heroku 簡介</a><ul><li><a href='Heroku 設定.html'>Heroku 設定</a></li></ul><li><a href='Fossil SCM.html'>Fossil SCM</a><li><a href='Jupyterlab.html'>Jupyterlab</a><li><a href='Sandstorm.html'>Sandstorm</a></li></ul><li><a href='Python 程式.html'>Python 程式</a><ul><li><a href='靜態網站範例.html'>靜態網站範例</a><li><a href='動態網站範例.html'>動態網站範例</a><li><a href='GUI 程式範例.html'>GUI 程式範例</a><ul><li><a href='GUI 程式碼.html'>GUI 程式碼</a><li><a href='parse_content 範例.html'>parse_content 範例</a></li></li></ul></ul><li><a href='輔助設計.html'>輔助設計</a><ul><li><a href='Onshape.html'>Onshape</a><li><a href='V-rep.html'>V-rep</a></li></ul><li><a href='電子書.html'>電子書</a><ul><li><a href='協同編輯.html'>協同編輯</a><ul><li><a href='Kmol-editor.html'>Kmol-editor</a><li><a href='Leo-editor.html'>Leo-editor</a></li></ul></nav><section>網際繪圖 << <a href='網際繪圖.html'>Previous</a> <a href='Lua-Cango.html'>Next</a> >> Lua-Cango<br /><h1>Lua gear</h1>
+<p>正齒輪繪圖</p>
+<p>
+<script src="./../static/fengari-web.js"></script>
+</p>
+<p><canvas height="600" id="canvas" width="600"></canvas></p>
+<p>
+<script type="application/lua">
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+--ctx.fillStyle = "rgb(200,0,0)"
+-- 設定畫筆顏色
+--ctx.strokeStyle = "rgb(0,0,200)"
+
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+
+function line(ctx, x1, y1, x2, y2, width, fill)
+    width = width or 1
+    fill = fill or "rgb(200, 0, 0)"
+    
+    ctx:beginPath()
+    ctx.lineWidth = width
+    ctx:moveTo(x1, y1)
+    ctx:lineTo(x2, y2)
+    ctx:closePath()
+    -- 畫線顏色由外部呼叫設定, 若未設定則用內定的紅色
+    ctx.strokeStyle = fill
+    ctx:stroke()
+
+end
+
+-- 建立 gear 繪圖物件
+local gear = {}
+gear.__index = gear
+
+function gear.new(ctx, midx, midy, rp, n, pa, color)
+    local self = setmetatable({}, gear)
+    self.ctx = ctx
+    self.midx = midx
+    self.midy = midy
+    self.rp = rp
+    self.n = n or 20
+    self.pa = pa or 20
+    -- 建立物件時可以設定畫線顏色, 若未宣各則使用藍色畫線
+    self.color = color or "rgb(0,0,200)"
+    return self
+-- function end
+end
+
+function gear.plot(self)
+    -- 齒輪漸開線分成 15 線段繪製
+    imax = 15
+    -- 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+    -- 在此宣告畫直線顏色為紅色
+    line(self.ctx, self.midx, self.midy, self.midx, self.midy-self.rp, 2, "rgb(200,0,0)")
+    -- 畫出 rp 圓, 畫圓函式尚未定義
+    -- create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+    -- a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+    -- 模數也就是齒冠大小
+    a=2*self.rp/self.n
+    -- d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+    d=2.5*self.rp/self.n
+    -- ra 為齒輪的外圍半徑
+    ra=self.rp+a
+    -- 畫出 ra 圓, 畫圓函式尚未定義
+    -- create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+    --  rb 則為齒輪的基圓半徑
+    -- 基圓為漸開線長齒之基準圓
+    rb=self.rp*math.cos(self.pa*deg)
+    -- 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+    -- create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+    -- rd 為齒根圓半徑
+    rd=self.rp-d
+    -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+    -- 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+    -- create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+    -- dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+    -- 將圓弧分成 imax 段來繪製漸開線
+    -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+    if rd>rb then
+        dr = (ra-rd)/imax
+    else
+        dr=(ra-rb)/imax
+    -- if end
+    end
+    -- tan(pa*deg)-pa*deg 為漸開線函數
+    sigma=math.pi/(2*self.n)+math.tan(self.pa*deg)-self.pa*deg
+    for j=0,self.n-1 do
+        ang=-2.*j*math.pi/self.n+sigma
+        ang2=2.*j*math.pi/self.n+sigma
+        lxd=self.midx+rd*math.sin(ang2-2.*math.pi/self.n)
+        lyd=self.midy-rd*math.cos(ang2-2.*math.pi/self.n)
+        for i=0, imax do
+            -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+            if rd>rb then
+                r=rd+i*dr
+            else
+                r=rb+i*dr
+            end
+            theta=math.sqrt((r*r)/(rb*rb)-1.)
+            alpha=theta-math.atan(theta)
+            xpt=r*math.sin(alpha-ang)
+            ypt=r*math.cos(alpha-ang)
+            xd=rd*math.sin(-ang)
+            yd=rd*math.cos(-ang)
+            -- i=0 時, 繪線起點由齒根圓上的點, 作為起點
+            if(i==0) then
+                last_x = self.midx+xd
+                last_y = self.midy-yd
+            end
+            -- 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+            -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+            line(self.ctx, (self.midx+xpt),(self.midy-ypt),(last_x),(last_y), 2, self.color)
+            -- 最後一點, 則為齒頂圓
+            if(i==imax) then
+                lfx=self.midx+xpt
+                lfy=self.midy-ypt
+            end
+            last_x = self.midx+xpt
+            last_y = self.midy-ypt
+        -- for end
+        end
+        -- the line from last end of dedendum point to the recent
+        -- end of dedendum point
+        -- lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+        -- 下列為齒根圓上用來近似圓弧的直線
+        -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+        line(self.ctx, (lxd),(lyd),(self.midx+xd),(self.midy-yd), 2, self.color)
+        for i=0, imax do
+            -- 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+            if rd>rb then
+                r=rd+i*dr
+            else
+                r=rb+i*dr
+            end
+            theta=math.sqrt((r*r)/(rb*rb)-1.)
+            alpha=theta-math.atan(theta)
+            xpt=r*math.sin(ang2-alpha)
+            ypt=r*math.cos(ang2-alpha)
+            xd=rd*math.sin(ang2)
+            yd=rd*math.cos(ang2)
+            -- i=0 時, 繪線起點由齒根圓上的點, 作為起點
+            if(i==0) then
+                last_x = self.midx+xd
+                last_y = self.midy-yd
+            -- if end
+            end
+            -- 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+            -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+            line(self.ctx, (self.midx+xpt),(self.midy-ypt),(last_x),(last_y), 2, self.color)
+            -- 最後一點, 則為齒頂圓
+            if(i==imax) then
+                rfx=self.midx+xpt
+                rfy=self.midy-ypt
+            -- if end
+            end
+            last_x = self.midx+xpt
+            last_y = self.midy-ypt
+        -- for end
+        end
+        -- lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+        -- 下列為齒頂圓上用來近似圓弧的直線
+        -- 宣告畫線顏色為 self.color, 即建立物件時所宣告的初始畫線顏色
+        line(self.ctx, lfx,lfy,rfx,rfy, 2, self.color)
+    -- for end
+    end
+--function end
+end
+
+-- 宣告以藍色畫線
+gear1 = gear.new(ctx, 300, 300, 150, 25, 20, "rgb(0,0,200)")
+gear1:plot()
+</script>
+</p>
+<br />網際繪圖 << <a href='網際繪圖.html'>Previous</a> <a href='Lua-Cango.html'>Next</a> >> Lua-Cango</section></div></body></html>

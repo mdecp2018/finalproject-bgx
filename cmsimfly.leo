@@ -2173,8 +2173,6 @@ def download():
 </t>
 <t tx="leo.20181104192502.60">def syntaxhighlight():
     return '''
-&lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/bootstrap.min.css"&gt;
-&lt;link rel="stylesheet" type="text/css" href="/static/cmu/css/112-highlight-style.css"&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;
@@ -2236,8 +2234,6 @@ img.red3border {
 </t>
 <t tx="leo.20181104192502.61">def syntaxhighlight2():
     return '''
-&lt;link rel="stylesheet" type="text/css" href="./../static/cmu/css/bootstrap.min.css"&gt;
-&lt;link rel="stylesheet" type="text/css" href="./../static/cmu/css/112-highlight-style.css"&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"&gt;&lt;/script&gt;
