@@ -1,0 +1,186 @@
+<!doctype html>
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>期末分組專案</title> <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+
+<script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCSharp.js"></script>
+<link type="text/css" rel="stylesheet" href="./../static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- for LaTeX equations 暫時不用
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+-->
+<!-- 暫時不用
+<script src="./../static/fengari-web.js"></script>
+<script type="text/javascript" src="./../static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.red3border {
+    border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
+}
+</style>
+
+<script src="./../static/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
+    $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
+});
+</script>
+
+</head><header><h1>2018 Fall 期末專案示範網站</h1> <confmenu>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="sitemap.html">Site Map</a></li>
+<li><a href="./../reveal/index.html">reveal</a></li>
+<li><a href="./../blog/index.html">blog</a></li>
+
+</ul>
+</confmenu></header>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><li><a href='簡介.html'>簡介</a><ul><li><a href='可攜系統更新.html'>可攜系統更新</a><li><a href='靜態與動態網站.html'>靜態與動態網站</a><li><a href='特殊處理.html'>特殊處理</a></li></ul><li><a href='分組網站.html'>分組網站</a><li><a href='課程專題.html'>課程專題</a><ul><li><a href='計算機程式.html'>計算機程式</a><li><a href='計算機程式議題.html'>計算機程式議題</a><ul><li><a href='CMSimfly.html'>CMSimfly</a><li><a href='網際繪圖.html'>網際繪圖</a><li><a href='Lua gear.html'>Lua gear</a><li><a href='Lua-Cango.html'>Lua-Cango</a><li><a href='網際模擬程式.html'>網際模擬程式</a><li><a href='Spacegame.html'>Spacegame</a><li><a href='Ggame 程式庫.html'>Ggame 程式庫</a><li><a href='Flaskbb.html'>Flaskbb</a><li><a href='工程用計算機.html'>工程用計算機</a><li><a href='Flexx.html'>Flexx</a></li></ul><li><a href='電腦輔助設計.html'>電腦輔助設計</a><li><a href='電腦輔助設計議題.html'>電腦輔助設計議題</a><ul><li><a href='Kinematics.html'>Kinematics</a></li></li></ul></ul><li><a href='設計主機.html'>設計主機</a><ul><li><a href='Heroku 簡介.html'>Heroku 簡介</a><ul><li><a href='Heroku 設定.html'>Heroku 設定</a></li></ul><li><a href='Fossil SCM.html'>Fossil SCM</a><li><a href='Jupyterlab.html'>Jupyterlab</a><li><a href='Sandstorm.html'>Sandstorm</a></li></ul><li><a href='Python 程式.html'>Python 程式</a><ul><li><a href='靜態網站範例.html'>靜態網站範例</a><li><a href='動態網站範例.html'>動態網站範例</a><li><a href='GUI 程式範例.html'>GUI 程式範例</a><ul><li><a href='GUI 程式碼.html'>GUI 程式碼</a><li><a href='parse_content 範例.html'>parse_content 範例</a></li></li></ul></ul><li><a href='輔助設計.html'>輔助設計</a><ul><li><a href='Onshape.html'>Onshape</a><li><a href='V-rep.html'>V-rep</a></li></ul><li><a href='電子書.html'>電子書</a><ul><li><a href='協同編輯.html'>協同編輯</a><ul><li><a href='Kmol-editor.html'>Kmol-editor</a><li><a href='Leo-editor.html'>Leo-editor</a></li></ul></nav><section>計算機程式 << <a href='計算機程式.html'>Previous</a> <a href='CMSimfly.html'>Next</a> >> CMSimfly<br /><h1>計算機程式議題</h1>
+<h4>Brython</h4>
+<p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> </p>
+<h4>網際 Flask</h4>
+<p><a href="https://github.com/mdecourse/wcms-scrum1">https://github.com/mdecourse/wcms-scrum1</a> </p>
+<p>CMSimfly 系統研究</p>
+<p><a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly</a> </p>
+<p>Pygrouf 系統研究</p>
+<p><a href="https://github.com/chiamingyen/pygrouf">https://github.com/chiamingyen/pygrouf</a> </p>
+<h4>網際機構模擬系統</h4>
+<p>承接 <a href="https://github.com/KmolYuan/Pyslvs-PyQt5">https://github.com/KmolYuan/Pyslvs-PyQt5</a> 系統中的 YAML 檔案格式, 讓使用者在網際環境中進行平面機構模擬, 並將各機構合成或模擬後所得到的網際 URL 存入資料庫.</p>
+<h4>單機 GUI 程式</h4>
+<p>從簡單計算機到工程用計算機</p>
+<p><a href="https://github.com/scrum-1/scrum_pyqt5_calculator">https://github.com/scrum-1/scrum_pyqt5_calculator</a> </p>
+<p>或者利用 <a href="http://flask.pocoo.org/">Flask</a>、<a href="https://github.com/jonathan-kosgei/pybean">Pybean</a> 與 <a href="https://brython.info/">Brython</a> (or <a href="https://github.com/fengari-lua/fengari-web">Fegari-Web</a>) 開發網際運算器, 能將使用者在線上運算的內容存入資料庫, 或建立一個簡單的網際運算環境, 讓使用者輸入 <a href="https://brython.info/">Brython</a> 或 <a href="https://www.lua.org/">Lua</a> 程式進行設計運算. 例如:  <a href="http://mde.tw/vecp2018/lua/SchoolProject/">http://mde.tw/vecp2018/lua/SchoolProject/</a> 導入資料庫系統, 讓使用者可以將運算程式存入資料庫, 或導入後編輯再運算利用.</p>
+<p>多功能編輯器</p>
+<p><a href="https://github.com/KmolYuan/kmol-editor">https://github.com/KmolYuan/kmol-editor</a> </p>
+<p>平面凸輪輔助設計系統</p>
+<p><a href="https://github.com/KmolYuan/cam-profile">https://github.com/KmolYuan/cam-profile</a> </p>
+<p><a href="http://mde.tw/cp2018/content/%E8%AE%80%E5%AF%AB%E7%B6%B2%E9%A0%81%E5%85%A7%E5%AE%B9.html">Beautifulsoup4 應用研究</a></p>
+<p><a href="https://github.com/MechanicalSoup/MechanicalSoup">Mechanicalsoup 應用研究</a></p>
+<p><a href="https://graph-tool.skewed.de/">Graph Tool 應用研究</a></p>
+<!-- 準備測試 ggame -->
+<p>
+<script src="./../static/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="./../static/jquery-ui.1.12.1.min.js" type="text/javascript"></script>
+<script src="./../static/brython.js" type="text/javascript"></script>
+<script src="./../static/brython_stdlib.js" type="text/javascript"></script>
+<script src="./../static/pixi-3.0.5.min.js" type="text/javascript"></script>
+<script src="./../static/buzz-1.2.1.js" type="text/javascript"></script>
+<script src="./../static/brython.js"></script>
+<script src="./../static/brython_stdlib.js"></script>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['./../static/']});
+}
+</script>
+</p>
+<p><canvas height="600" id="ggame-canvas" width="800"></canvas></p>
+<div height="600" id="graphics-column" width="800"></div>
+<p>
+<script type="text/python3">
+from ggame import App, ImageAsset, Sprite, MouseEvent
+from random import random, randint
+
+class Bunny(Sprite):
+    
+    asset = ImageAsset("./../images/bunny.png")
+    
+    def __init__(self, position):
+        super().__init__(Bunny.asset, position)
+        # register mouse events
+        App.listenMouseEvent(MouseEvent.mousedown, self.mousedown)
+        App.listenMouseEvent(MouseEvent.mouseup, self.mouseup)
+        App.listenMouseEvent(MouseEvent.mousemove, self.mousemove)
+        self.dragging = False
+
+    
+    def step(self):
+        """
+        Every now and then a bunny hops...
+        """
+        if random() < 0.01:
+            self.x += randint(-20,20)
+            self.y += randint(-20,20)
+        
+        
+    def mousedown(self, event):
+        # capture any mouse down within 50 pixels
+        self.deltax = event.x - (self.x + self.width//2) 
+        self.deltay = event.y - (self.y + self.height//2)
+        if abs(self.deltax) < 50 and abs(self.deltay) < 50:
+            self.dragging = True
+            # only drag one bunny at a time - consume the event
+            event.consumed = True
+            
+    def mousemove(self, event):
+        if self.dragging:
+            self.x = event.x - self.deltax - self.width//2
+            self.y = event.y - self.deltay - self.height//2
+            event.consumed = True
+            
+    def mouseup(self, event):
+        if self.dragging:
+            self.dragging = False
+            event.consumed = True
+            
+        
+class DemoApp(App):
+    
+    def __init__(self):
+        super().__init__()
+        for i in range(20):
+            Bunny((randint(50, 800), randint(50, 600)))
+        
+    def step(self):
+        """
+        Override step to perform action on each frame update
+        """
+        for bunny in self.spritelist:
+            bunny.step()
+
+
+# Create the app
+app = DemoApp()  
+# Run the app
+app.run()
+</script>
+</p><br />計算機程式 << <a href='計算機程式.html'>Previous</a> <a href='CMSimfly.html'>Next</a> >> CMSimfly</section></div></body></html>
