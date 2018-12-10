@@ -241,7 +241,11 @@ for i in range(1, vecp+1):
 <h2>計算機程式</h2>
 <p>虎尾 科技大學機械設計工程系的計算機程式課程網頁位於: <a href="http://mde.tw/cp2018/">http://mde.tw/cp2018/</a> </p>
 <p>本課程的目的在讓學員了解如何利用 Python 程式解決問題:</p>
-<p>利用 Eric6 建立一個視窗程式, 開啟 CMSimfly 系統中位於 config 目錄下的 content.htm, </p>
+<h4>PyQt5 視窗程式</h4>
+<p>問題一: 能否利用 Eric6 建立一個視窗程式, 開啟 CMSimfly 系統中位於 config 目錄下的 content.htm? 甚至可以套用 QPlainTextEdit widget 顯示 html 原始碼, 並利用  <code><span class="typ">QWebEngineView render 超文件.</span></code></p>
+<p>例如: <a href="https://github.com/gen2brain/pyhtmleditor">https://github.com/gen2brain/pyhtmleditor</a> (使用 PyQt4 格式)</p>
+<hr/>
+<p>Eric6 Qt Design 實際練習:</p>
 <p><a href="http://doc.qt.io/qt-5/designer-quick-start.html">http://doc.qt.io/qt-5/designer-quick-start.html</a> </p>
 <p>Using<span> </span><i>Qt Designer</i><span> </span>involves<span> </span><b>four</b><span> </span>basic steps:</p>
 <ol class="1" type="1">
@@ -259,8 +263,37 @@ for i in range(1, vecp+1):
 instr.setCodec("UTF-8")</pre>
 <p><a href="http://eric-ide.python-projects.org/tutorials/MiniBrowser/">http://eric-ide.python-projects.org/tutorials/MiniBrowser/</a> </p>
 <p><a href="https://www.binpress.com/building-text-editor-pyqt-1/">https://www.binpress.com/building-text-editor-pyqt-1/</a> (<a href="https://github.com/goldsborough/Writer-Tutorial">https://github.com/goldsborough/Writer-Tutorial</a> )</p>
-<p></p>
-<p></p><h2>計算機程式議題</h2>
+<h4>Flask 網際程式</h4>
+<p>最簡單的 Flask 程式, 存為 wsgi.py:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+app.run(host='127.0.0.1', port=80, debug=True)</pre>
+<p>利用 SciTE 開啟上述程式後, 以 Tool -&gt; Go, 即可以瀏覽器開啟 <a href="http://localhost">http://localhost</a> , 系統回傳 "Hello World".</p>
+<p>假如要讓上述 Flask 程式在 https 模式下啟動, 在 Windows 操作環境, 需要 <a href="http://gnuwin32.sourceforge.net/packages/openssl.htm">http://gnuwin32.sourceforge.net/packages/openssl.htm</a> ,  以下列指令建立 localhost.key 與 localhost.crt</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt</pre>
+<p>並將 localhost.key 與 localhost.crt 與  wsgi.py 放在同一目錄下, 並將上述程式改為:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from flask import Flask
+import ssl
+
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain('localhost.crt', 'localhost.key')
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+app.run(host='127.0.0.1', port=443, debug=True, ssl_context=context)</pre>
+<p>利用 SciTE 開啟上述程式後, 以 Tool -&gt; Go, 即可以瀏覽器開啟 <a href="http://localhost">https://localhost</a> , 系統回傳 "Hello World".</p>
+<h4>Flask 登入流程</h4>
+<p><a href="https://realpython.com/introduction-to-flask-part-2-creating-a-login-page/">https://realpython.com/introduction-to-flask-part-2-creating-a-login-page/</a> </p>
+<p><a href="/downloads/flask_login.7z">flask_login.7z</a></p><h2>計算機程式議題</h2>
 <h4>Brython</h4>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> </p>
 <h4>網際 Flask</h4>
@@ -1320,7 +1353,7 @@ myapp.run()</pre>
 <hr/>
 <h4>KLL3PP</h4>
 <p><a href="https://github.com/mdecourse/kll3pp">https://github.com/mdecourse/kll3pp</a> </p>
-<hr/>
+<hr>
 <h4>摺疊自行車</h4>
 <p><a href="http://rattlecad.sourceforge.net/">http://rattlecad.sourceforge.net/</a> </p>
 <hr/>
@@ -2695,6 +2728,8 @@ print(parse_content())</pre>
 <p>tex\latex\catoptions\catoptions.sty<br/>tex\latex\fancyhdr\fancyhdr.sty<br/>tex\latex\xwatermark\xwatermark.sty<br/>tex\latex\ltxkeys\ltxkeys.sty<br/>tex\latex\ms\everyshi.sty<br/>tikz.sty<br/>tex\latex\xcolor\xcolor.sty</p>
 <p>等 packages.</p>
 <h3>Leo-editor</h3>
+<p>Kmolreport 使用說明影片:</p>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/2833erZxUAM" width="560"></iframe></p>
 <p><a href="https://github.com/leo-editor/leo-editor">https://github.com/leo-editor/leo-editor</a> 是一套多用途大綱編輯器, 可應用於協同 Markdown 文件編輯, 當結合 <a href="https://pandoc.org/">Pandoc</a> 與 <a href="https://miktex.org/">MikTeX</a>, 可將 Markdown 資料轉換為 html 與 pdf 或 epub 格式.</p>
 <p><a href="http://lab.kmol.info">http://lab.kmol.info</a>  目前使用可攜 <a href="https://drive.google.com/open?id=1lH3J-EETOpNruAz86Mi8A4PcKkgJOsh2">miktex_portable_and_pandoc.7z</a>, 使用者下載後與先前的 Python 可攜系統結合, 在原有的 start.bat 啟動批次檔案中的 path 設定, 加入:</p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">%Disk%:\pandoc-2.4-windows-x86_64;%Disk%:\miktex_portable\texmfs\install\miktex\bin;</pre>
@@ -2704,4 +2739,4 @@ print(parse_content())</pre>
 <p>安裝 <a href="https://github.com/tomduck/pandoc-fignos">pandoc-fignos</a>, <a href="https://github.com/tomduck/pandoc-tablenos">pandoc-tablenos</a> 與 <a href="https://github.com/tomduck/pandoc-eqnos">pandoc-eqnos</a> 等模組.</p>
 <p>過程中, 還必須透過 MikTeX Package Manager 安裝:</p>
 <p>tex\latex\catoptions\catoptions.sty<br/>tex\latex\fancyhdr\fancyhdr.sty<br/>tex\latex\xwatermark\xwatermark.sty<br/>tex\latex\ltxkeys\ltxkeys.sty<br/>tex\latex\ms\everyshi.sty<br/>tikz.sty<br/>tex\latex\xcolor\xcolor.sty</p>
-<p>等 packages.</p>
+<p>等 packages.</p></hr>

@@ -241,7 +241,11 @@ for i in range(1, vecp+1):
 <h2>計算機程式</h2>
 <p>虎尾 科技大學機械設計工程系的計算機程式課程網頁位於: <a href="http://mde.tw/cp2018/">http://mde.tw/cp2018/</a> </p>
 <p>本課程的目的在讓學員了解如何利用 Python 程式解決問題:</p>
-<p>利用 Eric6 建立一個視窗程式, 開啟 CMSimfly 系統中位於 config 目錄下的 content.htm, </p>
+<h4>PyQt5 視窗程式</h4>
+<p>問題一: 能否利用 Eric6 建立一個視窗程式, 開啟 CMSimfly 系統中位於 config 目錄下的 content.htm? 甚至可以套用 QPlainTextEdit widget 顯示 html 原始碼, 並利用  <code><span class="typ">QWebEngineView render 超文件.</span></code></p>
+<p>例如: <a href="https://github.com/gen2brain/pyhtmleditor">https://github.com/gen2brain/pyhtmleditor</a> (使用 PyQt4 格式)</p>
+<hr/>
+<p>Eric6 Qt Design 實際練習:</p>
 <p><a href="http://doc.qt.io/qt-5/designer-quick-start.html">http://doc.qt.io/qt-5/designer-quick-start.html</a> </p>
 <p>Using<span> </span><i>Qt Designer</i><span> </span>involves<span> </span><b>four</b><span> </span>basic steps:</p>
 <ol class="1" type="1">
@@ -259,8 +263,44 @@ for i in range(1, vecp+1):
 instr.setCodec("UTF-8")</pre>
 <p><a href="http://eric-ide.python-projects.org/tutorials/MiniBrowser/">http://eric-ide.python-projects.org/tutorials/MiniBrowser/</a> </p>
 <p><a href="https://www.binpress.com/building-text-editor-pyqt-1/">https://www.binpress.com/building-text-editor-pyqt-1/</a> (<a href="https://github.com/goldsborough/Writer-Tutorial">https://github.com/goldsborough/Writer-Tutorial</a> )</p>
-<p></p>
-<p></p><h2>計算機程式議題</h2>
+<h4>Flask 網際程式</h4>
+<p>最簡單的 Flask 程式, 存為 wsgi.py:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+app.run(host='127.0.0.1', port=80, debug=True)</pre>
+<p>利用 SciTE 開啟上述程式後, 以 Tool -&gt; Go, 即可以瀏覽器開啟 <a href="http://localhost">http://localhost</a> , 系統回傳 "Hello World".</p>
+<p>假如要讓上述 Flask 程式在 https 模式下啟動, 在 Windows 操作環境, 需要 <a href="http://gnuwin32.sourceforge.net/packages/openssl.htm">http://gnuwin32.sourceforge.net/packages/openssl.htm</a> ,  以下列指令建立 localhost.key 與 localhost.crt</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt</pre>
+<p>並將 localhost.key 與 localhost.crt 與  wsgi.py 放在同一目錄下, 並將上述程式改為:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from flask import Flask
+import ssl
+
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain('localhost.crt', 'localhost.key')
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+app.run(host='127.0.0.1', port=443, debug=True, ssl_context=context)</pre>
+<p>利用 SciTE 開啟上述程式後, 以 Tool -&gt; Go, 即可以瀏覽器開啟 <a href="http://localhost">https://localhost</a> , 系統回傳 "Hello World".</p>
+<h4>Flask 登入流程</h4>
+<p><a href="https://realpython.com/introduction-to-flask-part-2-creating-a-login-page/">https://realpython.com/introduction-to-flask-part-2-creating-a-login-page/</a> </p>
+<p><a href="/downloads/flask_login.7z">flask_login.7z</a></p>
+<p>操作要點:</p>
+<ol>
+<li>是否會自行利用 openssl 建立 crt 與 key 檔案?</li>
+<li>是否會將 wsgi.py 在 https 模式啟動?</li>
+<li>是否了解 <a href="https://www.w3schools.com/html/html_forms.asp">html form</a> 表單建構與取輸入流程?</li>
+<li>使用者登入後, 如何利用 session 儲存登入狀態?</li>
+</ol><h2>計算機程式議題</h2>
 <h4>Brython</h4>
 <p><a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> </p>
 <h4>網際 Flask</h4>
