@@ -1883,7 +1883,19 @@ def ikine560(robot, T, configuration=''):
     return mat(theta).T;</pre>
 <h4>IKBT</h4>
 <p><a href="https://github.com/uw-biorobotics/IKBT">https://github.com/uw-biorobotics/IKBT</a> </p>
-<p><a href="/downloads/solving%20closed-form Inverse Kinematics with Behavior Tree.pdf">Solving closed-form Inverse Kinematics with Behavior Tree.pdf</a></p><h1>設計主機</h1>
+<p><a href="/downloads/solving%20closed-form Inverse Kinematics with Behavior Tree.pdf">Solving closed-form Inverse Kinematics with Behavior Tree.pdf</a></p>
+<h3>Inverse Kinematics</h3>
+<p>參考頁面:</p>
+<p><a href="http://www.coppeliarobotics.com/helpFiles/en/inverseKinematicsTutorial.htm">http://www.coppeliarobotics.com/helpFiles/en/inverseKinematicsTutorial.htm</a> </p>
+<h4>運動學 (Kinematics)</h4>
+<p>Kinematics is a branch of classical mechanics that describes the motion of points, bodies (objects), and systems of bodies (groups of objects) without considering the forces that caused the motion.</p>
+<h4>逆運動學 (Inverse Kinematics)</h4>
+<p>The problem of IK can be seen as the one of finding the joint values corresponding to some specific position and/or orientation of a given body element (generally the end effector).</p>
+<p>More generally, it is a transformation from the task space coordinates (任務空間座標) into the joint space coordinates (連接軸空間座標). For a serial manipulator for instance, the problem would be to find the value of all joints in the manipulator given the position (and/or orientation) of the end effector. The inverse problem - finding the end effector position given the joint values - is referred to as FK problem and is often perceived as an easier task than IK. This is surely true when dealing with open kinematic chains, but does not hold true for general type mechanical configurations.</p>
+<h4>V-rep External Kinematics</h4>
+<p><a href="http://www.coppeliarobotics.com/helpFiles/en/externalIk.htm">http://www.coppeliarobotics.com/helpFiles/en/externalIk.htm</a> </p>
+<p><a href="/downloads/two_links_ik.7z">Two-link Inverse Kinematics.7z</a></p>
+<p></p><h1>設計主機</h1>
 <h4>自架主機</h4>
 <p>工作站室 Ubuntu + Flask + Fossil SCM</p>
 <p>協同設計室 Ubuntu + Flask + Fossil SCM</p>

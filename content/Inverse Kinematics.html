@@ -1,0 +1,91 @@
+<!doctype html>
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>期末分組專題</title> <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+
+<script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCSharp.js"></script>
+<link type="text/css" rel="stylesheet" href="./../static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- for LaTeX equations 暫時不用
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+-->
+<!-- 暫時不用
+<script src="./../static/fengari-web.js"></script>
+<script type="text/javascript" src="./../static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.red3border {
+    border: 3px solid red;
+}
+.black3border {
+    border: 3px solid black;
+}
+</style>
+
+<script src="./../static/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
+    $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
+});
+</script>
+
+</head><header><h1>2018 Fall 期末專案示範網站</h1> <confmenu>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="sitemap.html">Site Map</a></li>
+<li><a href="./../reveal/index.html">reveal</a></li>
+<li><a href="./../blog/index.html">blog</a></li>
+
+</ul>
+</confmenu></header>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><li><a href='簡介.html'>簡介</a><ul><li><a href='可攜系統更新.html'>可攜系統更新</a><li><a href='靜態與動態網站.html'>靜態與動態網站</a><li><a href='特殊處理.html'>特殊處理</a></li></ul><li><a href='分組網站.html'>分組網站</a><li><a href='課程專題.html'>課程專題</a><ul><li><a href='計算機程式.html'>計算機程式</a><li><a href='計算機程式議題.html'>計算機程式議題</a><ul><li><a href='CMSimfly.html'>CMSimfly</a><li><a href='網際繪圖.html'>網際繪圖</a><li><a href='Lua gear.html'>Lua gear</a><li><a href='Lua-Cango.html'>Lua-Cango</a><li><a href='網際模擬程式.html'>網際模擬程式</a><li><a href='Spacegame.html'>Spacegame</a><li><a href='Ggame 程式庫.html'>Ggame 程式庫</a><li><a href='Flaskbb.html'>Flaskbb</a><li><a href='工程用計算機.html'>工程用計算機</a><li><a href='Flexx.html'>Flexx</a></li></ul><li><a href='電腦輔助設計.html'>電腦輔助設計</a><ul><li><a href='Modelica.html'>Modelica</a></li></ul><li><a href='電腦輔助設計議題.html'>電腦輔助設計議題</a><ul><li><a href='Kinematics.html'>Kinematics</a><li><a href='Inverse Kinematics.html'>Inverse Kinematics</a></li></li></ul></ul><li><a href='設計主機.html'>設計主機</a><ul><li><a href='Heroku 簡介.html'>Heroku 簡介</a><ul><li><a href='Heroku 設定.html'>Heroku 設定</a></li></ul><li><a href='Fossil SCM.html'>Fossil SCM</a><li><a href='Jupyterlab.html'>Jupyterlab</a><li><a href='Sandstorm.html'>Sandstorm</a></li></ul><li><a href='Python 程式.html'>Python 程式</a><ul><li><a href='靜態網站範例.html'>靜態網站範例</a><li><a href='動態網站範例.html'>動態網站範例</a><li><a href='GUI 程式範例.html'>GUI 程式範例</a><ul><li><a href='GUI 程式碼.html'>GUI 程式碼</a><li><a href='parse_content 範例.html'>parse_content 範例</a></li></li></ul></ul><li><a href='輔助設計.html'>輔助設計</a><ul><li><a href='Onshape.html'>Onshape</a><li><a href='V-rep.html'>V-rep</a></li></ul><li><a href='電子書.html'>電子書</a><ul><li><a href='協同編輯.html'>協同編輯</a><ul><li><a href='Kmol-editor.html'>Kmol-editor</a><li><a href='Leo-editor.html'>Leo-editor</a></li></ul></nav><section>Kinematics << <a href='Kinematics.html'>Previous</a> <a href='設計主機.html'>Next</a> >> 設計主機<br /><h1>Inverse Kinematics</h1>
+<p>參考頁面:</p>
+<p><a href="http://www.coppeliarobotics.com/helpFiles/en/inverseKinematicsTutorial.htm">http://www.coppeliarobotics.com/helpFiles/en/inverseKinematicsTutorial.htm</a> </p>
+<h4>運動學 (Kinematics)</h4>
+<p>Kinematics is a branch of classical mechanics that describes the motion of points, bodies (objects), and systems of bodies (groups of objects) without considering the forces that caused the motion.</p>
+<h4>逆運動學 (Inverse Kinematics)</h4>
+<p>The problem of IK can be seen as the one of finding the joint values corresponding to some specific position and/or orientation of a given body element (generally the end effector).</p>
+<p>More generally, it is a transformation from the task space coordinates (任務空間座標) into the joint space coordinates (連接軸空間座標). For a serial manipulator for instance, the problem would be to find the value of all joints in the manipulator given the position (and/or orientation) of the end effector. The inverse problem - finding the end effector position given the joint values - is referred to as FK problem and is often perceived as an easier task than IK. This is surely true when dealing with open kinematic chains, but does not hold true for general type mechanical configurations.</p>
+<h4>V-rep External Kinematics</h4>
+<p><a href="http://www.coppeliarobotics.com/helpFiles/en/externalIk.htm">http://www.coppeliarobotics.com/helpFiles/en/externalIk.htm</a> </p>
+<p><a href="./../downloads/two_links_ik.7z">Two-link Inverse Kinematics.7z</a></p>
+<h4>V-rep Custom UI</h4>
+<p><a href="http://www.coppeliarobotics.com/helpFiles/en/customUIPlugin.htm">http://www.coppeliarobotics.com/helpFiles/en/customUIPlugin.htm</a> </p>
+<p></p><br />Kinematics << <a href='Kinematics.html'>Previous</a> <a href='設計主機.html'>Next</a> >> 設計主機</section></div></body></html>
