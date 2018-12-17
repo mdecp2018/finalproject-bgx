@@ -13,33 +13,31 @@
 <v t="ahshoe.20170315212615.1"><vh>@data qt-gui-plugin-style-sheet</vh></v>
 <v t="ahshoe.20170315212626.1"><vh>@string initial_split_orientation = horizontal</vh></v>
 </v>
-<v t="yen.20170429110328.1" a="E"><vh>Installation</vh>
-<v t="yen.20170429110336.1"><vh>Ubuntu 14.04</vh></v>
-</v>
 <v t="40323230.20170123213451.1"><vh>@button Report pdf</vh></v>
-<v t="yen.20170429220829.1"><vh>@edit chapter.py</vh></v>
 <v t="yen.20170429132400.1"><vh>協同著作規劃</vh></v>
 <v t="yen.20170429103742.1" a="E"><vh>@path ./../</vh>
 <v t="yen.20170429103940.1" a="E"><vh>@path markdown</vh>
-<v t="40323230.20170130135731.1"><vh>@edit template.tex</vh></v>
 <v t="ahshoe.20170322182713.1"><vh>@edit reference.md</vh></v>
 <v t="ahshoe.20170322181453.1"><vh>@edit refer.bib</vh></v>
+<v t="leo.20171119234752.1" a="E"><vh>封面以及摘要</vh>
 <v t="ahshoe.20161120122151.1" a="E"><vh>@clean cover_and_abstract.md</vh>
 <v t="ahshoe.20170317115820.1"><vh>摘要</vh></v>
 </v>
+</v>
+<v t="leo.20171119234822.1" a="E"><vh>各章節內容</vh>
 <v t="yen.20170429214845.1" a="E"><vh>@path paragraph</vh>
 <v t="yen.20170429214838.1"><vh>@clean computer_hardware.md</vh>
 <v t="yen.20170429214838.3"><vh>電腦硬體</vh></v>
 </v>
-<v t="yen.20170429215041.1" a="E"><vh>@clean operating_system.md</vh>
+<v t="yen.20170429215041.1"><vh>@clean operating_system.md</vh>
 <v t="yen.20170429215130.1"><vh>Windows</vh></v>
 <v t="yen.20170429215205.1"><vh>Ubuntu</vh></v>
 </v>
-<v t="yen.20170429215252.1" a="E"><vh>@clean computer_network.md</vh>
+<v t="yen.20170429215252.1"><vh>@clean computer_network.md</vh>
 <v t="yen.20170429215308.1"><vh>IPv4</vh></v>
 <v t="yen.20170429215316.1"><vh>IPv6</vh></v>
 </v>
-<v t="yen.20170429215416.1" a="E"><vh>@clean computer_programming.md</vh>
+<v t="yen.20170429215416.1"><vh>@clean computer_programming.md</vh>
 <v t="yen.20170429215446.2"><vh>C</vh></v>
 <v t="yen.20170429215446.3"><vh>Python</vh></v>
 <v t="yen.20170429215446.4"><vh>Brython</vh></v>
@@ -62,15 +60,8 @@
 <v t="yen.20170429220335.1"><vh>@clean onshape.md</vh>
 <v t="yen.20170429220335.2"><vh>FeatureScript</vh></v>
 </v>
-<v t="yen.20170429220437.1"><vh>@clean cmsimfly.md</vh></v>
-<v t="yen.20170429220515.1"><vh>@clean pygrouf.md</vh></v>
-<v t="yen.20170429220552.1"><vh>@clean pyslvs.md</vh></v>
-<v t="yen.20170429220623.1"><vh>@clean pylinkage.md</vh></v>
-<v t="yen.20170429220650.1"><vh>@clean pyduino.md</vh></v>
 </v>
 </v>
-<v t="ahshoe.20170129120932.1" a="E"><vh>Readme</vh>
-<v t="ahshoe.20170129120858.1"><vh>@edit ../README.md</vh></v>
 </v>
 </v>
 </vnodes>
@@ -79,43 +70,67 @@
 filename = "report"
 import os, platform
 import chapter
+# 更換目錄到 markdown 
 os.chdir("./../markdown")
 
+# 若在 Linux 環境則使用 ukai.ttc 系統字形
 if platform.system().lower()=="linux": font = "ukai.ttc"
-elif platform.system().lower()=="windows": font = "DFKai-SB"
+# 在 windows 環境使用 SimSun 字形
+elif platform.system().lower()=="windows": font = "SimSun"
 else: font = "Arial"
 fontsize = "12"
 margin = "1in"
-settingFlag = "--latex-engine=xelatex -V lang=chinese -N --toc --highlight-style kate -V documentclass=report  --filter pandoc-fignos --filter pandoc-tablenos --template=template.tex -V \"CJKmainfont:{0}\" -V fontsize={1}pt -V geometry:margin={2} --bibliography=refer.bib --csl=ieee.csl".format(font, fontsize, margin)
-print("---Pandoc---")
+# --pdf-engine 使用 xelatex
+# lang 請參照 https://tools.ietf.org/html/bcp47, 這裡的 zh-cmn 為 Mandarin Chinese 國語
+# -V lang=zh-cmn 為一組 key=value 對應的 Variable 設定
+# -N 表示 Number section headings in LaTeX, ConTeXt, HTML, or EPUB output. By default, sections are not numbered.
+settingFlag = "--pdf-engine=xelatex -V lang=zh-cmn -N --toc --highlight-style kate -V documentclass=report  --filter pandoc-fignos --filter pandoc-tablenos --template=template.tex -V \"CJKmainfont:{0}\" -V fontsize={1}pt -V geometry:margin={2} --bibliography=refer.bib --csl=ieee.csl".format(font, fontsize, margin)
+g.es("---Pandoc---")
 
-# get chapter sequence
-chapter_list = ""
-for i in chapter.sequence():
-    chapter_list += "./paragraph/" + i + " "
-    
-g.es(chapter_list)
+# 選擇所要納入的 Markdown 檔案, 不納入的檔案名稱前方加上  # 即可
+chapter_list = " ".join("./paragraph/" + i for i in [
+"computer_hardware.md",
+"operating_system.md", 
+"computer_network.md", 
+"computer_programming.md", 
+"computer_aided_design.md", 
+"leo_editor.md", 
+"github.md", 
+"fossil.md", 
+#"onshape.md", 
+"cmsimfly.md", 
+"pygrouf.md", 
+"pyslvs.md", 
+#"pylinkage.md", 
+#"pyduino.md", 
+])
 
-os.system("pandoc cover_and_abstract.md " + chapter_list + " reference.md -o ../pdf/report.pdf {}".format(settingFlag))
+# 若系統並未正確轉檔, 可以將 os.system 改為 g.es 表示要使用 Leo Editor 的 global 物件中的 echo string 將指令印在 log 區
+# 然後複製指令, 然後在命令列視窗中的 markdown 目錄中執行, 就可以得到錯誤訊息
+# 或許可以再從 https://stackoverflow.com/questions/26005583/return-value-of-x-os-system 中的建議改進此一指令
+g.es(os.system("pandoc cover_and_abstract.md " + chapter_list + " reference.md -o ../pdf/report.pdf {}".format(settingFlag)))
+g.es("pandoc cover_and_abstract.md " + chapter_list + " reference.md -o ../pdf/report.pdf {}".format(settingFlag))
 g.es("PDF 轉換完畢")
-print('-'*12)</t>
+g.es('-'*12)</t>
 <t tx="ahshoe.20161120121808.1"></t>
 <t tx="ahshoe.20161120122151.1">---
 university_zh: '國立虎尾科技大學'
 institute_zh: '機械設計工程系'
-title_zh: '電腦網路、機械設計與協同'
-title_en: 'Computer Network、Mechanical Design and Collaboration'
+category_zh: '電腦輔助設計實習 bg1 期末報告'
+title_zh: '機電資鋼珠循環運動系統設計與製作'
+title_en: 'Design and Manufacturing of an Infomechatronic Marble Machine Project'
 author:
-- 設計三乙 XXX 同學
-- 設計三乙 XXX 同學
-- 設計三乙 XXX 同學
-- 設計三乙 XXX 同學
-advisor_zh: '嚴家銘'
-date: '中華民國 106 年 7 月'
+- 設計二丙 1731001 孫寶琦
+- 設計二丙 1731007 洪仁玕
+- 設計二丙 1731025 岑春煊
+- 設計二丙 1731051 瞿鴻禨
+- 設計二丙 1731061 何子淵
+advisor_zh: 'Dr. Scrum'
+date: '2017.12.15'
 ---
 
-@others</t>
-<t tx="ahshoe.20170129120932.1"></t>
+@others
+</t>
 <t tx="ahshoe.20170315212615.1">QTreeWidget {
     /* These apply to the selected item, but not to editing items.*/
     background-color: #ffffec; /* Leo's traditional tree color */
@@ -193,34 +208,25 @@ QLineEdit#editorLabel {
 vertical: body pane on the botton</t>
 <t tx="ahshoe.20170317115820.1">---
 abstract: |
-    這裡是摘要內容。
+    這裡是摘要內容。A pipe character, followed by an indented block of text is treated as a literal block, in which newlines are preserved throughout the block, including the final newline.
     
     + 以 YAML 的方式插入。
+    + The '+' indicator says to keep newlines at the end of text blocks.
     + 使用 Markdown 語法。
+    + 前面使用加號
     
     本研究的重點在於 ...
 ---
 
+
 </t>
+<t tx="leo.20171119234752.1"></t>
+<t tx="leo.20171119234822.1"></t>
 <t tx="yen.20170429103742.1"></t>
 <t tx="yen.20170429103940.1"></t>
-<t tx="yen.20170429110328.1"></t>
-<t tx="yen.20170429110336.1">1. 下載並安裝 Pandoc：
-
-https://github.com/jgm/pandoc/releases/
-
-2. 安裝 texlive (安裝 texlive-lang-cjk 而非 16.04 的 texlive-lang-chinese)
-
-sudo apt install texlive texlive-xetex texlive-lang-cjk etoolbox
-
-3. 安裝 pandoc-fignos, pandoc-tablenos filters
-
-sudo pip3 install pandoc-fignos pandoc-tablenos
-
-4. 安裝 ukai.ttc 字型
-
-sudo apt-get install fonts-arphic-ukai</t>
 <t tx="yen.20170429132400.1">每一位協同人員各在 users 目錄中建立一個 .leo 檔案
+
+各自選擇要編輯的 .md 檔案, 可以使用 @edit 或 @clean 節點編輯指令
 
 除非必要否則不更動 markdown 目錄下的 template.tex 檔案</t>
 <t tx="yen.20170429214838.1">電腦硬體
@@ -263,7 +269,7 @@ Windows 的內容
 
 各 md 檔案可以在 images 目錄下自訂與 md 檔案名稱相同的子目錄存放影像檔案
 
-[Kmol]: ./images/operating_system/kmol.png {#fig:駱駝}</t>
+</t>
 <t tx="yen.20170429215205.1">Ubuntu
 ---
 
@@ -309,9 +315,11 @@ IPv6 的內容
 
 稱為圖 {@fig:駱駝}。
 
-各 md 檔案可以在 images 目錄下自訂與 md 檔案名稱相同的子目錄存放影像檔案
+各 md 檔案可以在 images 目錄下自訂與 md 檔案名稱相同的子目錄存放影像檔案 [google]
 
-[Kmol]: ./images/computer_network/kmol.png {#fig:駱駝}</t>
+[google]: http://www.google.com
+
+[google] test</t>
 <t tx="yen.20170429215416.1">計算機程式
 ===
 
@@ -588,35 +596,5 @@ OnShape 的概要
 ---
 
 FeatureScript 的內容</t>
-<t tx="yen.20170429220437.1">CMSimfly
-===
-
-CMSimfly 的概要
-
-@others</t>
-<t tx="yen.20170429220515.1">PyGrouf
-===
-
-PyGrouf 的概要
-
-@others</t>
-<t tx="yen.20170429220552.1">Pyslvs
-===
-
-Pyslvs 的概要
-
-@others</t>
-<t tx="yen.20170429220623.1">Pylinkage
-===
-
-Pylinkage 的概要
-
-@others</t>
-<t tx="yen.20170429220650.1">Pyduino
-===
-
-Pyduino 的概要
-
-@others</t>
 </tnodes>
 </leo_file>

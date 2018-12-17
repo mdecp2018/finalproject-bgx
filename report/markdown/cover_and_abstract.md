@@ -1,69 +1,29 @@
 ---
-university_zh: 國立虎尾科技大學
-university_en: National Formosa University
-institute_zh: 機械設計工程系碩士班
-institute_en: Department of Mechanical Design Engineering
-category_zh: 碩士論文
-category_en: Master Thesis
-title_page: |
-    A Thesis Submitted to Department of Mechanical Design Engineering
-
-    College of Engineering
-
-    National Formosa University
-
-    in Partial Fulfillment of the Requirements
-
-    for the Degree of Master of Science in
-
-    Mechanical Design Engineering
-
-title_zh: 中文標題
-title_en: English Title
-author_zh:
-author_en:
-advisor_zh:
-advisor_en:
-date_zh: 中華民國 xxx 年 x 月
-date_en: |
-    xxx, xxx
-
-    Huwei, Yunlin, Taiwan, Republic of China
-
-watermark: images/watermark
-abstract_zh: |
-    本研究 ...
-
-    \
-
-    \noindent
-    關鍵詞：
-
-abstract_en: |
-    About my project ...
-
-    \
-
-    \noindent
-    **Keywords:**
-
-acknowledgements: |
-    感謝很多人。
-
-symbols_title: Symbols
-symbols: |
-    | Symbols | Descriptions |
-    |:-------:|:-------------|
-
-curriculum_vitae_title: Curriculum Vitae
-mug: images/mug.jpg
-gender:
-birth:
-birthplace:
-papers:
-    -
-licenses:
-    - A
-    - B
-    - C
+university_zh: '國立虎尾科技大學'
+institute_zh: '機械設計工程系'
+category_zh: '電腦輔助設計實習 bg1 期末報告'
+title_zh: '機電資鋼珠循環運動系統設計與製作'
+title_en: 'Design and Manufacturing of an Infomechatronic Marble Machine Project'
+author:
+- 設計二丙 1731001 孫寶琦
+- 設計二丙 1731007 洪仁玕
+- 設計二丙 1731025 岑春煊
+- 設計二丙 1731051 瞿鴻禨
+- 設計二丙 1731061 何子淵
+advisor_zh: 'Dr. Scrum'
+date: '2017.12.15'
 ---
+
+---
+abstract: |
+    這裡是摘要內容。A pipe character, followed by an indented block of text is treated as a literal block, in which newlines are preserved throughout the block, including the final newline.
+    
+    + 以 YAML 的方式插入。
+    + The '+' indicator says to keep newlines at the end of text blocks.
+    + 使用 Markdown 語法。
+    + 前面使用加號
+    
+    本研究的重點在於 ...
+---
+
+
