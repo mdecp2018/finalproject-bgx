@@ -1,6 +1,6 @@
 # Byte-compiled
 __pycache__/
-markdown/tex2pdf.*/
+report/markdown/tex2pdf.*/
 *.o
 *.obj
 *.exe
