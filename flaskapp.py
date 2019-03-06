@@ -406,7 +406,8 @@ def editorfoot():
 
 def editorhead():
     return '''
-<br />
+    <br />
+<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>-->
 <script src="/static/tinymce4/tinymce/tinymce.min.js"></script>
 <script src="/static/tinymce4/tinymce/plugins/sh4tinymce/plugin.min.js"></script>
 <link rel = "stylesheet" href = "/static/tinymce4/tinymce/plugins/sh4tinymce/style/style.css">
@@ -417,7 +418,7 @@ tinymce.init({
   element_format : "html",
   language : "en",
   valid_elements : '*[*]',
-  extended_valid_elements: "script[language|type|src|id]",
+  extended_valid_elements: "script[language|type|src]",
   plugins: [
     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -724,23 +725,37 @@ def generate_pages():
         os.remove(os.path.join(_curdir + "\\content\\", f))
     # 這裡需要建立專門寫出 html 的 write_page
     # index.html
-    file = open(_curdir + "\\content\\index.html", "w", encoding="utf-8")
-    file.write(get_page2(None, newhead, 0))
-    file.close()
+    with open(_curdir + "\\content\\index.html", "w", encoding="utf-8") as f:
+        f.write(get_page2(None, newhead, 0))
     # sitemap
-    file = open(_curdir + "\\content\\sitemap.html", "w", encoding="utf-8")
-    # sitemap2 需要 newhead
-    file.write(sitemap2(newhead))
-    file.close()
+    with open(_curdir + "\\content\\sitemap.html", "w", encoding="utf-8") as f:
+        # sitemap2 需要 newhead
+        f.write(sitemap2(newhead))
     # 以下轉檔, 改用 newhead 數列
+
+    def visible(element):
+        if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+            return False
+        elif re.match('<!--.*-->', str(element.encode('utf-8'))):
+            return False
+        return True
+
+    search_content = []
     for i in range(len(newhead)):
         # 在此必須要將頁面中的 /images/ 字串換為 images/, /downloads/ 換為 downloads/
         # 因為 Flask 中靠 /images/ 取檔案, 但是一般 html 則採相對目錄取檔案
         # 此一字串置換在 get_page2 中進行
-        file = open(_curdir + "\\content\\" + newhead[i] + ".html", "w", encoding="utf-8")
-        # 增加以 newhead 作為輸入
-        file.write(get_page2(newhead[i], newhead, 0))
-        file.close()
+        # 加入 tipue search 模式
+        get_page_content = []
+        html_doc = get_page2(newhead[i], newhead, 0, get_page_content)
+        soup = bs4.BeautifulSoup(" ".join(get_page_content), "lxml")
+        search_content.append({"title": newhead[i], "text": " ".join(filter(visible, soup.findAll(text=True))), "tags": "", "url": newhead[i] + ".html"})
+        with open(_curdir + "\\content\\" + newhead[i] + ".html", "w", encoding="utf-8") as f:
+            # 增加以 newhead 作為輸入
+            f.write(html_doc)
+    # GENERATE js file
+    with open(_curdir + "\\content\\tipuesearch_content.js", "w", encoding="utf-8") as f:
+        f.write("var tipuesearch = {\"pages\": " + str(search_content) + "};")
     # generate each page html under content directory
     return "已經將網站轉為靜態網頁. <a href='/'>Home</a>"
 # seperate page need heading and edit variables, if edit=1, system will enter edit mode
@@ -820,20 +835,22 @@ def get_page(heading, edit):
 @app.route('/get_page2/<heading>', defaults={'edit': 0})
 @app.route('/get_page2/<heading>/<int:edit>')
 '''
-def get_page2(heading, head, edit):
+# before add tipue search function
+#def get_page2(heading, head, edit):
+def get_page2(heading, head, edit, get_page_content = None):
     not_used_head, level, page = parse_content()
     # 直接在此將 /images/ 換為 ./../images/, /downloads/ 換為 ./../downloads/, 以 content 為基準的相對目錄設定
     page = [w.replace('/images/', './../images/') for w in page]
     page = [w.replace('/downloads/', './../downloads/') for w in page]
     # 假如有 src="/static/ace/則換為 src="./../static/ace/
     page = [w.replace('src="/static/', 'src="./../static/') for w in page]
-    # 假如有 pythonpath:['/static/'] 則換為 pythonpath:['./../static/']
-    page = [w.replace("pythonpath:['/static/']", "pythonpath:['./../static/']") for w in page]
     directory = render_menu2(head, level, page)
     if heading is None:
         heading = head[0]
     # 因為同一 heading 可能有多頁, 因此不可使用 head.index(heading) 搜尋 page_order
     page_order_list, page_content_list = search_content(head, page, heading)
+    if get_page_content is not None:
+        get_page_content.extend(page_content_list)
     return_content = ""
     pagedata = ""
     outstring = ""
@@ -872,8 +889,13 @@ def get_page2(heading, head, edit):
     
     # edit=0 for viewpage
     if edit == 0:
+        '''
+        # before add tipue search function
         return set_css2() + "<div class='container'><nav>"+ \
         directory + "</nav><section>" + return_content + "</section></div></body></html>"
+        '''
+        return set_css2() + "<div class='container'><nav>"+ \
+        directory + "</nav><section><div id=\"tipue_search_content\">" + return_content + "</div></section></div></body></html>"
     # enter edit mode
     else:
         # check if administrator
@@ -1404,12 +1426,11 @@ def logout():
 def parse_config():
     if not os.path.isfile(config_dir+"config"):
         # create config file if there is no config file
-        file = open(config_dir + "config", "w", encoding="utf-8")
         # default password is admin
         password="admin"
         hashed_password = hashlib.sha512(password.encode('utf-8')).hexdigest()
-        file.write("siteTitle:CMSimfly \npassword:"+hashed_password)
-        file.close()
+        with open(config_dir + "config", "w", encoding="utf-8") as f:
+            f.write("siteTitle:CMSimfly \npassword:"+hashed_password)
     config = file_get_contents(config_dir + "config")
     config_data = config.split("\n")
     site_title = config_data[0].split(":")[1]
@@ -1418,11 +1439,12 @@ def parse_config():
 
 
 def _remove_h123_attrs(soup):
+    """處理特殊情況下的頁面解讀"""
     tag_order = 0
     for tag in soup.find_all(['h1', 'h2', 'h3']):
         # 假如標註內容沒有字串
         #if len(tag.text) == 0:
-        if len(tag.contents) ==0:
+        if len(tag.contents) == 0:
             # 且該標註為排序第一
             if tag_order == 0:
                 tag.string = "First"
@@ -1484,16 +1506,14 @@ def parse_content():
     # if no content.htm, generate a head 1 and content 1 file
     if not os.path.isfile(config_dir+"content.htm"):
         # create content.htm if there is no content.htm
-        File = open(config_dir + "content.htm", "w", encoding="utf-8")
-        File.write("<h1>head 1</h1>content 1")
-        File.close()
+        with open(config_dir + "content.htm", "w", encoding="utf-8") as f:
+            f.write("<h1>head 1</h1>content 1")
     subject = file_get_contents(config_dir+"content.htm")
     # deal with content without content
     if subject == "":
         # create content.htm if there is no content.htm
-        File = open(config_dir + "content.htm", "w", encoding="utf-8")
-        File.write("<h1>head 1</h1>content 1")
-        File.close()
+        with open(config_dir + "content.htm", "w", encoding="utf-8") as f:
+            f.write("<h1>head 1</h1>content 1")
         subject = "<h1>head 1</h1>content 1"
     # initialize the return lists
     head_list = []
@@ -1502,6 +1522,7 @@ def parse_content():
     # make the soup out of the html content
     soup = bs4.BeautifulSoup(subject, 'html.parser')
     # 嘗試解讀各種情況下的標題
+    # 請注意, 若嘗試解讀傳回 soup 為空字串, 則所有內容將被刪除!!
     soup = _remove_h123_attrs(soup)
     # 改寫 content.htm 後重新取 subject
     with open(config_dir + "content.htm", "wb") as f:
@@ -1605,7 +1626,9 @@ def render_menu2(head, level, page, sitemap=0):
     if sitemap:
         directory += "<ul>"
     else:
-        directory += "<ul id='css3menu1' class='topmenu'>"
+        # before add tipue search function
+        #directory += "<ul id='css3menu1' class='topmenu'>"
+        directory += "<ul id='css3menu1' class='topmenu'><div class=\"tipue_search_group\"><input style=\"width: 6vw;\" type=\"text\" name=\"q\" id=\"tipue_search_input\" pattern=\".{2,}\" title=\"Press enter key to search\" required></div>"
     for index in range(len(head)):
         this_level = level[index]
         # 若處理中的層級比上一層級高超過一層, 則將處理層級升級 (處理 h1 後直接接 h3 情況)
@@ -1683,22 +1706,10 @@ def savePage():
         return error_log("no content to save!")
     # 在插入新頁面資料前, 先複製 content.htm 一分到 content_backup.htm
     shutil.copy2(config_dir + "content.htm", config_dir + "content_backup.htm")
-    file = open(config_dir + "content.htm", "w", encoding="utf-8")
     # in Windows client operator, to avoid textarea add extra \n
     page_content = page_content.replace("\n","")
-    file.write(page_content)
-    file.close()
-
-    # if every savePage generate_pages needed
-    #generate_pages()
-    '''
-    # need to parse_content() to eliminate duplicate heading
-    head, level, page = parse_content()
-    file = open(config_dir + "content.htm", "w", encoding="utf-8")
-    for index in range(len(head)):
-        file.write("<h" + str(level[index])+ ">" + str(head[index]) + "</h" + str(level[index]) + ">" + str(page[index]))
-    file.close()
-    '''
+    with open(config_dir + "content.htm", "w", encoding="utf-8") as f:
+        f.write(page_content)
     return redirect("/edit_page")
 
 
@@ -1899,15 +1910,26 @@ def set_css2():
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 <title>''' + init.Init.site_title + '''</title> \
 <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+<script src="tipuesearch_content.js"></script>
+<script src="./../static/jquery.js"></script>
+<link rel="stylesheet" href="./../static/tipuesearch/css/tipuesearch.css">
+<script src="./../static/tipuesearch/tipuesearch_set.js"></script>
+<script src="./../static/tipuesearch/tipuesearch.min.js"></script>
 ''' + syntaxhighlight2()
 
     outstring += '''
-<script src="./../static/jquery.js"></script>
 <script type="text/javascript">
+/*shorthand of $(document).ready(function(){};); */
 $(function(){
     $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
     $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
 });
+function doSearch() {
+     $('#tipue_search_input').tipuesearch({
+        newWindow: true, minimumLength: 2
+     });
+}
+$(document).ready(doSearch);
 </script>
 '''
     if uwsgi:
@@ -1961,8 +1983,9 @@ def sitemap2(head):
     not_used_head, level, page = parse_content()
     directory = render_menu2(head, level, page)
     sitemap = render_menu2(head, level, page, sitemap=1)
+    # add tipue search id
     return set_css2() + "<div class='container'><nav>" + directory + \
-             "</nav><section><h1>Site Map</h1>" + sitemap + \
+             "</nav><section><h1>Site Map</h1><div id=\"tipue_search_content\"></div>" + sitemap + \
              "</section></div></body></html>"
 
 
@@ -2064,14 +2087,6 @@ def syntaxhighlight():
 <script src="https://scrum-3.github.io/web/brython/brython.js"></script>
 <script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
 -->
-<style>
-img.red3border {
-    border: 3px solid red;
-}
-.black3border {
-    border: 3px solid black;
-}
-</style>
 '''
 
 
@@ -2124,14 +2139,6 @@ init_mathjax();
 <script src="https://scrum-3.github.io/web/brython/brython.js"></script>
 <script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
 -->
-<style>
-img.red3border {
-    border: 3px solid red;
-}
-.black3border {
-    border: 3px solid black;
-}
-</style>
 '''
 
 
@@ -2175,33 +2182,5 @@ def unique(items):
     return keep
 
 
-@app.route('/edit_report')
-def edit_report():
-    head, level, page = parse_content()
-    directory = render_menu(head, level, page)
-    dir = "./report/markdown/paragraph"
-    outstring = ""
-    files = os.listdir(dir)
-    for i in range(len(files)):
-        outstring += "Edit: <a href='/do_edit_report/" + str(files[i]) +"'>" + str(files[i]) + "</a>"
-        outstring += "<br />"
-    #output = '<br />'.join(map(str, files))
-    return set_css() + "<div class='container'><nav>" + \
-             directory + "</nav><section>" + outstring + "</section></div></body></html>"
-
-@app.route('/do_edit_report/<file_name>')
-def do_edit_report(file_name):
-    if file_name is None:
-        pass
-    head, level, page = parse_content()
-    directory = render_menu(head, level, page)
-    dir = "./report/markdown/paragraph"
-    filename = dir + "/" + file_name
-    file_content = file_get_contents(filename)
-    outstring = ""
-    outstring += file_content
-    return set_css() + "<div class='container'><nav>" + \
-             directory + "</nav><section>" + outstring + "</section></div></body></html>"
-
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run()
